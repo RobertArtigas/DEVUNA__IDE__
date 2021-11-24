@@ -1,0 +1,33 @@
+LANGUAGE 0x0409
+
+1 VERSIONINFO
+ FILEVERSION 2021,11,18,126
+ PRODUCTVERSION 2021,11,18,126
+ FILEFLAGSMASK 0x3FL
+ FILEFLAGS 0
+ FILEOS VOS__WINDOWS32
+ FILETYPE VFT_APP
+ FILESUBTYPE 0x0L
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "040904E4"
+      BEGIN
+        VALUE "CompanyName", "Devuna\0"
+        VALUE "FileVersion", "2021.11.18.126\0"
+        VALUE "LegalCopyright", "Copyright (c) Devuna -2021\0"    
+        VALUE "LegalTrademarks", "(none)\0"
+        VALUE "OriginalFilename", "kss.EXE\0"
+        VALUE "ProductVersion", "2021.11.18.126\0"
+        VALUE "Clarion Version", "11000\0"
+        VALUE "Template Family", "ABC\0"
+        VALUE "Template Version", "v11.0\0"
+        VALUE "Compile Date", "11/18/2021\0"
+        VALUE "Compile Time", "19:14:43\0"
+      END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0409, 1252
+    END
+END

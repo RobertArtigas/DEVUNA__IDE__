@@ -1,0 +1,766 @@
+#! ================================================================================================
+#!                           DEVUNA - Application Builder Class Templates
+#! ================================================================================================
+#! Author:  Randy Rogers (KCR) <rrogers@devuna.com>
+#! Notice:  Copyright (C) 2017, Devuna
+#!          Distributed under the MIT License (https://opensource.org/licenses/MIT)
+#! ================================================================================================
+#!    This file is part of Devuna-Common (https://github.com/Devuna/Devuna-Common)
+#!
+#!    Devuna-Common is free software: you can redistribute it and/or modify
+#!    it under the terms of the MIT License as published by
+#!    the Open Source Initiative.
+#!
+#!    Devuna-Common is distributed in the hope that it will be useful,
+#!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#!    MIT License for more details.
+#!
+#!    You should have received a copy of the MIT License
+#!    along with Devuna-Common.  If not, see <https://opensource.org/licenses/MIT>.
+#! ================================================================================================
+#!
+#CONTROL(KCR_FieldLookupButton,'Trigger an Entry Control Lookup'),DESCRIPTION('KCR Trigger an Entry Control Lookup'),WINDOW,MULTI
+   CONTROLS
+     BUTTON('...'),AT(,,12,12),USE(?CallLookup)
+   END
+#BOXED('Field Lookup Button Prompts')
+  #PROMPT('Control with lookup:',CONTROL),%ControlToLookup
+#ENDBOXED
+#ATSTART
+  #DECLARE(%ChildFile)
+  #DECLARE(%ParentFile)
+  #EQUATE(%WindowManagerObject,%GetObjectName('Default',0))
+  #DECLARE(%LookupControl)
+  #SET(%LookupControl,%GetControlName())
+  #FIX(%Control,%ControlToLookup)
+  #IF(%ControlType<>'ENTRY')
+    #ERROR(%Procedure & 'Error: File Lookup needs to refer to Entry Control')
+  #ENDIF
+  #IF(NOT %PreLookupKey AND NOT %PostLookupKey)
+    #ERROR(%Procedure & 'Error: File Lookup needs Entry Control to perform a Pre or Post-Edit lookup')
+  #ENDIF
+  #SET(%ChildFile,%File)
+  #IF(NOT %PostLookupKey)
+    #FOR(%Relation)
+      #FIX(%File,%Relation)
+      #FOR(%Key),WHERE(%Key = %PreLookupKey)
+        #SET(%ParentFile,%File)
+      #ENDFOR
+    #ENDFOR
+  #ELSE
+    #FOR(%Relation)
+      #FIX(%File,%Relation)
+      #FOR(%Key),WHERE(%Key = %PostLookupKey)
+        #SET(%ParentFile,%File)
+      #ENDFOR
+    #ENDFOR
+  #ENDIF
+#ENDAT
+#AT(%ControlEventHandling,%LookupControl,'Accepted')
+  #FIX(%Control,%ControlToLookup)
+  #IF(NOT %PostLookupKey)
+    #FIND(%Field,%ControlUse)
+    #FOR(%Relation),WHERE(%RelationKey = %PreLookupKey)
+      #IF(%FileRelationType = 'MANY:1')
+        #FOR(%FileKeyField),WHERE(%FileKeyFieldLink)
+          #IF(%FileKeyFieldLink = %PreLookupField)
+            #BREAK
+          #ENDIF
+%FileKeyFieldLink = %FileKeyField
+        #ENDFOR
+      #ENDIF
+    #ENDFOR
+    #IF(%PreLookupField <> %ControlUse)
+%PreLookupField = %ControlUse
+    #ENDIF
+GlobalRequest = SelectRecord
+%PreLookupProcedure
+SELF.Response = GlobalResponse
+IF SELF.Response = RequestCompleted
+    #FIX(%File,%ParentFile)
+    #FOR(%Relation),WHERE(%Relation = %ChildFile)
+      #FOR(%RelationKeyField)
+  %RelationKeyField = %RelationKeyFieldLink          #<!Assign Linking Fields
+      #ENDFOR
+    #ENDFOR
+    #FIND(%Field,%ControlUse)
+    #FOR(%Relation),WHERE(%RelationKey = %PreLookupKey)
+      #IF(%FileRelationType = 'MANY:1')
+        #FOR(%FileKeyField),WHERE(%FileKeyFieldLink)
+          #IF(%FileKeyFieldLink = %PreLookupField)
+            #BREAK
+          #ENDIF
+  %FileKeyField = %FileKeyFieldLink
+        #ENDFOR
+      #ENDIF
+    #ENDFOR
+    #IF(%ControlUse <> %PreLookupField)
+  %ControlUse = %PreLookupField
+    #ENDIF
+END
+  #ELSE
+    #FIND(%Field,%ControlUse)
+    #FOR(%Relation),WHERE(%RelationKey = %PostLookupKey)
+      #IF(%FileRelationType = 'MANY:1')
+        #FOR(%FileKeyField),WHERE(%FileKeyFieldLink)
+          #IF(%FileKeyFieldLink = %PostLookupField)
+            #BREAK
+          #ENDIF
+%FileKeyFieldLink = %FileKeyField
+        #ENDFOR
+      #ENDIF
+    #ENDFOR
+    #IF(%PostLookupField <> %ControlUse)
+%PostLookupField = %ControlUse
+    #ENDIF
+GlobalRequest = SelectRecord
+%PostLookupProcedure
+SELF.Response = GlobalResponse
+IF SELF.Response = RequestCompleted
+    #FIX(%File,%ParentFile)
+    #FOR(%Relation),WHERE(%Relation = %ChildFile)
+      #FOR(%RelationKeyField)
+  %RelationKeyField = %RelationKeyFieldLink          #<!Assign Linking Fields
+      #ENDFOR
+    #ENDFOR
+    #FIND(%Field,%ControlUse)
+    #FOR(%Relation),WHERE(%RelationKey = %PostLookupKey)
+      #IF(%FileRelationType = 'MANY:1')
+        #FOR(%FileKeyField),WHERE(%FileKeyFieldLink)
+          #IF(%FileKeyFieldLink = %PostLookupField)
+            #BREAK
+          #ENDIF
+  %FileKeyField = %FileKeyFieldLink
+        #ENDFOR
+      #ENDIF
+    #ENDFOR
+    #IF(%PostLookupField <> %ControlUse)
+  %ControlUse = %PostLookupField
+    #ENDIF
+END
+  #ENDIF
+%WindowManagerObject.Request = %WindowManagerObject.OriginalRequest
+%WindowManagerObject.Reset(1)
+#FIX(%Control,%LookupControl)
+#ENDAT
+#!
+#!
+#!===============================================================================================
+#CONTROL(KCR_EntryField,'Entry Control'),DESCRIPTION('KCR Entry Control'),WINDOW,MULTI
+   CONTROLS
+     ENTRY(@S20),AT(,,80,12),USE(?EntryField)
+   END
+#ATSTART
+  #DECLARE(%ChildFile)
+  #DECLARE(%ParentFile)
+  #DECLARE(%EntryControl)
+  #FOR(%Control),WHERE(%ControlInstance=%ActiveTemplateInstance)
+    #SET(%EntryControl,%Control)
+  #ENDFOR
+  #SET(%ChildFile,%File)
+  #IF(NOT %PostLookupKey)
+    #FOR(%Relation)
+      #FIX(%File,%Relation)
+      #FOR(%Key),WHERE(%Key = %PreLookupKey)
+        #SET(%ParentFile,%File)
+      #ENDFOR
+    #ENDFOR
+  #ELSE
+    #FOR(%Relation)
+      #FIX(%File,%Relation)
+      #FOR(%Key),WHERE(%Key = %PostLookupKey)
+        #SET(%ParentFile,%File)
+      #ENDFOR
+    #ENDFOR
+  #ENDIF
+#ENDAT
+#AT(%ControlEventHandling,%EntryControl,'Accepted'),PRIORITY(6000)
+  #FIX(%Control,%EntryControl)
+  #IF(%PostLookupKey)
+    #FIND(%Key,%PostLookupKey)
+    #IF(%Key)
+      #FIND(%Field,%ControlUse)
+      #IF(%PostLookupDuringValidate)
+        #IF(%FieldLookup)
+#INSERT(%GeneratePostLookupFieldCode)
+        #ELSE
+IF %ControlUse OR %Control{Prop:Req}
+  #INSERT(%GeneratePostLookupFieldCode)
+END
+        #ENDIF
+      #ELSE
+IF %Window{Prop:AcceptAll} = False
+        #IF(%FieldLookup)
+  #INSERT(%GeneratePostLookupFieldCode)
+        #ELSE
+  IF %ControlUse OR %Control{Prop:Req}
+    #INSERT(%GeneratePostLookupFieldCode)
+  END
+        #ENDIF
+END
+      #ENDIF
+%WindowManager.Reset(%ForceWindowRefresh)
+    #ELSIF(%ForceWindowRefresh)
+%WindowManager.Reset(1)
+    #ENDIF
+  #ELSIF(%ForceWindowRefresh)
+%WindowManager.Reset(1)
+  #ENDIF
+OMIT('*** END_OMIT ***')
+#ENDAT
+#AT(%ControlEventHandling,%EntryControl,'Accepted'),PRIORITY(7300)
+*** END_OMIT ***
+#ENDAT
+#!------------------------------------------------------------------------------
+#GROUP(%GeneratePostLookupFieldCode)
+  #FOR(%Relation),WHERE(%RelationKey = %PostLookupKey)
+    #IF(%FileRelationType = 'MANY:1')
+      #FOR(%FileKeyField),WHERE(%FileKeyFieldLink)
+        #IF(%FileKeyFieldLink = %PostLookupField)
+          #BREAK
+        #ENDIF
+%FileKeyFieldLink = %FileKeyField
+      #ENDFOR
+    #ENDIF
+  #ENDFOR
+  #IF(%PostLookupField <> %ControlUse)
+%PostLookupField = %ControlUse
+  #ENDIF
+#FIND(%Key,%PostLookupKey)
+IF Access:%File.Fetch(%Key)
+  IF SELF.Run(%(INLIST(%PostLookupProcedure,%ProcsCalled)),SelectRecord) = RequestCompleted
+  #FIX(%File,%ParentFile)
+  #FOR(%Relation),WHERE(%Relation = %ChildFile)
+    #FOR(%RelationKeyField)
+    %RelationKeyField = %RelationKeyFieldLink        #<!Assign Linking Fields
+    #ENDFOR
+  #ENDFOR
+  #FIND(%Field,%ControlUse)
+  #FOR(%Relation),WHERE(%RelationKey = %PostLookupKey)
+    #IF(%FileRelationType = 'MANY:1')
+      #FOR(%FileKeyField),WHERE(%FileKeyFieldLink)
+        #IF(%FileKeyFieldLink = %PostLookupField)
+          #BREAK
+        #ENDIF
+    %FileKeyField = %FileKeyFieldLink
+      #ENDFOR
+    #ENDIF
+  #ENDFOR
+  #IF(%PostLookupField <> %ControlUse)
+    %ControlUse = %PostLookupField
+  #ENDIF
+  ELSE
+    SELECT(%Control)
+    CYCLE
+  END
+ELSE
+  #FIX(%File,%ParentFile)
+  #FOR(%Relation),WHERE(%Relation = %ChildFile)
+    #FOR(%RelationKeyField)
+  %RelationKeyField = %RelationKeyFieldLink          #<!Assign Linking Fields
+    #ENDFOR
+  #ENDFOR
+END
+#!------------------------------------------------------------------------------
+#!
+#!
+#!===============================================================================================
+#CONTROL(KCR_CalendarButton,'Allow Data Entry using a popup calendar'),PROCEDURE,MULTI,REQ(KCR_CyberTools(KCR))
+    #DISPLAY('')
+    #DISPLAY('This template will add a button which will allow')
+    #DISPLAY('any field to be validated using a popup calendar')
+    #DISPLAY('')
+    #PROMPT('Control to validate',CONTROL),%ControlToLookup
+     CONTROLS
+       BUTTON(''),AT(,,20,18),USE(?PopCalendar),ICON('CAL_DATE.ICO')
+     END
+#ATSTART
+  #DECLARE(%LookupControl)
+  #DECLARE(%ControlToLookupUse)
+  #FOR(%Control),WHERE(%ControlInstance=%ActiveTemplateInstance)
+    #SET(%LookupControl,%Control)
+  #ENDFOR
+  #FIX(%Control,%ControlToLookup)
+  #IF(%ControlType<>'ENTRY' AND %CONTROLTYPE <> 'SPIN')
+    #ERROR(%Procedure & 'Error: File Lookup needs to refer to Entry or Spin Control')
+  #ENDIF
+  #SET(%ControlToLookupUse,%ControlUse)
+#ENDAT
+#AT(%ControlEventHandling,%LookupControl,'Accepted')
+    Calendar(%ControlToLookupUse)
+    Display(%ControlToLookup)
+#ENDAT
+#!
+#!
+#!===============================================================================================
+#!
+#!===============================================================================================
+#CONTROL(KCR_PrintScreenButton,'Print Screen'),PROCEDURE
+    #DISPLAY('')
+    #DISPLAY('This template will add a button which will allow')
+    #DISPLAY('the screen on which it is populated to be printed.')
+    #DISPLAY('The screen must have a timer attribute or a template')
+    #DISPLAY('error will occur at generation time.')
+    #DISPLAY('')
+    #PROMPT('Disable Timer except for Print Screen',CHECK),%DisableTimer,AT(5),DEFAULT(%True)
+    #DISPLAY('')
+     CONTROLS
+       BUTTON('Print Screen'),USE(?PrintScreenButton)
+     END
+#ATSTART
+#IF(~INSTRING('TIMER',UPPER(%WindowStatement),1))
+  #ERROR(%Window & ' Error: Timer Attribute Required for Print Screen Button')
+#ENDIF
+#ENDAT
+#AT(%WindowManagerMethodDataSection,'Init','(),BYTE'),DESCRIPTION('Print Screen Data')
+lSavePropTimer       LONG
+cPrintScreenPass     BYTE
+szPrintScreenTmpFile CSTRING(65)
+PrintScreenReport    REPORT,AT(100,100,10800,8300),PAPER(1),PRE(PSRpt),FONT('Arial',10,,FONT:regular),LANDSCAPE,THOUS
+Detail                 DETAIL
+                         IMAGE,AT(100,100),USE(?Image)
+                       END
+                     END
+#ENDAT
+#AT(%WindowManagerMethodCodeSection,'Init','(),BYTE'),PRIORITY(9050),DESCRIPTION('Print Screen Code')
+#IF(%Disabletimer)
+%Window{PROP:Timer} = 0
+#ENDIF
+#ENDAT
+#AT(%ControlEventHandling,'?PrintScreenButton','Accepted'),PRIORITY(7500),DESCRIPTION('Print Screen Code')
+DISABLE(?PrintScreenButton)
+lSavePropTimer = %Window{Prop:Timer}
+%Window{Prop:Timer} = 200
+cPrintScreenPass = 1
+POST(EVENT:Timer)
+#ENDAT
+#AT(%WindowEventHandling,'Timer'),PRIORITY(7500),DESCRIPTION('Print Screen Code')
+DO PrintScreen
+#ENDAT
+#AT(%ProcedureRoutines),DESCRIPTION('Print Screen Code')
+!----------------------------------------------------------------------
+PrintScreen          ROUTINE
+ IF PrintScreenPass
+   CASE PrintScreenPass
+     OF 1
+        SETCLIPBOARD('')
+        PRESSKEY(PrintKey)
+     OF 2
+        szPrintScreenTmpFile = 'PrntScrn.BMP'
+        szPrintScreenTmpFile = SaveClipToFile(szPrintScreenTmpFile)
+        OPEN(PrintScreenReport)
+        PrintScreenReport$?Image{PROP:Text} = szPrintScreenTmpFile
+        PRINT(PSRpt:Detail)
+        ENDPAGE(PrintScreenReport)
+        CLOSE(PrintScreenReport)
+        REMOVE(PrintScreenTmpFile)
+        ENABLE(?PrintScreenButton)
+   END
+   PrintScreenPass += 1
+   IF PrintScreenPass = 3
+     PrintScreenPass = 0
+     %Window{Prop:Timer} = lSavePropTimer
+   END
+ END
+ EXIT
+!----------------------------------------------------------------------
+#ENDAT
+#!
+#!
+#!
+#!
+#!===============================================================================================
+#CONTROL(KCR_StateProvPicker,'State/Province DropList'),DESCRIPTION('State/Province DropList'),WINDOW,MULTI
+   #DISPLAY('')
+   #DISPLAY('This template will add a droplist which will allow')
+   #DISPLAY('the user to select a state or province.')
+   #DISPLAY('')
+   #PROMPT('&Abbreviation Field.:',FIELD),%AbbreviationField
+   #PROMPT('&State/Prov Field...:',FIELD),%StateProvField
+   #PROMPT('&Postal Code Control:',CONTROL),%PostalCodeControl
+   #DISPLAY('')
+   CONTROLS
+       COMBO(@S25),AT(,,30,10),USE(?StateProvList),VSCROLL,FORMAT('12C(2)|@s2@100L(2)|@s25@'),DROP(10,112),COLOR(COLOR:White), |
+           FROM(StateProvQueue),#FIELDS(StateProvQueue:Abbreviation,StateProvQueue:StateProv)
+   END
+#!
+#!
+#ATSTART
+  #DECLARE(%ListControl)
+  #FOR(%Control),WHERE(%ControlInstance=%ActiveTemplateInstance)
+    #SET(%ListControl,%Control)
+  #ENDFOR
+  #DECLARE(%StateProvQueue)
+  #SET(%StateProvQueue,'StateProvQueue:' & %ActiveTemplateInstance)
+  #DECLARE(%InitStateProvQueue)
+  #SET(%InitStateProvQueue,'InitStateProvQueue:' & %ActiveTemplateInstance)
+#ENDAT
+#!
+#!
+#AT(%DataSection),PRIORITY(4000)
+%StateProvQueue QUEUE,PRE(%StateProvQueue)
+Abbreviation        CSTRING(3)
+StateProv           CSTRING(26)
+IsProvince          BYTE
+                  END
+#ENDAT
+#!
+#!
+#AT(%ProcedureRoutines)
+%InitStateProvQueue  ROUTINE
+  FREE(%StateProvQueue)
+  %StateProvQueue:Abbreviation = ''
+  %StateProvQueue:StateProv = ''
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'AL'
+  %StateProvQueue:StateProv = 'Alabama'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'AK'
+  %StateProvQueue:StateProv = 'Alaska'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'AB'
+  %StateProvQueue:StateProv = 'Alberta'
+  %StateProvQueue:IsProvince = TRUE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'AR'
+  %StateProvQueue:StateProv = 'Arkansas'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'AZ'
+  %StateProvQueue:StateProv = 'Arizona'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'BC'
+  %StateProvQueue:StateProv = 'British Columbia'
+  %StateProvQueue:IsProvince = TRUE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'CA'
+  %StateProvQueue:StateProv = 'California'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'CO'
+  %StateProvQueue:StateProv = 'Colorado'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'CT'
+  %StateProvQueue:StateProv = 'Connecticut'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'DE'
+  %StateProvQueue:StateProv = 'Delaware'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'DC'
+  %StateProvQueue:StateProv = 'District of Columbia'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'FL'
+  %StateProvQueue:StateProv = 'Florida'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'GA'
+  %StateProvQueue:StateProv = 'Georgia'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'HI'
+  %StateProvQueue:StateProv = 'Hawaii'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'ID'
+  %StateProvQueue:StateProv = 'Idaho'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'IL'
+  %StateProvQueue:StateProv = 'Illinois'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'IN'
+  %StateProvQueue:StateProv = 'Indiana'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'IA'
+  %StateProvQueue:StateProv = 'Iowa'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'KS'
+  %StateProvQueue:StateProv = 'Kansas'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'KY'
+  %StateProvQueue:StateProv = 'Kentucky'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'LA'
+  %StateProvQueue:StateProv = 'Louisiana'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'ME'
+  %StateProvQueue:StateProv = 'Maine'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'MB'
+  %StateProvQueue:StateProv = 'Manitoba'
+  %StateProvQueue:IsProvince = TRUE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'MD'
+  %StateProvQueue:StateProv = 'Maryland'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'MA'
+  %StateProvQueue:StateProv = 'Massachusetts'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'MX'
+  %StateProvQueue:StateProv = 'Mexico'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'MI'
+  %StateProvQueue:StateProv = 'Michigan'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'MN'
+  %StateProvQueue:StateProv = 'Minnesota'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'MS'
+  %StateProvQueue:StateProv = 'Mississippi'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'MO'
+  %StateProvQueue:StateProv = 'Missouri'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'MT'
+  %StateProvQueue:StateProv = 'Montana'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'NE'
+  %StateProvQueue:StateProv = 'Nebraska'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'NV'
+  %StateProvQueue:StateProv = 'Nevada'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'NB'
+  %StateProvQueue:StateProv = 'New Brunswick'
+  %StateProvQueue:IsProvince = TRUE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'NL'
+  %StateProvQueue:StateProv = 'Newfoundland and Labrador'
+  %StateProvQueue:IsProvince = TRUE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'NH'
+  %StateProvQueue:StateProv = 'New Hampshire'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'NJ'
+  %StateProvQueue:StateProv = 'New Jersey'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'NM'
+  %StateProvQueue:StateProv = 'New Mexico'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'NY'
+  %StateProvQueue:StateProv = 'New York'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'NC'
+  %StateProvQueue:StateProv = 'North Carolina'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'ND'
+  %StateProvQueue:StateProv = 'North Dakota'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'NT'
+  %StateProvQueue:StateProv = 'Northwest Territories'
+  %StateProvQueue:IsProvince = TRUE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'NS'
+  %StateProvQueue:StateProv = 'Nova Scotia'
+  %StateProvQueue:IsProvince = TRUE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'NU'
+  %StateProvQueue:StateProv = 'Nunavut'
+  %StateProvQueue:IsProvince = TRUE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'OH'
+  %StateProvQueue:StateProv = 'Ohio'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'OK'
+  %StateProvQueue:StateProv = 'Oklahoma'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'ON'
+  %StateProvQueue:StateProv = 'Ontario'
+  %StateProvQueue:IsProvince = TRUE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'OR'
+  %StateProvQueue:StateProv = 'Oregon'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'PA'
+  %StateProvQueue:StateProv = 'Pennsylvania'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'PE'
+  %StateProvQueue:StateProv = 'Prince Edward Island'
+  %StateProvQueue:IsProvince = TRUE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'QC'
+  %StateProvQueue:StateProv = 'Quebec'
+  %StateProvQueue:IsProvince = TRUE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'RI'
+  %StateProvQueue:StateProv = 'Rhode Island'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'SK'
+  %StateProvQueue:StateProv = 'Saskatchewan'
+  %StateProvQueue:IsProvince = TRUE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'SC'
+  %StateProvQueue:StateProv = 'South Carolina'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'SD'
+  %StateProvQueue:StateProv = 'South Dakota'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'TN'
+  %StateProvQueue:StateProv = 'Tennessee'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'TX'
+  %StateProvQueue:StateProv = 'Texas'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'UT'
+  %StateProvQueue:StateProv = 'Utah'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'VT'
+  %StateProvQueue:StateProv = 'Vermont'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'VA'
+  %StateProvQueue:StateProv = 'Virginia'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'WA'
+  %StateProvQueue:StateProv = 'Washington'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'WV'
+  %StateProvQueue:StateProv = 'West Virginia'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'WI'
+  %StateProvQueue:StateProv = 'Wisconsin'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'WY'
+  %StateProvQueue:StateProv = 'Wyoming'
+  %StateProvQueue:IsProvince = FALSE
+  ADD(%StateProvQueue)
+  %StateProvQueue:Abbreviation = 'YT'
+  %StateProvQueue:StateProv = 'Yukon Territory'
+  %StateProvQueue:IsProvince = TRUE
+  ADD(%StateProvQueue)
+  EXIT
+#ENDAT
+#!
+#!
+#AT(%WindowManagerMethodCodeSection,'Init','(),BYTE')
+#PRIORITY(6500),DESCRIPTION('Initialize %StateProvQueue')
+DO %InitStateProvQueue
+#PRIORITY(8050),DESCRIPTION('Lookup %StateProvQueue')
+  #IF(%AbbreviationField)
+IF %AbbreviationField <> ''
+   %StateProvQueue:Abbreviation = %AbbreviationField
+   GET(%StateProvQueue,+%StateProvQueue:Abbreviation)
+   %ListControl{PROP:Selected} = POINTER(%StateProvQueue)
+    #IF(%StateProvField)
+   %StateProvField = %StateProvQueue:StateProv
+    #ENDIF
+END
+  #ENDIF
+#ENDAT
+#!
+#!
+#AT(%WindowManagerMethodCodeSection,'Kill','(),BYTE'),PRIORITY(4750),DESCRIPTION('Free %StateProvQueue')
+FREE(%StateProvQueue)
+#ENDAT
+#!
+#!
+#AT(%ControlEventHandling,%ListControl,'Accepted')
+GET(%StateProvQueue,CHOICE(%ListControl))
+  #IF(%AbbreviationField)
+%AbbreviationField = %StateProvQueue:Abbreviation
+  #ENDIF
+  #IF(%StateProvField)
+%StateProvField = %StateProvQueue:StateProv
+  #ENDIF
+  #IF(%PostalCodeControl)
+IF CLIP(%StateProvQueue:Abbreviation) <> ''
+   %PostalCodeControl{PROP:Text} = CHOOSE(%StateProvQueue:IsProvince = TRUE,'@k^#^-#^#kb','@k#####-####k')
+ELSE
+   %PostalCodeControl{PROP:Text} = '@S11'
+END
+  #ENDIF
+#ENDAT
+#!
+#!
+#!===============================================================================================
+#CONTROL(KCR_DateLookup,'Date Lookup Button'),DESCRIPTION('Date Lookup Button'),WINDOW,MULTI,REQ(KCR_CyberTools)
+   #DISPLAY('')
+   #DISPLAY('This template will add a calendar button')
+   #DISPLAY('to allow the user to select a date.')
+   #DISPLAY('')
+   #PROMPT('&Date Control:',CONTROL),%DateControl
+   #PROMPT('&Use ''MS Sans Serif'' font',CHECK),%UseSansSerif,AT(10),DEFAULT(%False)
+   #DISPLAY('')
+   CONTROLS
+       BUTTON,AT(,,12,10),USE(?DateControl),ICON('calendar.ico')
+   END
+#!
+#!
+#ATSTART
+  #DECLARE(%tmpDate)
+  #SET(%tmpDate,'tmpDate:' & %ActiveTemplateInstance)
+  #DECLARE(%DateButton)
+  #FOR(%Control),WHERE(%ControlInstance=%ActiveTemplateInstance)
+    #SET(%DateButton,%Control)
+  #ENDFOR
+#ENDAT
+#!
+#!
+#AT(%WindowManagerMethodDataSection,'TakeAccepted','(),BYTE'),PRIORITY(8500)
+%20tmpDate LONG,AUTO
+#ENDAT
+#!
+#!
+#AT(%ControlEventHandling,%DateButton,'Accepted')
+  #FIX(%Control,%DateControl)
+%tmpDate = CHOOSE(%ControlUse=0,TODAY(),%ControlUse)
+IF Calendar(%tmpDate,%UseSansSerif)
+#PRIORITY(8510)
+   %ControlUse = %tmpDate
+   DISPLAY(%DateControl)
+   SELECT(?+1)
+#PRIORITY(8520)
+ELSE
+#PRIORITY(8530)
+   SELECT(%DateControl)
+#PRIORITY(8540)
+END
+#ENDAT
+#!
+#!

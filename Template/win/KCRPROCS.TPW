@@ -1,0 +1,1034 @@
+#! ================================================================================================
+#!                           DEVUNA - Application Builder Class Templates
+#! ================================================================================================
+#! Author:  Randy Rogers (KCR) <rrogers@devuna.com>
+#! Notice:  Copyright (C) 2017, Devuna
+#!          Distributed under the MIT License (https://opensource.org/licenses/MIT)
+#! ================================================================================================
+#!    This file is part of Devuna-Common (https://github.com/Devuna/Devuna-Common)
+#!
+#!    Devuna-Common is free software: you can redistribute it and/or modify
+#!    it under the terms of the MIT License as published by
+#!    the Open Source Initiative.
+#!
+#!    Devuna-Common is distributed in the hope that it will be useful,
+#!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#!    MIT License for more details.
+#!
+#!    You should have received a copy of the MIT License
+#!    along with Devuna-Common.  If not, see <https://opensource.org/licenses/MIT>.
+#! ================================================================================================
+#!
+#!---------------------------------------------------------------------
+#PROCEDURE(Impex,'Import/Export Executor')
+#PROTOTYPE('(*DEFGROUP),BOOL,PROC')
+#!---------------------------------------------------------------------
+#! Version....: 1.000
+#! Date.......: 03/31/1999
+#! Author.....: R.Rogers
+#! Description:
+#!-------------------------------------------------------------------------
+#BOXED('Default MakeHead Prompts'),AT(0,0),WHERE(%False),HIDE
+  #INSERT(%MakeHeadHiddenPrompts)
+#ENDBOXED
+#PREPARE
+  #INSERT (%MakeHead,'Impex (Devuna)','Import/Export Executor')
+#ENDPREPARE
+#BOXED('Devuna')
+  #INSERT (%Head)
+  #DISPLAY ('This procedure calls the appropriate import/export'),AT(10)
+  #DISPLAY ('procedure based on the passed DEFGROUP.  Returns'),AT(10)
+  #DISPLAY ('result of Import/Export or False if file unknown.'),AT(10)
+  #DISPLAY ('')
+  #DISPLAY ('There are no prompts for this template.')
+  #DISPLAY ('')
+#ENDBOXED
+#!
+#DECLARE(%SortedFile),UNIQUE,MULTI
+#FOR(%File),WHERE(~INSTRING('NOPOPULATE',%FileQuickOptions,1))
+  #ADD(%SortedFile,%File)
+#ENDFOR
+#!
+%Procedure FUNCTION(dG)
+ CODE
+ CASE dg.szInternalFile
+#FOR(%SortedFile)
+ OF '%SortedFile'
+    #SET(%ValueConstruct,%SortedFile & '_ImpEx(dG)')
+    RETURN(%ValueConstruct)
+#ENDFOR
+ ELSE
+    RETURN(False)
+ END
+#!
+#!---------------------------------------------------------------------
+#PROCEDURE(FillFileQueue,'Fill File Queue')
+#PROTOTYPE('(*QUEUE:Filename),LONG,PROC')
+#!---------------------------------------------------------------------
+#! Version....: 1.000
+#! Date.......: 03/31/1999
+#! Author.....: R.Rogers
+#! Description:
+#!-------------------------------------------------------------------------
+#BOXED('Default MakeHead Prompts'),AT(0,0),WHERE(%False),HIDE
+  #INSERT(%MakeHeadHiddenPrompts)
+#ENDBOXED
+#PREPARE
+  #INSERT (%MakeHead,'FillFileQueue (Devuna)','Fill File Queue')
+#ENDPREPARE
+#BOXED('Devuna')
+  #INSERT (%Head)
+  #DISPLAY ('This procedure filles a queue with a sorted list of'),AT(10)
+  #DISPLAY ('dictionary files and their descriptions.'),AT(10)
+  #DISPLAY ('')
+  #DISPLAY ('There are no prompts for this template.')
+  #DISPLAY ('')
+#ENDBOXED
+#!
+#DECLARE(%SortedFile),UNIQUE,MULTI
+#DECLARE(%SortedFileDescription,%SortedFile)
+#FOR(%File),WHERE(~INSTRING('NOPOPULATE',%FileQuickOptions,1))
+  #ADD(%SortedFile,%File)
+  #SET(%SortedFileDescription,%FileDescription)
+#ENDFOR
+#!
+%Procedure FUNCTION(Q)
+ CODE
+ FREE(Q)
+#FOR(%SortedFile)
+ Q.Filename = '%SortedFile'
+ Q.Description = '%SortedFileDescription'
+ ADD(Q)
+#ENDFOR
+ RETURN(RECORDS(Q))
+#!
+#!---------------------------------------------------------------------
+#PROCEDURE(FillFileRelationQueue,'Fill File Relation Queue')
+#PROTOTYPE('(STRING,*QUEUE,*CSTRING),LONG,PROC')
+#!---------------------------------------------------------------------
+#! Version....: 1.000
+#! Date.......: 03/31/1999
+#! Author.....: R.Rogers
+#! Description:
+#!-------------------------------------------------------------------------
+#BOXED('Default MakeHead Prompts'),AT(0,0),WHERE(%False),HIDE
+  #INSERT(%MakeHeadHiddenPrompts)
+#ENDBOXED
+#PREPARE
+  #INSERT (%MakeHead,'FillFileRelationQueue (Devuna)','Fill File Relation Queue')
+#ENDPREPARE
+#BOXED('Devuna')
+  #INSERT (%Head)
+  #DISPLAY ('This procedure fills a queue with a sorted list of'),AT(10)
+  #DISPLAY ('dictionary files related to the requested file.'),AT(10)
+  #DISPLAY ('')
+  #DISPLAY ('There are no prompts for this template.')
+  #DISPLAY ('')
+#ENDBOXED
+#!
+#DECLARE(%SortedFile),UNIQUE,MULTI
+#DECLARE(%SortedFileRelation,%SortedFile),UNIQUE,MULTI
+#DECLARE(%SortedFileRelationDescription,%SortedFileRelation)
+#DECLARE(%SortedFileRelationType,%SortedFileRelation)
+#FOR(%File),WHERE(~INSTRING('NOPOPULATE',%FileQuickOptions,1))
+  #ADD(%SortedFile,%File)
+  #FOR(%Relation)
+    #ADD(%SortedFileRelation,%Relation)
+    #SET(%SortedFileRelationType,%FileRelationType)
+    #FIX(%File,%Relation)
+    #SET(%SortedFileRelationDescription,%FileDescription)
+  #ENDFOR
+#ENDFOR
+!----------------------------------------------------------------------
+%Procedure FUNCTION(F,Q,Q:Description)
+ CODE
+ FREE(Q)
+ CASE F
+#FOR(%SortedFile)
+  #SUSPEND
+ #?OF '%SortedFile'
+ #FOR(%SortedFileRelation)
+    Q:Description = '%SortedFileRelationType %SortedFileRelation - %SortedFileRelationDescription'
+    ADD(Q)
+ #ENDFOR
+ #RESUME
+#ENDFOR
+ END
+ RETURN(RECORDS(Q))
+#!
+#!---------------------------------------------------------------------
+#PROCEDURE(FillFieldTreeQueue,'Fill File Queue:FieldTree')
+#PROTOTYPE('(*CSTRING,*QUEUE:FIELDTREE),LONG,PROC')
+#!---------------------------------------------------------------------
+#! Version....: 1.000
+#! Date.......: 04/05/1999
+#! Author.....: R.Rogers
+#! Description:
+#! Queue:FieldTree        QUEUE,PRE(ftq)
+#! Display                  CSTRING(256)
+#! Icon                     SHORT
+#! Level                    LONG
+#! Style                    LONG
+#! szExternalField          CSTRING(256)
+#! FileName                 CSTRING(21)
+#! FieldName                CSTRING(129)
+#! lFldId                   LONG
+#!                        END
+#!-------------------------------------------------------------------------
+#BOXED('Default MakeHead Prompts'),AT(0,0),WHERE(%False),HIDE
+  #INSERT(%MakeHeadHiddenPrompts)
+#ENDBOXED
+#PREPARE
+  #INSERT (%MakeHead,'FillFieldTreeQueue (Devuna)','Fill File Queue:FieldTree')
+#ENDPREPARE
+#BOXED('Devuna')
+  #INSERT (%Head)
+  #DISPLAY ('This procedure fills a queue with a sorted list of'),AT(10)
+  #DISPLAY ('dictionary files related to the requested file.'),AT(10)
+  #DISPLAY ('')
+  #DISPLAY ('There are no prompts for this template.')
+  #DISPLAY ('')
+#ENDBOXED
+#!
+#DECLARE(%SortedFile),UNIQUE,MULTI
+#DECLARE(%SortedFileRelation,%SortedFile),UNIQUE,MULTI
+#DECLARE(%SortedFileRelationDescription,%SortedFileRelation)
+#DECLARE(%SortedFileRelationType,%SortedFileRelation)
+#FOR(%File),WHERE(~INSTRING('NOPOPULATE',%FileQuickOptions,1))
+  #ADD(%SortedFile,%File)
+  #FOR(%Relation)
+    #ADD(%SortedFileRelation,%Relation)
+    #SET(%SortedFileRelationType,%FileRelationType)
+    #FIX(%File,%Relation)
+    #SET(%SortedFileRelationDescription,%FileDescription)
+  #ENDFOR
+#ENDFOR
+!----------------------------------------------------------------------
+%Procedure FUNCTION(F,Q)
+ CODE
+ FREE(Q)
+ CASE F
+#FOR(%SortedFile)
+   OF '%SortedFile'
+      #SET(%ValueConstruct,'Fill' & %SortedFile & 'Tree')
+      DO %ValueConstruct
+#ENDFOR
+ END
+ RETURN(RECORDS(Q))
+#FOR(%SortedFile)
+  #SET(%ValueConstruct,'Fill' & %SortedFile & 'Tree ROUTINE')
+!----------------------------------------------------------------------
+%ValueConstruct
+#FIX(%File,%SortedFile)
+ #SET(%ValueConstruct,QUOTE(%FileDescription))
+ Q.Display = '%File - %ValueConstruct'
+ Q.Icon = ICON:FOLDER !1
+ Q.Level = 1
+ Q.Style = 1
+ Q.FileName = '%File'
+ Q.FieldName = ''
+ ADD(Q)
+ #FOR(%Field),WHERE( (~INSTRING('NOPOPULATE',%FieldQuickOptions,1)) AND (%FieldType <> 'GROUP') AND %FieldID)
+  #SET(%ValueConstruct,QUOTE(%FieldDescription))
+ Q.Display = '%FieldID - %ValueConstruct'
+ Q.Icon = ICON:DOCUMENT !3
+ Q.Level = 2
+ Q.Style = 1
+ Q.FileName = '%File'
+ Q.FieldName = '%Field'
+ ADD(Q)
+ #ENDFOR
+ #FOR(%SortedFileRelation),WHERE(%SortedFileRelationType = 'MANY:1')
+  #FIX(%File,%SortedFileRelation)
+  #SET(%ValueConstruct,QUOTE(%FileDescription))
+ Q.Display = '%File - %ValueConstruct'
+ Q.Icon = ICON:FOLDER !1
+ Q.Level = 2
+ Q.Style = 1
+ Q.FileName = '%File'
+ Q.FieldName = ''
+ ADD(Q)
+  #FOR(%Field),WHERE(INSTRING('LINKFIELD',UPPER(%FieldUserOptions),1))
+   #SET(%ValueConstruct,QUOTE(%FieldDescription))
+ Q.Display = '%FieldID - %ValueConstruct'
+ Q.Icon = ICON:LINKFIELD !2
+ Q.Level = 3
+ Q.Style = 1
+ Q.FileName = '%File'
+ Q.FieldName = '%Field'
+ ADD(Q)
+  #ENDFOR
+  #FOR(%Field),WHERE(INSTRING('INSERTFIELD',UPPER(%FieldUserOptions),1))
+   #SET(%ValueConstruct,QUOTE(%FieldDescription))
+   Q.Display = '%FieldID - %ValueConstruct'
+   Q.Icon = ICON:DOCUMENT !3
+   Q.Level = 3
+   Q.Style = 1
+   Q.FileName = '%File'
+   Q.FieldName = '%Field'
+   ADD(Q)
+  #ENDFOR
+ #ENDFOR
+ EXIT
+#ENDFOR
+#!
+#!---------------------------------------------------------------------
+#PROCEDURE(BindRecord,'Bind File Record')
+#PROTOTYPE('(*CSTRING),LONG,PROC')
+#!---------------------------------------------------------------------
+#DECLARE(%SortedFileName),UNIQUE,MULTI
+#DECLARE(%SortedFilePrefix,%SortedFileName)
+#IF(%LimitedFiles)
+  #SET(%CurrentFileNumber,0)
+#ENDIF
+#FOR(%File)
+  #IF(%LimitedFiles)
+    #SET(%CurrentFileNumber,%CurrentFileNumber + 1)
+    #IF(%CurrentFileNumber < %FromFileNumber)
+      #CYCLE
+    #ELSIF(%CurrentFileNumber > %ToFileNumber)
+      #BREAK
+    #ENDIF
+  #ENDIF
+  #ADD(%SortedFileName,UPPER(%FileName))
+  #SET(%SortedFilePrefix,%FilePrefix)
+#ENDFOR
+!----------------------------------------------------------------------
+%Procedure FUNCTION(PassedFileName)
+ code
+ case upper(PassedFileName)
+#FOR(%SortedFileName)
+   of %SortedFileName
+      bind(%SortedFilePrefix:Record)
+#ENDFOR
+ end
+ return(errorcode())
+#!
+#!
+#!---------------------------------------------------------------------
+#PROCEDURE(UnbindRecord,'Unbind File Record')
+#PROTOTYPE('(*CSTRING),LONG,PROC')
+#!---------------------------------------------------------------------
+#DECLARE(%SortedFileName),UNIQUE,MULTI
+#DECLARE(%SortedFilePrefix,%SortedFileName)
+#IF(%LimitedFiles)
+  #SET(%CurrentFileNumber,0)
+#ENDIF
+#FOR(%File)
+  #IF(%LimitedFiles)
+    #SET(%CurrentFileNumber,%CurrentFileNumber + 1)
+    #IF(%CurrentFileNumber < %FromFileNumber)
+      #CYCLE
+    #ELSIF(%CurrentFileNumber > %ToFileNumber)
+      #BREAK
+    #ENDIF
+  #ENDIF
+  #ADD(%SortedFileName,UPPER(%FileName))
+  #SET(%SortedFilePrefix,%FilePrefix)
+#ENDFOR
+!----------------------------------------------------------------------
+%Procedure FUNCTION(PassedFileName)
+ReturnValue LONG,AUTO
+ code
+ case upper(PassedFileName)
+#FOR(%SortedFileName)
+   of %SortedFileName
+      unbind(%SortedFilePrefix:Record)
+#ENDFOR
+ end
+ return(errorcode())
+#!---------------------------------------------------------------------
+#PROCEDURE(GetNextSysId,'Get Next Available SysId'),PRIMARY('Primary File')
+#PROTOTYPE('(),LONG')
+#!---------------------------------------------------------------------
+#FIX(%File,%Primary)
+!----------------------------------------------------------------------
+%Procedure FUNCTION
+ReturnValue LONG,AUTO
+SAV:Record  STRING(SIZE(%FilePrefix:Record)),AUTO
+ CODE
+ #ADD(%ProcFilesUsed,%File)
+ ReturnValue = 0
+ IF Access:%File.UseFile() = LEVEL:Benign
+ #FIX(%Key,%PrimaryKey)
+ #SELECT(%KeyField,ITEMS(%KeyField))
+    SAV:Record = %FilePrefix:Record
+    CLEAR(%FilePrefix:Record)
+    SET(%Key)
+    PREVIOUS(%File)
+    ReturnValue = %KeyField+1
+    %FilePrefix:Record = SAV:Record
+    Access:%File.Close()
+ END
+ RETURN(ReturnValue)
+#!
+#!
+#!
+#!
+#!---------------------------------------------------------------------
+#PROCEDURE(ImpExGlobalData,'Import/Export Global Data')
+#PROTOTYPE('(*CSTRING szFileName,BYTE bMode),LONG,PROC')
+#!---------------------------------------------------------------------
+#BOXED('Default MakeHead Prompts'),AT(0,0),WHERE(%False),HIDE
+  #INSERT(%MakeHeadHiddenPrompts)
+#ENDBOXED
+#PREPARE
+  #INSERT (%MakeHead,'ImpExGlobalData (Devuna)','Import/Export Global Data')
+#ENDPREPARE
+#BOXED('Devuna')
+  #INSERT (%Head)
+  #DISPLAY ('This procedure saves/restores the selected'),AT(10)
+  #DISPLAY ('data elements to/from a binary DOS file format.'),AT(10)
+  #PROMPT  ('Create Backup before Save',CHECK),%CreateBackup,DEFAULT(%TRUE)
+  #PROMPT  ('Identifier Field 1:',@S32),%Identifier1,DEFAULT('glo:szAccount')
+  #PROMPT  ('Identifier Field 2:',@S32),%Identifier2,DEFAULT('glo:szDescription')
+  #PROMPT  ('Identifier Field 3:',@S32),%Identifier3,DEFAULT('')
+  #PROMPT  ('Buffer Size in K:',@N3),%DataBufferSize,REQ,DEFAULT(32)
+  #PROMPT  ('Data Element:',FROM(%GlobalData)),%DataElementList,MULTI('Select a Data Element...'),INLINE,UNIQUE
+  #DISPLAY ('Parameters:'),AT(10)
+  #DISPLAY ('szFileName - Name of File (8 characters)'),AT(10)
+  #DISPLAY ('bMode - 0 = Save, 1 = Load'),AT(10)
+#ENDBOXED
+#!
+#!
+#AT(%CustomGlobalDeclarations)
+  #FIX(%Driver,'DOS')                           #!DOS driver required
+  #PROJECT(%DriverLIB)
+#ENDAT
+#!
+#!
+#AT(%AfterGlobalIncludes)
+ OMIT('_EndOfInclude_',_ImpExGlobalDataPresent_)
+_ImpExGlobalDataPresent_    EQUATE(1)
+!----------------------------------------------------------------------
+! Import Export Global Data variables and equates
+!----------------------------------------------------------------------
+ImpexActionEquates      ITEMIZE(0),PRE(ACTION)
+SAVE                        EQUATE
+LOAD                        EQUATE
+DELETE                      EQUATE
+IDENTIFY                    EQUATE
+                        END
+!_EndOfInclude_
+#ENDAT
+#!
+#!
+!----------------------------------------------------------------------
+%Procedure  FUNCTION(szFileName,bMode)
+lQueuePointer   LONG,AUTO
+lQueueRecords   LONG,AUTO
+ReturnValue     LONG(Level:Benign)
+sProgramName    STRING(8),AUTO
+sProcVersion    STRING('03')
+ulFilePointer   ULONG,AUTO
+ulLength        ULONG,AUTO
+szBaseFileName  CSTRING(64),AUTO
+szImpExFileName CSTRING(FILE:MaxFilePath),AUTO,STATIC,THREAD
+ImpExFile       FILE,DRIVER('DOS'),NAME(szImpExFileName),PRE(_DOS),CREATE,BINDABLE,THREAD
+Record              RECORD,PRE()
+ulRecordSize            ULONG
+#SET(%ValueConstruct,'FileByte                BYTE,DIM(' & %DataBufferSize & ' * 1024)')
+%ValueConstruct
+                    END
+                END
+ CODE
+ IF szFileName[ LEN(szFileName)-3 ] = '.'
+    szBaseFileName = SUB(szFileName,1,LEN(szFileName)-4)
+ ELSE
+    szBaseFileName = szFileName
+ END
+ CASE bMode
+   OF ACTION:SAVE
+      DO ExportData
+   OF ACTION:LOAD
+      DO ImportData
+   OF ACTION:DELETE
+      DO DeleteData
+   OF ACTION:IDENTIFY
+      DO ImportData
+ END
+ RETURN(ReturnValue)
+
+!----------------------------------------------------------------------
+DeleteData  ROUTINE
+ !Remove existing backup file
+ szImpExFileName = szBaseFileName & '.BAK'
+ IF EXISTS(szImpExFileName)
+    REMOVE(ImpExFile)
+ END
+
+ !Backup existing file
+ IF szBaseFileName = szFileName
+    szImpExFileName = szBaseFileName & '.MDL'
+ ELSE
+    szImpExFileName = szFileName
+ END
+ IF EXISTS(szImpExFileName)
+#IF(%CreateBackup)
+    RENAME(ImpExFile,szBaseFileName & '.BAK')
+#ELSE
+    REMOVE(ImpExFile)
+#ENDIF
+ END
+!----------------------------------------------------------------------
+ExportData  ROUTINE
+ DO DeleteData
+ !Create a new file
+ CREATE(ImpExFile)
+ OPEN(ImpExFile,ReadWrite+DenyAll)
+ IF ~ERRORCODE()
+    #EMBED(%BeforeExportData,'Export Global Data Before Export')
+    !Write Program Name
+    #SET(%ValueConstruct,UPPER(SUB(%ProjectTarget,1,INSTRING('.',%ProjectTarget)-1)))
+    sProgramName = '%ValueConstruct'
+    _DOS:ulRecordSize = SIZE(sProgramName)
+    memcpy(ADDRESS(_DOS:FileByte),ADDRESS(sProgramName),SIZE(sProgramName))
+    ADD(ImpExFile,_DOS:ulRecordSize+4)
+    !Write Procedure Version
+    sProcVersion = '03'
+    _DOS:ulRecordSize = SIZE(sProcVersion)
+    memcpy(ADDRESS(_DOS:FileByte),ADDRESS(sProcVersion),SIZE(sProcVersion))
+    ADD(ImpExFile,_DOS:ulRecordSize+4)
+    !Write Identifier Field 1
+ #IF(%Identifier1)
+    _DOS:ulRecordSize = SIZE(%Identifier1)
+    memcpy(ADDRESS(_DOS:FileByte),ADDRESS(%Identifier1),SIZE(%Identifier1))
+    ADD(ImpExFile,_DOS:ulRecordSize+4)
+ #ELSE
+    _DOS:ulRecordSize = 0
+    ADD(ImpExFile,4)
+ #ENDIF
+    !Write Identifier Field 2
+ #IF(%Identifier2)
+    _DOS:ulRecordSize = SIZE(%Identifier2)
+    memcpy(ADDRESS(_DOS:FileByte),ADDRESS(%Identifier2),SIZE(%Identifier2))
+    ADD(ImpExFile,_DOS:ulRecordSize+4)
+ #ELSE
+    _DOS:ulRecordSize = 0
+    ADD(ImpExFile,4)
+ #ENDIF
+ #IF(%Identifier3)
+    _DOS:ulRecordSize = SIZE(%Identifier3)
+    memcpy(ADDRESS(_DOS:FileByte),ADDRESS(%Identifier3),SIZE(%Identifier3))
+    ADD(ImpExFile,_DOS:ulRecordSize+4)
+ #ELSE
+    _DOS:ulRecordSize = 0
+    ADD(ImpExFile,4)
+ #ENDIF
+ #FOR(%DataElementList)
+   #FIX(%GlobalData,%DataElementList)
+
+    !Save %GlobalData ---------------------------
+    IF SIZE(%GlobalData) > SIZE(_DOS:Record)
+       HALT('Buffer Too Small (' & SIZE(%GlobalData) & ')')
+    END
+   #IF(INSTRING('QUEUE',%GlobalDataStatement,1))
+    _DOS:ulRecordSize = RECORDS(%GlobalData)
+    ADD(ImpExFile,4)
+    lQueueRecords = RECORDS(%GlobalData)
+    LOOP lQueuePointer = 1 TO lQueueRecords
+      GET(%GlobalData,lQueuePointer)
+      #INSERT(%SaveData,%GlobalData)
+      #!INSERT(%SaveData,%GlobalData&'.Record')
+    END
+   #ELSE
+    #INSERT(%SaveData,%GlobalData)
+   #ENDIF
+ #ENDFOR
+#!
+#!
+    !Close the file
+    CLOSE(ImpExFile)
+    #EMBED(%AfterExportData,'Export Global Data After Export')
+ ELSE
+    MESSAGE(szImpExFileName & ' [' & ERRORCODE() & '] ' & ERROR(),'Error - Save Aborted',ICON:Hand)
+    ReturnValue = Level:Notify
+ END
+
+!----------------------------------------------------------------------
+ImportData  ROUTINE
+ sProcVersion = '01'
+ IF szBaseFileName = szFileName
+    szImpExFileName = szBaseFileName & '.MDL'
+ ELSE
+    szImpExFileName = szFileName
+ END
+ OPEN(ImpExFile,ReadWrite+DenyAll)
+ IF ~ERRORCODE()
+    !Read Program Name Length
+    ulFilePointer = 1
+    GET(ImpExFile,ulFilePointer,4)
+    ulFilePointer += 4
+    ulLength = _DOS:ulRecordSize
+    GET(ImpExFile,ulFilePointer,ulLength)
+    ulFilePointer += ulLength
+    memcpy(ADDRESS(sProgramName),ADDRESS(_DOS:Record),ulLength)
+    #SET(%ValueConstruct,UPPER(SUB(%ProjectTarget,1,INSTRING('.',%ProjectTarget)-1)))
+    IF sProgramName = SUB('%ValueConstruct',1,SIZE(sProgramName))
+       GET(ImpExFile,ulFilePointer,4)
+       IF _DOS:ulRecordSize = 2
+          ulFilePointer += 4
+          ulLength = _DOS:ulRecordSize
+          GET(ImpExFile,ulFilePointer,ulLength)
+          ulFilePointer += ulLength
+          memcpy(ADDRESS(sProcVersion),ADDRESS(_DOS:Record),ulLength)
+          IF sProcVersion >= '02'
+             GET(ImpExFile,ulFilePointer,4)
+             ulFilePointer += 4
+ #IF(%Identifier1)
+             ulLength = _DOS:ulRecordSize
+             GET(ImpExFile,ulFilePointer,ulLength)
+             ulFilePointer += ulLength
+             memcpy(ADDRESS(%Identifier1),ADDRESS(_DOS:Record),ulLength)
+ #ENDIF
+             GET(ImpExFile,ulFilePointer,4)
+             ulFilePointer += 4
+ #IF(%Identifier2)
+             ulLength = _DOS:ulRecordSize
+             GET(ImpExFile,ulFilePointer,ulLength)
+             ulFilePointer += ulLength
+             memcpy(ADDRESS(%Identifier2),ADDRESS(_DOS:Record),ulLength)
+ #ENDIF
+          END
+          IF sProcVersion >= '03'
+             GET(ImpExFile,ulFilePointer,4)
+             ulFilePointer += 4
+ #IF(%Identifier3)
+             ulLength = _DOS:ulRecordSize
+             GET(ImpExFile,ulFilePointer,ulLength)
+             ulFilePointer += ulLength
+             memcpy(ADDRESS(%Identifier3),ADDRESS(_DOS:Record),ulLength)
+ #ENDIF
+          END
+       END
+
+       IF bMode <> ACTION:IDENTIFY
+ #FOR(%DataElementList)
+   #FIX(%GlobalData,%DataElementList)
+          !Load %GlobalData ---------------------------
+   #IF(INSTRING('QUEUE',%GlobalDataStatement,1))
+          GET(ImpExFile,ulFilePointer,4)
+          IF ~ERRORCODE()
+             ulFilePointer += 4
+             memcpy(ADDRESS(lQueueRecords),ADDRESS(_DOS:Record),4)
+             FREE(%GlobalData)
+             LOOP lQueuePointer = 1 TO lQueueRecords
+               #INSERT(%LoadData,%GlobalData)
+               IF ~ERRORCODE()
+                  ADD(%GlobalData)
+               ELSE
+                  BREAK
+               END
+             END
+          END
+   #ELSE
+          #INSERT(%LoadData,%GlobalData)
+   #ENDIF
+ #ENDFOR
+       END
+       !Close the file
+       CLOSE(ImpExFile)
+       #EMBED(%AfterImportData,'Import Global Data After Import')
+    ELSE
+       MESSAGE(szImpExFileName & ' Invalid Format','Error - Load Aborted',ICON:Hand)
+       ReturnValue = Level:Notify
+    END
+ ELSE
+    IF ERRORCODE() <> NoFileErr
+       MESSAGE(szImpExFileName & ' [' & ERRORCODE() & '] ' & ERROR(),'Error - Load Aborted',ICON:Hand)
+    END
+    ReturnValue = Level:Notify
+ END
+
+#!
+#!
+#!
+#!
+#GROUP(%SaveData,%Element)
+_DOS:ulRecordSize = SIZE(%Element)
+memcpy(ADDRESS(_DOS:FileByte),ADDRESS(%Element),SIZE(%Element))
+ADD(ImpExFile,_DOS:ulRecordSize+4)
+#!
+#!
+#GROUP(%LoadData,%Element)
+GET(ImpExFile,ulFilePointer,4)
+IF ~ERRORCODE()
+   ulFilePointer += 4
+   ulLength = _DOS:ulRecordSize
+   GET(ImpExFile,ulFilePointer,ulLength)
+   IF ~ERRORCODE()
+      ulFilePointer += ulLength
+      memcpy(ADDRESS(%Element),ADDRESS(_DOS:Record),ulLength)
+   END
+END
+#!
+#!
+#!
+#!
+#!---------------------------------------------------------------------
+#PROCEDURE(WriteDefaultDataCreationRoutines,'Write Default Data Creation Routines')
+#PROTOTYPE('()')
+#!---------------------------------------------------------------------
+#BOXED('Default MakeHead Prompts'),AT(0,0),WHERE(%False),HIDE
+  #INSERT(%MakeHeadHiddenPrompts)
+#ENDBOXED
+#PREPARE
+  #INSERT (%MakeHead,'WriteDefaultDataCreationRoutines (Devuna)','Write Default Data Creation Routines')
+#ENDPREPARE
+#BOXED('Devuna')
+  #INSERT (%Head)
+  #DISPLAY ('This procedure creates a file that contains'),AT(10)
+  #DISPLAY ('routines that can be included in the'),AT(10)
+  #DISPLAY ('program to create a default dataset.'),AT(10)
+  #PROMPT  ('File Name:',SAVEDIALOG('Pick File','Source (*.clw)|*.clw|All (*.*)|*.*')),%SourceFileName,REQ,DEFAULT('default.clw')
+  #PROMPT  ('Data Element:',FROM(%GlobalData)),%DataElementList,MULTI('Select a Data Element...'),INLINE,UNIQUE
+#ENDBOXED
+#!
+#!
+#AT(%CustomGlobalDeclarations)
+  #FIX(%Driver,'ASCII')                           #!DOS driver required
+  #PROJECT(%DriverLIB)
+#ENDAT
+#!
+#!
+!----------------------------------------------------------------------
+%Procedure  PROCEDURE
+SourceFile   FILE,DRIVER('ASCII'),NAME('%SourceFileName'),CREATE,PRE(src)
+Record        RECORD
+                STRING(256)
+            . .
+!Group Indexes
+I               LONG,AUTO
+J               LONG,AUTO
+K               LONG,AUTO
+L               LONG,AUTO
+
+P               LONG,AUTO
+CurrentWho      CSTRING(256),AUTO
+CurrentField    ANY
+
+ CODE
+ CREATE(SourceFile)
+ DO Load:DefaultData
+ #FOR(%DataElementList)
+   #FIX(%GlobalData,%DataElementList)
+   #IF(INSTRING('QUEUE',%GlobalDataStatement,1) OR INSTRING('GROUP',%GlobalDataStatement,1))
+ DO Load:%GlobalData
+   #ENDIF
+ #ENDFOR
+ RETURN
+!------------------------------------------------
+Load:DefaultData    ROUTINE
+ OPEN(SourceFile)
+ src:record = '!------------------------------------------------'
+ APPEND(SourceFile)
+ src:record = 'Load:DefaultData    ROUTINE'
+ APPEND(SourceFile)
+#FOR(%DataElementList)
+  #FIX(%GlobalData,%DataElementList)
+  #!IF(INSTRING('QUEUE',%GlobalDataStatement,1) OR INSTRING('GROUP',%GlobalDataStatement,1))
+ src:record = ' DO Load:%GlobalData'
+ APPEND(SourceFile)
+  #!ENDIF
+#ENDFOR
+ src:record = ' EXIT<13,10>'
+ APPEND(SourceFile)
+ CLOSE(SourceFile)
+#!
+#DECLARE(%Level)
+#DECLARE(%GroupLevel)
+#DECLARE(%Counting)
+#DECLARE(%Indent)
+#!
+#DECLARE(%FieldLabel),MULTI
+#DECLARE(%FieldIsString,%FieldLabel)
+#DECLARE(%FieldIsCode,%FieldLabel)
+#DECLARE(%FldDimension1)
+#DECLARE(%FldDimension2)
+#DECLARE(%FldDimension3)
+#DECLARE(%FldDimension4)
+#DECLARE(%FieldDimCount)
+#DECLARE(%FldIndex1)
+#DECLARE(%FldIndex2)
+#DECLARE(%FldIndex3)
+#DECLARE(%FldIndex4)
+#!
+#DECLARE(%GroupLabel),MULTI
+#DECLARE(%GroupIsDimensioned,%GroupLabel)
+#DECLARE(%GroupDimension1,%GroupLabel)
+#DECLARE(%GroupDimension2,%GroupLabel)
+#DECLARE(%GroupDimension3,%GroupLabel)
+#DECLARE(%GroupDimension4,%GroupLabel)
+#DECLARE(%GroupEndCount),MULTI
+#DECLARE(%GrpIndex1)
+#DECLARE(%GrpIndex2)
+#DECLARE(%GrpIndex3)
+#DECLARE(%GrpIndex4)
+#DECLARE(%ValuePrefix)
+#FOR(%DataElementList)
+#!
+  #PURGE(%FieldLabel)
+  #PURGE(%GroupLabel)
+  #SET(%GroupLevel,1)
+  #ADD(%GroupLabel,%DataElementList,%GroupLevel)
+  #ADD(%GroupEndCount,0,%GroupLevel)
+  #SET(%Counting,0)
+  #SET(%ValueConstruct,0)
+  #FOR(%GlobalData)
+    #IF(%Counting)
+      #IF(%GlobalDataStatement = 'END')
+        #IF(%GroupLevel = 1)
+          #SET(%Counting,0)
+          #BREAK
+        #ELSE
+          #SET(%GroupLevel,%GroupLevel-1)
+        #ENDIF
+      #ELSE
+        #IF(INSTRING('GROUP',%GlobalDataStatement,1))
+          #SET(%GroupLevel,%GroupLevel+1)
+          #ADD(%GroupLabel,%GlobalData,%GroupLevel)
+          #IF(INSTRING('DIM(',%GlobalDataStatement,1))
+            #SET(%GroupIsDimensioned,1)
+            #SET(%GroupDimension1,EXTRACT(%GlobalDataStatement,'DIM',1))
+            #SET(%GroupDimension2,EXTRACT(%GlobalDataStatement,'DIM',2))
+            #IF(%GroupDimension2)
+              #SET(%GroupIsDimensioned,%GroupIsDimensioned+1)
+            #ENDIF
+            #SET(%GroupDimension3,EXTRACT(%GlobalDataStatement,'DIM',3))
+            #IF(%GroupDimension3)
+              #SET(%GroupIsDimensioned,%GroupIsDimensioned+1)
+            #ENDIF
+            #SET(%GroupDimension4,EXTRACT(%GlobalDataStatement,'DIM',4))
+            #IF(%GroupDimension4)
+              #SET(%GroupIsDimensioned,%GroupIsDimensioned+1)
+            #ENDIF
+          #ELSE
+            #SET(%GroupIsDimensioned,0)
+          #ENDIF
+          #ADD(%GroupEndCount,%GroupIsDimensioned,%GroupLevel)
+        #ELSE
+          #!
+          #!
+          #IF(INSTRING('DIM(',%GlobalDataStatement,1))
+            #SET(%FieldDimCount,1)
+            #SET(%FldDimension1,EXTRACT(%GlobalDataStatement,'DIM',1))
+            #SET(%FldDimension2,EXTRACT(%GlobalDataStatement,'DIM',2))
+            #IF(%FldDimension2)
+              #SET(%FieldDimCount,%FieldDimCount+1)
+            #ENDIF
+            #SET(%FldDimension3,EXTRACT(%GlobalDataStatement,'DIM',3))
+            #IF(%FldDimension3)
+              #SET(%FieldDimCount,%FieldDimCount+1)
+            #ENDIF
+            #SET(%FldDimension4,EXTRACT(%GlobalDataStatement,'DIM',4))
+            #IF(%FldDimension4)
+              #SET(%FieldDimCount,%FieldDimCount+1)
+            #ENDIF
+          #ELSE
+            #SET(%FieldDimCount,0)
+          #ENDIF
+          #!
+          #!
+          #SET(%ValueConstruct,'')
+          #LOOP,FOR(%Level,1,%GroupLevel)
+            #SELECT(%GroupLabel,%Level)
+            #IF(%Level = 1)
+              #SET(%ValueConstruct,%GroupLabel & '.')
+              #IF(%Level = %GroupLevel)
+                #INSERT(%GenerateFieldLabel)
+              #ENDIF
+            #ELSE
+              #CASE(%GroupIsDimensioned)
+              #OF(0)
+                #SET(%ValueConstruct,%ValueConstruct & %GroupLabel & '.')
+                #INSERT(%GenerateFieldLabel)
+              #OF(1)
+                #SET(%ValuePrefix,%ValueConstruct & %GroupLabel & '[')
+                #LOOP,FOR(%GrpIndex1,1,%GroupDimension1)
+                  #SET(%ValueConstruct,%ValuePrefix & %GrpIndex1 & '].')
+                  #INSERT(%GenerateFieldLabel)
+                #ENDLOOP
+              #OF(2)
+                #SET(%ValuePrefix,%ValueConstruct & %GroupLabel & '[')
+                #LOOP,FOR(%GrpIndex1,1,%GroupDimension1)
+                  #LOOP,FOR(%GrpIndex2,1,%GroupDimension2)
+                    #SET(%ValueConstruct,%ValuePrefix & %GrpIndex1 & ',' & %GrpIndex2 & '].')
+                    #INSERT(%GenerateFieldLabel)
+                  #ENDLOOP
+                #ENDLOOP
+              #OF(3)
+                #SET(%ValuePrefix,%ValueConstruct & %GroupLabel & '[')
+                #LOOP,FOR(%GrpIndex1,1,%GroupDimension1)
+                  #LOOP,FOR(%GrpIndex2,1,%GroupDimension2)
+                    #LOOP,FOR(%GrpIndex3,1,%GroupDimension3)
+                      #SET(%ValueConstruct,%ValuePrefix & %GrpIndex1 & ',' & %GrpIndex2 & ',' & %GrpIndex3 & '].')
+                      #INSERT(%GenerateFieldLabel)
+                    #ENDLOOP
+                  #ENDLOOP
+                #ENDLOOP
+              #OF(4)
+                #SET(%ValuePrefix,%ValueConstruct & %GroupLabel & '[')
+                #LOOP,FOR(%GrpIndex1,1,%GroupDimension1)
+                  #LOOP,FOR(%GrpIndex2,1,%GroupDimension2)
+                    #LOOP,FOR(%GrpIndex3,1,%GroupDimension3)
+                      #LOOP,FOR(%GrpIndex4,1,%GroupDimension4)
+                        #SET(%ValueConstruct,%ValuePrefix & %GrpIndex1 & ',' & %GrpIndex2 & ',' & %GrpIndex3 & ',' & %GrpIndex4 & '].')
+                        #INSERT(%GenerateFieldLabel)
+                      #ENDLOOP
+                    #ENDLOOP
+                  #ENDLOOP
+                #ENDLOOP
+              #ENDCASE
+            #ENDIF
+          #ENDLOOP
+          #!
+          #!
+        #ENDIF
+      #ENDIF
+    #ELSE
+      #IF(%GlobalData = %DataElementList)
+        #IF(INSTRING('QUEUE',%GlobalDataStatement,1) OR INSTRING('GROUP',%GlobalDataStatement,1))
+          #SET(%Counting,1)
+        #ELSE
+          #SET(%ValueConstruct,'')
+          #INSERT(%GenerateFieldLabel)
+          #BREAK
+        #END
+      #ENDIF
+    #ENDIF
+  #ENDFOR
+#!
+  #FIX(%GlobalData,%DataElementList)
+Load:%GlobalData    ROUTINE
+ OPEN(SourceFile)
+ src:record = '!------------------------------------------------'
+ APPEND(SourceFile)
+ src:record = 'Load:%GlobalData    ROUTINE'
+ APPEND(SourceFile)
+  #IF(INSTRING('QUEUE',%GlobalDataStatement,1))
+    #SET(%Indent,'      ')
+ src:record = ' FREE(%GlobalData)'
+ APPEND(SourceFile)
+ J = RECORDS(%GlobalData)
+ IF J
+    src:record = ' LOOP I = 1 TO ' & J
+    APPEND(SourceFile)
+    src:record = '   EXECUTE I'
+    APPEND(SourceFile)
+    LOOP I = 1 TO J
+      GET(%GlobalData,I)
+      src:record = '     BEGIN'
+      APPEND(SourceFile)
+    #FOR(%FieldLabel)
+      #IF(%FieldIsCode)
+         src:record = '%FieldLabel'
+      #ELSIF(%FieldIsString)
+         src:record = '%Indent %FieldLabel = ''' & %FieldLabel & ''''
+      #ELSE
+         src:record = '%Indent %FieldLabel = ' & %FieldLabel
+      #ENDIF
+      APPEND(SourceFile)
+    #ENDFOR
+      !end loop
+      src:record = '     END'
+      APPEND(SourceFile)
+    END
+    src:record = '   END'
+    APPEND(SourceFile)
+    src:record = '   ADD(%GlobalData)'
+    APPEND(SourceFile)
+    src:record = ' END'
+    APPEND(SourceFile)
+ END
+  #ELSIF(INSTRING('GROUP',%GlobalDataStatement,1))
+    #SET(%Indent,'')
+    #FOR(%FieldLabel)
+      #IF(%FieldIsCode)
+ src:record = '%FieldLabel'
+      #ELSIF(%FieldIsString)
+ src:record = '%Indent %FieldLabel = ''' & %FieldLabel & ''''
+      #ELSE
+ src:record = '%Indent %FieldLabel = ' & %FieldLabel
+      #ENDIF
+ APPEND(SourceFile)
+    #ENDFOR
+  #ELSE
+    #FOR(%FieldLabel)
+      #IF(%FieldIsCode)
+ src:record = '%FieldLabel'
+      #ELSIF(%FieldIsString)
+ src:record = '%Indent %FieldLabel = ''' & %FieldLabel & ''''
+      #ELSE
+ src:record = '%Indent %FieldLabel = ' & %FieldLabel
+      #ENDIF
+ APPEND(SourceFile)
+    #ENDFOR
+  #ENDIF
+ src:record = ' EXIT<13,10>'
+ APPEND(SourceFile)
+ CLOSE(SourceFile)
+!------------------------------------------------
+#ENDFOR
+#!
+#!
+#GROUP(%GenerateFieldLabel)
+  #CASE(%FieldDimCount)
+  #OF(0)
+    #ADD(%FieldLabel,%ValueConstruct & %GlobalData)
+    #IF(INSTRING('STRING',%GlobalDataStatement,1))
+      #SET(%FieldIsString,1)
+    #ELSE
+      #SET(%FieldIsString,0)
+    #ENDIF
+  #OF(1)
+    #LOOP,FOR(%FldIndex1,1,%FldDimension1)
+      #ADD(%FieldLabel,%ValueConstruct & %GlobalData & '[' & %FldIndex1 & ']')
+      #IF(INSTRING('STRING',%GlobalDataStatement,1))
+        #SET(%FieldIsString,1)
+      #ELSE
+        #SET(%FieldIsString,0)
+      #ENDIF
+    #ENDLOOP
+  #OF(2)
+    #LOOP,FOR(%FldIndex1,1,%FldDimension1)
+      #LOOP,FOR(%FldIndex2,1,%FldDimension2)
+        #ADD(%FieldLabel,%ValueConstruct & %GlobalData & '[' & %FldIndex1 & ',' & %FldIndex2 & ']')
+        #IF(INSTRING('STRING',%GlobalDataStatement,1))
+          #SET(%FieldIsString,1)
+        #ELSE
+          #SET(%FieldIsString,0)
+        #ENDIF
+      #ENDLOOP
+    #ENDLOOP
+  #OF(3)
+    #LOOP,FOR(%FldIndex1,1,%FldDimension1)
+      #LOOP,FOR(%FldIndex2,1,%FldDimension2)
+        #LOOP,FOR(%FldIndex3,1,%FldDimension3)
+          #ADD(%FieldLabel,%ValueConstruct & %GlobalData & '[' & %FldIndex1 & ',' & %FldIndex2 & ',' & %FldIndex3 & ']')
+          #IF(INSTRING('STRING',%GlobalDataStatement,1))
+            #SET(%FieldIsString,1)
+          #ELSE
+            #SET(%FieldIsString,0)
+          #ENDIF
+        #ENDLOOP
+      #ENDLOOP
+    #ENDLOOP
+  #OF(4)
+    #LOOP,FOR(%FldIndex1,1,%FldDimension1)
+      #LOOP,FOR(%FldIndex2,1,%FldDimension2)
+        #LOOP,FOR(%FldIndex3,1,%FldDimension3)
+          #LOOP,FOR(%FldIndex4,1,%FldDimension4)
+            #ADD(%FieldLabel,%ValueConstruct & %GlobalData & '[' & %FldIndex1 & ',' & %FldIndex2 & ',' & %FldIndex3 & ',' & %FldIndex4 & ']')
+            #IF(INSTRING('STRING',%GlobalDataStatement,1))
+              #SET(%FieldIsString,1)
+            #ELSE
+              #SET(%FieldIsString,0)
+            #ENDIF
+          #ENDLOOP
+        #ENDLOOP
+      #ENDLOOP
+    #ENDLOOP
+  #ENDCASE
+#!
+#!

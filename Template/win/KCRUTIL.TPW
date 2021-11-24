@@ -1,0 +1,829 @@
+#! ================================================================================================
+#!                           DEVUNA - Application Builder Class Templates
+#! ================================================================================================
+#! Author:  Randy Rogers (KCR) <rrogers@devuna.com>
+#! Notice:  Copyright (C) 2017, Devuna
+#!          Distributed under the MIT License (https://opensource.org/licenses/MIT)
+#! ================================================================================================
+#!    This file is part of Devuna-Common (https://github.com/Devuna/Devuna-Common)
+#!
+#!    Devuna-Common is free software: you can redistribute it and/or modify
+#!    it under the terms of the MIT License as published by
+#!    the Open Source Initiative.
+#!
+#!    Devuna-Common is distributed in the hope that it will be useful,
+#!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#!    MIT License for more details.
+#!
+#!    You should have received a copy of the MIT License
+#!    along with Devuna-Common.  If not, see <https://opensource.org/licenses/MIT>.
+#! ================================================================================================
+#!
+#UTILITY(DatabaseReport,'Create Database Documentation')
+#DECLARE(%SortedFile),MULTI,UNIQUE
+#DECLARE(%SortedRelation,%File),MULTI,UNIQUE
+#DECLARE(%OutputLine)
+#DECLARE(%SubStart)
+#DECLARE(%SubLength)
+#DECLARE(%FileMax)
+#DECLARE(%FieldDescriptionMax)
+#DECLARE(%FieldIDMax)
+#DECLARE(%FieldStatementMax)
+#DECLARE(%KeyIDMax)
+#DECLARE(%SubLengthMax)
+#DECLARE(%RelationMax)
+#DECLARE(%HLine)
+#DECLARE(%KLine)
+#DECLARE(%RLine)
+#DECLARE(%LineCount)
+#PROMPT('Subsystem Id',@s2),%SubsystemId
+#PROMPT('Printer Setup String',@S40),%SetupString,DEFAULT(CHR(27)&'(8U'&CHR(27)&'(s0p16.67h8.5v0s0b0T'&CHR(27)&'&a20L'&CHR(27)&'&l8D')
+#PROMPT('Document Fields',CHECK),%DocumentFields,DEFAULT(1)
+#PROMPT('Document Keys',CHECK),%DocumentKeys,DEFAULT(1)
+#PROMPT('Document Relations',CHECK),%DocumentRelations,DEFAULT(1)
+#!
+#CREATE(%Application & '.txt')
+#!
+#!---------------------------------------------------------------------
+#! Determine Maximum lengths for printing
+#!---------------------------------------------------------------------
+#SET(%FileMax,0)
+#SET(%FieldDescriptionMax,0)
+#SET(%FieldIDMax,0)
+#SET(%FieldStatementMax,14)
+#FOR(%File)
+  #IF(%SubsystemId)
+    #IF(UPPER(SUB(%File,1,2)) = UPPER(%SubsystemId))
+      #ADD(%SortedFile,%File)
+      #IF (LEN(CLIP(%File)) > %FileMax)
+        #SET(%FileMax,LEN(CLIP(%File)))
+      #ENDIF
+      #FOR(%Field)
+        #IF (LEN(CLIP(%FieldDescription)) > %FieldDescriptionMax)
+          #SET(%FieldDescriptionMax,LEN(CLIP(%FieldDescription)))
+        #ENDIF
+        #IF (LEN(CLIP(%FieldID)) > %FieldIDMax)
+          #SET(%FieldIDMax,LEN(CLIP(%FieldID)))
+        #ENDIF
+        #IF (LEN(CLIP(%FieldStatement)) > %FieldStatementMax)
+          #SET(%FieldStatementMax,LEN(CLIP(%FieldStatement)))
+        #ENDIF
+      #ENDFOR
+    #ENDIF
+  #ELSE
+     #ADD(%SortedFile,%File)
+     #IF (LEN(CLIP(%File)) > %FileMax)
+       #SET(%FileMax,LEN(CLIP(%File)))
+     #ENDIF
+     #FOR(%Field)
+       #IF (LEN(CLIP(%FieldDescription)) > %FieldDescriptionMax)
+         #SET(%FieldDescriptionMax,LEN(CLIP(%FieldDescription)))
+       #ENDIF
+       #IF (LEN(CLIP(%FieldID)) > %FieldIDMax)
+         #SET(%FieldIDMax,LEN(CLIP(%FieldID)))
+       #ENDIF
+       #IF (LEN(CLIP(%FieldStatement)) > %FieldStatementMax)
+         #SET(%FieldStatementMax,LEN(CLIP(%FieldStatement)))
+       #ENDIF
+     #ENDFOR
+  #ENDIF
+#ENDFOR
+%SetupString
+#!---------------------------------------------------------------------
+#! Document the Fields
+#!---------------------------------------------------------------------
+#!
+#IF(%DocumentFields)
+#INSERT(%DrawLine,%FieldDescriptionMax,%FieldIDMax,%FieldStatementMax)
+#ENDIF
+#!
+#FOR(%SortedFile)
+#IF(%DocumentFields)
+  #FIX(%File,%SortedFile)
+%(%File & CHR(9) & %FileDescription)
+#INSERT(%PageCheck)
+%NULL
+#INSERT(%PageCheck)
+#!
+%HLine
+#INSERT(%PageCheck)
+%('| Description' & ALL(' ',%FieldDescriptionMax-10) & '| Attribute Name' & ALL(' ',%FieldIDMax-13) & '| Attribute Type' & ALL(' ',%FieldStatementMax-13) & '|' )
+#INSERT(%PageCheck)
+%HLine
+#INSERT(%PageCheck)
+  #FOR(%Field)
+    #IF(%FieldStatement = 'END')
+%('| ' & ALL(' ',%FieldDescriptionMax+1) &'| ' & ALL(' ',%FieldIDMax+1) & '| ' & LEFT(%FieldStatement,%FieldStatementMax+1) & '|')
+#INSERT(%PageCheck)
+    #ELSE
+      #IF(%FieldDescription)
+%('| ' & LEFT(%FieldDescription,%FieldDescriptionMax+1) &'| ' & LEFT(%FieldID,%FieldIDMax+1) & '| ' & LEFT(%FieldStatement,%FieldStatementMax+1) & '|')
+      #ELSE
+%('| ' & ALL(' ',%FieldDescriptionMax+1) &'| ' & LEFT(%FieldID,%FieldIDMax+1) & '| ' & LEFT(%FieldStatement,%FieldStatementMax+1) & '|')
+      #ENDIF
+#INSERT(%PageCheck)
+    #ENDIF
+  #ENDFOR
+%HLine
+#INSERT(%PageCheck)
+%NULL
+#INSERT(%PageCheck)
+#ENDIF
+#IF(%DocumentKeys)
+#!---------------------------------------------------------------------
+#!Determine Maximum Lengths for Key Section
+#!---------------------------------------------------------------------
+  #SET(%KeyIDMax,0)
+  #SET(%SubLengthMax,0)
+  #FOR(%Key),WHERE(%KeyIndex = 'KEY')
+    #IF (LEN(CLIP(%KeyID)) > %KeyIDMax)
+      #SET(%KeyIDMax,LEN(CLIP(%KeyID)))
+    #ENDIF
+    #SET(%SubStart,INSTRING('KEY',%KeyStruct,1))
+    #SET(%SubLength,LEN(CLIP(%KeyStruct)))
+    #SET(%SubLength,%SubLength-%SubStart+1)
+    #IF (%SubLength > %SubLengthMax)
+      #SET(%SubLengthMax,%SubLength)
+    #ENDIF
+  #ENDFOR
+  #SET(%KLine,'+------+' & ALL('-',%KeyIDMax-5) & '+' & ALL('-',%SubLengthMax+2) & '+')
+#!---------------------------------------------------------------------
+#!Document Keys
+#!---------------------------------------------------------------------
++------+
+#INSERT(%PageCheck)
+| KEYS |
+#INSERT(%PageCheck)
+%Kline
+#INSERT(%PageCheck)
+#SET(%KLine,'+' & ALL('-',%KeyIDMax+2) & '+' & ALL('-',%SubLengthMax+2) & '+')
+  #FOR(%Key),WHERE(%KeyIndex = 'KEY')
+    #SET(%SubStart,INSTRING('KEY',%KeyStruct,1))
+    #SET(%SubLength,LEN(CLIP(%KeyStruct)))
+    #SET(%SubLength,%SubLength-%SubStart+1)
+    #SET(%OutputLine,SUB(%Keystruct,%SubStart,%SubLength))
+%('| ' & LEFT(%KeyID,%KeyIDMax+1) & '| ' & LEFT(%OutputLine,%SubLengthMax+1) & '|')
+#INSERT(%PageCheck)
+  #ENDFOR
+%Kline
+#INSERT(%PageCheck)
+%NULL
+#INSERT(%PageCheck)
+#ENDIF
+#IF(%DocumentRelations)
+#!---------------------------------------------------------------------
+#!Determine Maximum output line width for Relations
+#!---------------------------------------------------------------------
+  #SET(%RelationMax,0)
+  #FOR(%Relation),WHERE(%FileRelationType = '1:MANY')
+    #ADD(%SortedRelation,%Relation)
+    #SET(%OutputLine,'| RELATION,ONE:MANY')
+    #IF(%RelationConstraintDelete)
+      #SET(%OutputLine,%OutputLine & ',DELETE(' & %RelationConstraintDelete & ')')
+    #ENDIF
+    #IF(%RelationConstraintUpdate)
+      #SET(%OutputLine,%OutputLine & ',UPDATE(' & %RelationConstraintUpdate & ')')
+    #ENDIF
+    #IF(LEN(CLIP(%OutputLine)) > %RelationMax)
+       #SET(%RelationMax,LEN(CLIP(%OutputLine)))
+    #ENDIF
+    #FOR(%FileKeyField)
+      #SET(%OutputLine,'|' & ALL(' ',%FileMax+2) & '|     FIELD(' & %FileKeyField & ',' & %FileKeyFieldLink & ')')
+      #IF(LEN(CLIP(%OutputLine)) > %RelationMax)
+         #SET(%RelationMax,LEN(CLIP(%OutputLine)))
+      #ENDIF
+    #ENDFOR
+    #FOR(%RelationKeyField)
+      #SET(%OutputLine,'|' & ALL(' ',%FileMax+2) & '|     FIELD(' & %RelationKeyField & ',' & %RelationKeyFieldLink & ')')
+      #IF(LEN(CLIP(%OutputLine)) > %RelationMax)
+         #SET(%RelationMax,LEN(CLIP(%OutputLine)))
+      #ENDIF
+    #ENDFOR
+  #ENDFOR
+#!---------------------------------------------------------------------
+#! Document the Relations
+#!---------------------------------------------------------------------
+  #FOR(%SortedRelation)
+    #FIX(%Relation,%SortedRelation)
+    #SET(%OutputLine,'RELATION,ONE:MANY')
+    #IF(%RelationConstraintDelete)
+      #SET(%OutputLine,%OutputLine & ',DELETE(' & %RelationConstraintDelete & ')')
+    #ENDIF
+    #IF(%RelationConstraintUpdate)
+      #SET(%OutputLine,%OutputLine & ',UPDATE(' & %RelationConstraintUpdate & ')')
+    #ENDIF
+    #IF(%LineCount > 70)
+%(CHR(12))
+      #SET(%LineCount,0)
+    #ENDIF
+%('+' & ALL('-',LEN(CLIP(%OutputLine))+2) & '+')
+#INSERT(%PageCheck)
+%('| ' & CLIP(%OutputLine) & ' |')
+#INSERT(%PageCheck)
+#SET(%RLine,'+' & ALL('-',%FileMax+2) & '+' & ALL('-',LEN(CLIP(%OutputLine))-(%FileMax+1)) & '+')
+#IF(%RelationMax > LEN(CLIP(%Rline))+1)
+  #SET(%RLine,%RLine & ALL('-',%RelationMax-LEN(CLIP(%Rline))+1) & '+')
+#ENDIF
+%RLine
+#INSERT(%PageCheck)
+    #IF(%FileMax > LEN(CLIP(%File)))
+      #SET(%OutputLine,'| ' & %File & ALL(' ',%FileMax - LEN(CLIP(%File))) & ' | FILE(' & %FileKey & ')')
+    #ELSE
+      #SET(%OutputLine,'| ' & %File & ' | FILE(' & %FileKey & ')')
+    #ENDIF
+    #SET(%OutputLine,%OutputLine & ALL(' ',%RelationMax-LEN(CLIP(%OutputLine))) & ' |')
+%OutputLine
+#INSERT(%PageCheck)
+    #IF(%FileMax > LEN(CLIP(%Relation)))
+      #SET(%OutputLine,'| ' & %Relation & ALL(' ',%FileMax - LEN(CLIP(%Relation))) & ' | RELATED_FILE(' & %RelationKey & ')')
+    #ELSE
+      #SET(%OutputLine,'| ' & %Relation & ' | RELATED_FILE(' & %RelationKey & ')')
+    #ENDIF
+    #SET(%OutputLine,%OutputLine & ALL(' ',%RelationMax-LEN(CLIP(%OutputLine))) & ' |')
+%OutputLine
+#INSERT(%PageCheck)
+    #SET(%OutputLine,'|' & ALL(' ',%FileMax+2) & '|   FILE_TO_RELATED_KEY')
+    #SET(%OutputLine,%OutputLine & ALL(' ',%RelationMax-LEN(CLIP(%OutputLine))) & ' |')
+%OutputLine
+#INSERT(%PageCheck)
+    #FOR(%FileKeyField)
+      #SET(%OutputLine,'|' & ALL(' ',%FileMax+2) & '|     FIELD(' & %FileKeyField & ',' & %FileKeyFieldLink & ')')
+      #IF(%RelationMax > LEN(CLIP(%OutputLine)))
+        #SET(%OutputLine,%OutputLine & ALL(' ',%RelationMax-LEN(CLIP(%OutputLine))) & ' |')
+      #ELSE
+        #SET(%OutputLine,%OutputLine & ' |')
+      #ENDIF
+%OutputLine
+#INSERT(%PageCheck)
+    #ENDFOR
+    #SET(%OutputLine,'|' & ALL(' ',%FileMax+2) & '|   RELATED_TO_FILE_KEY')
+    #SET(%OutputLine,%OutputLine & ALL(' ',%RelationMax-LEN(CLIP(%OutputLine))) & ' |')
+%OutputLine
+#INSERT(%PageCheck)
+    #FOR(%RelationKeyField)
+      #SET(%OutputLine,'|' & ALL(' ',%FileMax+2) & '|     FIELD(' & %RelationKeyField & ',' & %RelationKeyFieldLink & ')')
+      #IF(%RelationMax > LEN(CLIP(%OutputLine)))
+        #SET(%OutputLine,%OutputLine & ALL(' ',%RelationMax-LEN(CLIP(%OutputLine))) & ' |')
+      #ELSE
+        #SET(%OutputLine,%OutputLine & ' |')
+      #ENDIF
+%OutputLine
+#INSERT(%PageCheck)
+#SET(%RLine,'+' & ALL('-',%FileMax+2) & '+' & ALL('-',%RelationMax-(%FileMax+3)) & '+')
+%RLine
+#INSERT(%PageCheck)
+%NULL
+#INSERT(%PageCheck)
+    #ENDFOR
+  #ENDFOR
+#IF(%LineCount <> 0)
+%(CHR(12))
+  #SET(%LineCount,0)
+#ENDIF
+#ENDIF
+#ENDFOR
+#!
+#CLOSE
+#!---------------------------------------------------------------------
+#GROUP(%Drawline,%l1,%l2,%l3)
+#SET(%HLine,'+' & ALL('-',%l1+2) & '+' & ALL('-',%l2+2) & '+' & ALL('-',%l3+2) & '+')
+#!---------------------------------------------------------------------
+#GROUP(%PageCheck)
+#SET(%LineCount,%LineCount+1)
+#IF(%LineCount > 80)
+%(CHR(12))
+  #SET(%LineCount,0)
+#ENDIF
+#!---------------------------------------------------------------------
+#UTILITY(ProcedureList,'Create Application Procedure List')
+#!---------------------------------------------------------------------
+#DECLARE(%SortedProcedureName),MULTI,UNIQUE
+#FOR(%Procedure)
+  #ADD(%SortedProcedureName,%Procedure)
+#ENDFOR
+#CREATE(%Application & '.lst')
+!%Application
+#FOR(%SortedProcedureName)
+%SortedProcedureName
+#ENDFOR
+#CLOSE
+#!
+#!---------------------------------------------------------------------
+#UTILITY(ImportHierarchy,'Create Import Hierarchy List')
+#!---------------------------------------------------------------------
+#DECLARE(%SortedFile),MULTI,UNIQUE
+#DECLARE(%ThisLevel)
+#DECLARE(%Level)
+#SET(%Level,1)
+#DECLARE(%Count)
+#SET(%Count,0)
+#!
+#DECLARE(%FileCount)
+#SET(%FileCount,0)
+#FOR(%File)
+  #ADD(%SortedFile,%File)
+  #SET(%FileCount,%FileCount+1)
+#ENDFOR
+#!
+#DECLARE(%FileCount2)
+#SET(%FileCount2,0)
+#!
+#DECLARE(%ProcessedFile),MULTI,UNIQUE
+#DECLARE(%ThisLevelProcessedFile),MULTI,UNIQUE
+#!
+#CREATE('import.lst')
+!- Level %Level --------------------------------------
+#!
+#FOR(%SortedFile)
+  #SET(%Count,0)
+  #FIX(%File,%SortedFile)
+  #FOR(%Relation),WHERE(%FileRelationType = 'MANY:1')
+    #SET(%Count,%Count+1)
+  #ENDFOR
+  #IF(%Count = 0)
+    #ADD(%ProcessedFile,%File)
+    #SET(%FileCount2,%FileCount2+1)
+   %File
+  #ENDIF
+#ENDFOR
+#!
+#LOOP,UNTIL(%FileCount2 = %FileCount)
+  #SET(%Level,%Level+1)
+  #PURGE(%ThisLevelProcessedFile)
+
+!- Level %Level --------------------------------------
+  #FOR(%SortedFile)
+    #FIX(%ProcessedFile,%SortedFile)
+    #IF(%ProcessedFile)
+      #CYCLE
+    #ELSE
+      #FIX(%File,%SortedFile)
+      #SET(%ThisLevel,0)
+      #FOR(%Relation),WHERE(%FileRelationType = 'MANY:1')
+        #FIX(%ProcessedFile,%Relation)
+        #IF(%ProcessedFile)
+          #SET(%ThisLevel,1)
+        #ELSE
+          #SET(%ThisLevel,0)
+          #BREAK
+        #ENDIF
+      #ENDFOR
+      #IF(%ThisLevel)
+        #ADD(%ThisLevelProcessedFile,%File)
+   %File
+      #ENDIF
+    #ENDIF
+  #ENDFOR
+  #FOR(%ThisLevelProcessedFile)
+    #ADD(%ProcessedFile,%ThisLevelProcessedFile)
+    #SET(%FileCount2,%FileCount2+1)
+  #ENDFOR
+#ENDLOOP
+#CLOSE
+#!---------------------------------------------------------------------
+#UTILITY(ImportLinkFieldCheck,'Check Database Link Fields')
+#!---------------------------------------------------------------------
+#CREATE('badlink.lst')
+#FOR(%File),WHERE(~INSTRING('NOPOPULATE',%FileQuickOptions,1))
+  #FOR(%Key),WHERE(%KeyPrimary)
+    #FOR(%KeyField)
+      #FIX(%Field,%KeyField)
+      #IF(~INSTRING('NOPOPULATE',%FieldQuickOptions,1))
+%20File %Field
+      #ENDIF
+    #ENDFOR
+  #ENDFOR
+  #FOR(%Relation),WHERE(%FileRelationType = 'MANY:1')
+    #FOR(%RelationKeyField),WHERE(%RelationKeyFieldLink)
+      #FIX(%Field,%RelationKeyFieldLink)
+      #IF(~INSTRING('NOPOPULATE',%FieldQuickOptions,1))
+%20File %Field
+      #ENDIF
+    #ENDFOR
+  #ENDFOR
+#ENDFOR
+#CLOSE
+#!
+#!
+#!
+#!
+#!---------------------------------------------------------------------
+#UTILITY(AutoIncCheck,'Check Autoinc Names')
+#!---------------------------------------------------------------------
+#CREATE('badname.lst')
+#FOR(%File),WHERE(%FileDriver = 'Scalable')
+  #FIX(%Key,%FilePrimaryKey)
+  #FIX(%Field,%KeyAuto)
+  #IF(UPPER(%FieldName) <> ''''&UPPER(%FieldID)&' | WRITABLE''')
+%20File %FieldID %FieldName
+  #ENDIF
+#ENDFOR
+#CLOSE
+#!
+#!
+#!
+#!
+#UTILITY(SupportABC,'Complete KCR installation for ABC')
+#INSERT(%SupportABCUtilityTemplate)
+#!
+#!
+#!
+#!
+#!---------------------------------------------------------------------
+#UTILITY(TemplateCheck,'Check for KCR_SubClassWindow(KCR) Template')
+#!---------------------------------------------------------------------
+#FOR(%Procedure)
+  #FOR(%ActiveTemplate),WHERE(%ActiveTemplate = 'KCR_SubClassWindow(KCR)')
+    #ERROR(%Procedure)
+  #ENDFOR
+#ENDFOR
+#!--------------------------------------------------------------------
+#!
+#!
+#!
+#!
+#!--------------------------------------------------------------------
+#UTILITY (FindOrphaned, '2001.01.12: Find Orphaned #EMBEDS in application')
+#!--------------------------------------------------------------------
+#BOXED('')
+  #DISPLAY('')
+  #DISPLAY('Find all orphaned embed points in source')
+  #DISPLAY('')
+  #PROMPT('Output File:',@S40),%OutputFile,REQ,DEFAULT(CLIP(UPPER(%Application)) & '.ORF')
+  #DISPLAY('')
+  #DISPLAY('From: "Eric Griset" <egriset@club-internet.fr>')
+  #DISPLAY('Newsgroups: TopSpeed.Topic.Templates')
+  #DISPLAY('')
+#ENDBOXED
+#!--------------------------------------------------------------------
+#DECLARE(%TXAFile)
+#DECLARE(%TXARecord)
+#SET(%TXAFile,(UPPER(%Application) & '.B2$'))
+#!--------------------------------------------------------------------
+#DECLARE(%Sections),MULTI
+#DECLARE(%InEmbed)
+#DECLARE(%InstancesLevel)
+#DECLARE(%Embeds),MULTI
+#DECLARE(%ControlsWithEmbeds,%Embeds),UNIQUE
+#DECLARE(%ControlsWithEmbeds2,%ControlsWithEmbeds),UNIQUE
+#DECLARE(%ControlsWithEmbeds3,%ControlsWithEmbeds2),UNIQUE
+#DECLARE(%ProcNamePrinted)
+#DECLARE(%EmbedNamePrinted)
+#DECLARE(%FoundOrphans)
+#!
+#DECLARE(%PosibleEmbed)
+#DECLARE(%PosibleEmbed1)
+#DECLARE(%PosibleEmbed2)
+#DECLARE(%PosibleEmbed3)
+#!
+#MESSAGE ('Find orphaned embed points', 0)
+#MESSAGE ('Application: ' & %Application, 1)
+#SET(%FoundOrphans,%False)
+#CREATE(%OutputFile)
+#!
+
+Orphaned #EMBED found Report
+======================================
+(PROGRAMMER INTERNAL USE ONLY)
+======================================
+======================================
+
+Application: %Application
+#FOR (%Procedure)
+  #MESSAGE ('Procedure: ' & %Procedure, 2)
+  #FREE(%Sections)
+  #CREATE(%TXAFile)
+  #EXPORT(%Procedure)
+  #CLOSE(%TXAFile)
+  #OPEN(%TXAFile),READ
+  #LOOP
+    #READ(%TXARecord)
+    #CASE(%TXARecord)
+    #OF('[END]')
+      #IF(ITEMS(%Sections))
+        #DELETE(%Sections,ITEMS(%Sections))
+      #ELSE
+ There are more [END]s than expected !
+      #CYCLE
+      #ENDIF
+      #SET(%InEmbed,%False)
+      #SET(%InstancesLevel,0)
+      #FOR(%Sections)
+        #IF(%Sections = '[EMBED]')
+          #SET(%InEmbed,%True)
+        #ENDIF
+        #IF(%Sections = '[INSTANCES]')
+          #SET(%InstancesLevel,(%InstancesLevel + 1))
+        #ENDIF
+      #ENDFOR
+    #OF('[PROGRAM]')
+      #ADD(%Sections,%TXARecord)
+    #OF('[MODULE]')
+      #ADD(%Sections,%TXARecord)
+    #OF('[EMBED]')
+      #ADD(%Sections,%TXARecord)
+      #SET(%InEmbed,%True)
+    #OF('[INSTANCES]')
+      #ADD(%Sections,%TXARecord)
+      #SET(%InstancesLevel,(%InstancesLevel + 1))
+    #OF('[DEFINITION]')
+      #ADD(%Sections,%TXARecord)
+    #ELSE
+      #IF(%InEmbed)
+        #IF(SUB(%TXARecord,1,7) = 'EMBED %')
+          #SET(%PosibleEmbed,SUB(%TXARecord,7,LEN(CLIP(%TXARecord)) - 6))
+          #ADD(%Embeds,%PosibleEmbed)
+          #MESSAGE (%Embeds, 3)
+        #ENDIF
+        #IF(SUB(%TXARecord,1,7) = 'WHEN ''?' AND %InstancesLevel = 1)
+          #SET(%PosibleEmbed1,SUB(%TXARecord,7,LEN(CLIP(%TXARecord)) - 7))
+          #ADD(%ControlsWithEmbeds,%PosibleEmbed1)
+#!        #MESSAGE (%Embeds & ' : ' & %ControlsWithEmbeds, 3)
+        #ENDIF
+        #IF(SUB(%TXARecord,1,6) = 'WHEN ''')
+          #IF(%InstancesLevel = 2)
+            #SET(%PosibleEmbed2,(SUB(%TXARecord,7,LEN(CLIP(%TXARecord)) - 7)))
+            #IF(%ControlsWithEmbeds <> '')
+              #ADD(%ControlsWithEmbeds2,%PosibleEmbed2)
+#!          #MESSAGE (%Embeds & ' : ' & %ControlsWithEmbeds & ' : ' & %ControlsWithEmbeds2, 3)
+            #ENDIF
+          #ENDIF
+          #IF(%InstancesLevel = 3)
+            #SET(%PosibleEmbed3,(SUB(%TXARecord,7,LEN(CLIP(%TXARecord)) - 7)))
+            #IF(%ControlsWithEmbeds2 <> '')
+              #ADD(%ControlsWithEmbeds3,%PosibleEmbed3)
+#!          #MESSAGE (%Embeds & ' : ' & %ControlsWithEmbeds & ' : ' & %ControlsWithEmbeds2 & ' : ' & %ControlsWithEmbeds3, 3)
+            #ENDIF
+          #ENDIF
+        #ENDIF
+      #ENDIF
+    #ENDCASE
+    #IF(%TXARecord = %EOF)
+      #BREAK
+    #ENDIF
+  #ENDLOOP
+#!
+  #IF(ITEMS(%Sections))
+  There are less [END]s than expected !
+  #ENDIF
+  #CLOSE(%TXAFile),READ
+  #REMOVE(%TXAFile)
+  #!
+  #MESSAGE ('Embeds were found', 3)
+  #SET(%ProcNamePrinted,%False)
+  #SET(%EmbedNamePrinted,%False)
+  #FOR(%Embeds)
+    #FOR(%ControlsWithEmbeds)
+      #FIX(%Control,%ControlsWithEmbeds)
+      #IF(~%Control)
+        #IF(~%ProcNamePrinted)
+          #SET(%ProcNamePrinted,%True)
+          #SET(%FoundOrphans,%True)
+
+  Found with orphaned embeds: %Procedure
+  --------------------------
+        #ENDIF
+        #IF(~%EmbedNamePrinted)
+          #SET(%EmbedNamePrinted,%True)
+  Source entry point  : %Embeds
+        #ENDIF
+    Control missing   : %ControlsWithEmbeds
+        #FOR(%ControlsWithEmbeds2),WHERE(%ControlsWithEmbeds)
+      First Instance  : %ControlsWithEmbeds2
+          #FOR(%ControlsWithEmbeds3),WHERE(%ControlsWithEmbeds2)
+        Other Instance: %ControlsWithEmbeds3
+          #ENDFOR
+        #ENDFOR
+      #ENDIF
+    #ENDFOR
+    #FREE(%ControlsWithEmbeds)
+  #ENDFOR
+  #FREE(%Embeds)
+  #FREE(%Sections)
+#ENDFOR
+#!
+#IF(~%FoundOrphans)
+
+   No orphaned embeds found in source.
+
+#ELSE
+  #ERROR('Found Orphaned Embed''s.')
+#ENDIF
+#CLOSE(%OutputFile)
+#!--------------------------------------------------------------------
+#GROUP(%FindOrphanedEnd)
+#!--------------------------------------------------------------------
+#UTILITY (AddClass, '2011.03.16: Add a Class')
+
+#ADD (%pClassName,'KsExcel')
+#SET (%pClassCategory,'ABC')
+#IF (FILEEXISTS('C:\Program Files\Softvelocity\Clarion7\Accessory\libsrc\win\ksexcel.inc'))
+  #SET (%pClassIncFile,'C:\Program Files\Softvelocity\Clarion7\Accessory\libsrc\win\ksexcel.inc')
+#ELSE
+  #SET (%pClassIncFile,'C:\Program Files (x86)\SoftVelocity\Clarion7\accessory\libsrc\win\ksexcel.inc')
+#ENDIF
+#SET (%pClassParent,'')
+#!ADD (%pClassImplements,'')
+#ADD (%pClassMethod,'open')
+#ADD (%pClassMethodPrototype,'*cstring szFilename')
+#SET (%pClassMethodFinal,%FALSE)
+#SET (%pClassMethodPrivate,%FALSE)
+#SET (%pClassMethodVirtual,%FALSE)
+#SET (%pClassMethodProtected,%FALSE)
+#SET (%pClassMethodProcAttribute,%FALSE)
+#SET (%pClassMethodInherited,%FALSE)
+#SET (%pClassMethodDefined,%TRUE)
+#SET (%pClassMethodReturnType,'long')
+#SET (%pClassMethodParentCall,%TRUE)
+#SET (%pClassMethodDll,%FALSE)
+#SET (%pClassMethodExtName,'')
+#SET (%pClassMethodCallConv,'')
+#SET (%pClassMethodExtends,%FALSE)
+#!
+#!
+#!
+#!
+#! ----------------------------------------------------------------
+#UTILITY(KCR_DumpClasses,'Dump Classes')
+#! ----------------------------------------------------------------
+#PREPARE
+#!
+#DECLARE(%ClassNameList),MULTI
+#FOR(%pClassName)
+  #ADD(%ClassNameList,%pClassName)
+#ENDFOR
+#!
+#DECLARE(%InterfaceNameList),MULTI
+#FOR(%pInterface)
+  #ADD(%InterfaceNameList,%pInterface)
+#ENDFOR
+#!
+#DECLARE(%ProcedureNameList),MULTI
+#FOR(%pProcedure)
+  #ADD(%ProcedureNameList,%pProcedure)
+#ENDFOR
+#!
+#ENDPREPARE
+#PROMPT('Output File: ', SAVEDIALOG( 'Select Output File', 'TXT Files|*.TXT' ) ),%OutputFile,DEFAULT('ClassDmp.txt')
+#DISPLAY('')
+#PROMPT('Classes',CHECK),%DumpClasses,DEFAULT(%TRUE)
+#ENABLE(%DumpClasses)
+  #PROMPT('All Classes',CHECK),%AllClasses,DEFAULT(%TRUE),AT(10)
+  #ENABLE(~%AllClasses)
+    #PROMPT('Specific Class:',FROM(%ClassNameList)),%SpecificClass
+  #ENDENABLE
+#ENDENABLE
+#!
+#DISPLAY('')
+#PROMPT('Interfaces',CHECK),%DumpInterfaces,DEFAULT(%TRUE)
+#ENABLE(%DumpInterfaces)
+  #PROMPT('All Interfaces',CHECK),%AllInterfaces,DEFAULT(%TRUE),AT(10)
+  #ENABLE(~%AllInterfaces)
+    #PROMPT('Specific Interface:',FROM(%InterfaceNameList)),%SpecificInterface
+  #ENDENABLE
+#ENDENABLE
+#!
+#DISPLAY('')
+#PROMPT('Procedures',CHECK),%DumpProcedures,DEFAULT(%TRUE)
+#ENABLE(%DumpProcedures)
+  #PROMPT('All Procedures',CHECK),%AllProcedures,DEFAULT(%TRUE),AT(10)
+  #ENABLE(~%AllProcedures)
+    #PROMPT('Specific Procedure:',FROM(%ProcedureNameList)),%SpecificProcedure
+  #ENDENABLE
+#ENDENABLE
+
+#CREATE(%OutputFile)
+#IF(%DumpClasses)
+Classes------------------------------------------
+
+#FOR(%pClassName)
+#IF(%SpecificClass AND %pClassName <> %SpecificClass)
+  #CYCLE
+#ENDIF
+#FIX(%pClassName,%pClassName)
+=================================================
+ClassName = %pClassName
+    ClassCategory = %pClassCategory
+    ClassIncFile = %pClassIncFile
+    ClassParent = %pClassParent
+
+#SUSPEND
+    #?Implements-----------------------------------
+
+  #FOR(%pClassImplements)
+        ClassImplements = %pClassImplements
+  #ENDFOR
+#RESUME
+
+#SUSPEND
+    #?Methods--------------------------------------
+
+  #FOR(%pClassMethod)
+  #FIX(%pClassMethod,%pClassMethod)
+    ClassMethod = %pClassMethod
+        Prototypes-------------------------------
+
+     #FOR(%pClassMethodPrototype)
+     #FIX(%pClassMethodPrototype,%pClassMethodPrototype)
+        ClassMethodPrototype = %pClassMethodPrototype
+            ClassMethodFinal = %pClassMethodFinal
+            ClassMethodPrivate = %pClassMethodPrivate
+            ClassMethodVirtual = %pClassMethodVirtual
+            ClassMethodProtected = %pClassMethodProtected
+            ClassMethodProcAttribute = %pClassMethodProcAttribute
+            ClassMethodInherited = %pClassMethodInherited
+            ClassMethodDefined = %pClassMethodDefined
+            ClassMethodReturnType = %pClassMethodReturnType
+            ClassMethodParentCall = %pClassMethodParentCall
+            ClassMethodDll = %pClassMethodDll
+            ClassMethodExtName = %pClassMethodExtName
+            ClassMethodCallConv = %pClassMethodCallConv
+            ClassMethodExtends = %pClassMethodExtends
+
+     #ENDFOR
+  #ENDFOR
+#RESUME
+
+#SUSPEND
+    #?Properties-----------------------------------
+
+  #FOR(%pClassProperty)
+  #FIX(%pClassProperty,%pClassProperty)
+    ClassProperty = %pClassProperty
+        ClassPropertyPrototype = %pClassPropertyPrototype
+        ClassPropertyPrivate = %pClassPropertyPrivate
+        ClassPropertyProtected = %pClassPropertyProtected
+        ClassPropertyInherited = %pClassPropertyInherited
+        ClassPropertyDefined = %pClassPropertyDefined
+
+  #ENDFOR
+#RESUME
+
+#ENDFOR
+#ENDIF
+
+#IF(%DumpInterfaces)
+#SUSPEND
+#?Interfaces---------------------------------------
+#FOR(%pInterface)
+#IF(%SpecificInterface AND %pInterface <> %SpecificInterface)
+  #CYCLE
+#ENDIF
+#FIX(%pInterface,%pInterface)
+Interface = %pInterface
+    InterfaceCategory = %pInterfaceCategory
+    InterfaceIncFile = %pInterfaceIncFile
+    InterfaceParent = %pInterfaceParent
+    Methods--------------------------------------
+
+  #FOR(%pInterfaceMethod)
+  #FIX(%pInterfaceMethod,%pInterfaceMethod)
+    InterfaceMethod = %pInterfaceMethod
+        Prototypes-------------------------------
+
+     #FOR(%pInterfaceMethodPrototype)
+        InterfaceMethodPrototype = %pInterfaceMethodPrototype
+            InterfaceMethodProcAttribute = %pInterfaceMethodProcAttribute
+            InterfaceMethodInherited = %pInterfaceMethodInherited
+            InterfaceMethodDefined = %pInterfaceMethodDefined
+            InterfaceMethodReturnType = %pInterfaceMethodReturnType
+            InterfaceMethodDll = %pInterfaceMethodDll
+            InterfaceMethodExtName = %pInterfaceMethodExtName
+            InterfaceMethodCallConv = %pInterfaceMethodCallConv
+
+     #ENDFOR
+  #ENDFOR
+#ENDFOR
+#RESUME
+#ENDIF
+
+#IF(%DumpProcedures)
+#SUSPEND
+#?Procedures---------------------------------------
+
+#FOR(%pProcedure)
+#IF(%SpecificProcedure AND %pProcedure <> %SpecificProcedure)
+  #CYCLE
+#ENDIF
+#FIX(%pProcedure,%pProcedure)
+Procedure = %pProcedure
+ProcedureCategory = %pProcedureCategory
+ProcedureIncFile = %pProcedureIncFile
+    Prototypes-----------------------------------
+
+  #FOR(%pProcedurePrototype)
+  #FIX(%pProcedurePrototype,%pProcedurePrototype)
+    ProcedurePrototype = %pProcedurePrototype
+        ProcedureDll = %pProcedureDll
+        ProcedureExtName = %pProcedureExtName
+        ProcedureCallConv = %pProcedureCallConv
+
+  #ENDFOR
+#ENDFOR
+#RESUME
+#ENDIF
+
+#CLOSE(%OutputFile)
+#!
+#!

@@ -1,0 +1,47 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{319B6C77-8A17-4691-9966-FD4890D430CE}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">Win32</Platform>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Autoshutdown</RootNamespace>
+    <AssemblyName>Autoshutdown</AssemblyName>
+    <OutputName>Autoshutdown</OutputName>
+    <CWOutputType>Exe</CWOutputType>
+    <DefineConstants>WinEventLinkMode=&gt;1%3bWinEventDLLMode=&gt;0%3bStringTheoryLinkMode=&gt;1%3bStringTheoryDllMode=&gt;0%3bMD5=&gt;0%3b_ABCDllMode_=&gt;0%3b_ABCLinkMode_=&gt;1</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <vid>full</vid>
+    <check_stack>True</check_stack>
+    <check_index>True</check_index>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <vid>off</vid>
+    <check_stack>False</check_stack>
+    <check_index>False</check_index>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Autoshutdown.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="Autoshutdown001.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="AUTOSHUTDOWN_BC.CLW">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="Autoshutdown_BC0.CLW">
+      <Generated>true</Generated>
+    </Compile>
+    <None Include="zlibwapi.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Generated>True</Generated>
+      <ProjectGenerated>True</ProjectGenerated>
+    </None>
+  </ItemGroup>
+  <Import Project="$(ClarionBinPath)\SoftVelocity.Build.Clarion.targets" />
+</Project>

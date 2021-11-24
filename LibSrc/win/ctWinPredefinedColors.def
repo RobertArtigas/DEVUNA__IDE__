@@ -1,0 +1,39 @@
+!region Notices
+! ================================================================================
+! Notice : Copyright (C) 2018, Devuna
+!          Distributed under the MIT License (https://opensource.org/licenses/MIT)
+!
+!    This file is part of Devuna-ClassLibrary (https://github.com/Devuna/Devuna-ClassLibrary)
+!
+!    Devuna-ClassLibrary is free software: you can redistribute it and/or modify
+!    it under the terms of the MIT License as published by
+!    the Open Source Initiative.
+!
+!    Devuna-ClassLibrary is distributed in the hope that it will be useful,
+!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!    MIT License for more details.
+!
+!    You should have received a copy of the MIT License
+!    along with Devuna-ClassLibrary.  If not, see <https://opensource.org/licenses/MIT>.
+! ================================================================================
+!endregion Notices
+!
+!ctWinPredefinedColors - Windows Predefined Colors Class
+!
+!Author:        Randy Rogers <rrogers@devuna.com>
+!Copyright:     ©2018 Devuna
+!Creation Date: 2018.04.20
+!Module:        ctWinPredefinedColors.def
+!Revisions:
+!==========
+!2018.04.20     initial version
+!================================================================
+
+!================================================================
+! Type Declarations
+!================================================================
+ctWinPredefinedColorsQueueType   QUEUE,TYPE
+ColorValue                          LONG
+ColorName                           CSTRING(21)
+                                 END

@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+# Clarion 2.1.0.2447
+Project("{12B76EC0-1D7B-4FA7-A7D0-C524288B48A1}") = "Autoshutdown", "Autoshutdown.cwproj", "{319B6C77-8A17-4691-9966-FD4890D430CE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{{2150E333-8FDC-42A3-9474-1A3956D46DE8}}"
+	ProjectSection(SolutionItems) = postProject
+		Autoshutdown.app = Autoshutdown.app
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{319B6C77-8A17-4691-9966-FD4890D430CE}.Debug|Win32.Build.0 = Debug|Win32
+		{319B6C77-8A17-4691-9966-FD4890D430CE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{319B6C77-8A17-4691-9966-FD4890D430CE}.Release|Win32.Build.0 = Release|Win32
+		{319B6C77-8A17-4691-9966-FD4890D430CE}.Release|Win32.ActiveCfg = Release|Win32
+	EndGlobalSection
+EndGlobal
