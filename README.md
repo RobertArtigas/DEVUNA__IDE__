@@ -7,7 +7,7 @@ The KiSS application directory is Mr. Mark Riffey's sources with all his changes
 is currently the sources from the DEVUNA directory (there will be some changes later).
 
 If you need the original sources to start with, download the current directory structure, get it to compile. Then get the original sources 
-from the DEVUNA directories, put it in the correct place for your specific compile directory structure, and and then do your compiles.
+from the DEVUNA directories, put it in the correct place for your specific compile directory structure, and then do your compiles.
 
 ## Compile directory path
 
