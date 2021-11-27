@@ -5,7 +5,7 @@ the RED file provide that points to the LibSrc and Template directories for thes
 The KiSS directory is Mr. Mark Riffey's directory with all his changes. The Class Viewer is the version from the Devuna directory.
 
 If you need the original sources to start with, download the current directory structure, get it to compile. Then get the orinal sources 
-from the Devuna directories and start there.
+from the Devuna directories, put it in the correct place for the directory structure, and and then do your compiles.
 
 ## Compile directory path
 
