@@ -19,5 +19,15 @@ You might have to adjust the RED file being used for your specific compile paths
 
 ![A](https://github.com/Devuna/__IDE__/wiki/images/DEVUNA_RED_01.PNG)
 ![A](https://github.com/Devuna/__IDE__/wiki/images/DEVUNA_RED_02.PNG)
+![A](https://github.com/Devuna/__IDE__/wiki/images/blob/master/DEVUNA_RED_02.PNG)
+![A](https://github.com/Devuna/__IDE__/wiki/blob/master/images/DEVUNA_RED_02.PNG)
+![A](https://github.com/Devuna/__IDE__/blob/master/wiki/images/DEVUNA_RED_01.PNG)
+![A](https://github.com/Devuna/blob/master/__IDE__/wiki/images/DEVUNA_RED_01.PNG)
+![A](https://github.com/Devuna/__IDE__/wiki/images/DEVUNA_RED_01.PNG)
+
+![A](https://github.com/RobertArtigas/RYB/blob/master/images/GENGROUPSFIELDS_01.PNG)
+![A](https://github.com/RobertArtigas/RYB/blob/master/images/GENGROUPSFIELDS_02.PNG)
+![A](https://github.com/RobertArtigas/RYB/blob/master/images/GENGROUPSFIELDS_03.PNG)
+
 
 C:\_GIT_\Devuna\__IDE__\wiki\Images
