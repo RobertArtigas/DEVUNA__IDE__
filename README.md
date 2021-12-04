@@ -13,19 +13,19 @@ from the DEVUNA directories, put it in the correct place for your specific compi
 
 Disk Drive Compiler Directory Path: **C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\\***
 
-That above location is the compile directory path that is being used to compile the applications on the disk drive. 
+That above location is the compile directory path that is being used to compile the applications on the disk drive.<br/> 
 
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_DIRECTORY_01.PNG)
-<BR/>Above you are viewing the directory structure of the GitHub directory on my development machine.
+<BR/>Above you are viewing the directory structure of the GitHub directory on my development machine.<br/>
 
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_DIRECTORY_02.PNG)
-<BR/>Once you move into the application directory you will see the different application that are currenctly available.
+<BR/>Once you move into the application directory you will see the different application that are currenctly available.<br/>
 
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_DIRECTORY_03.PNG)
-<BR/>In each application directory there is a local RED file that will be picked up by the IDE when you open the application.
+<BR/>In each application directory there is a local RED file that will be picked up by the IDE when you open the application.<br/>
 
 ## [RED]irection file
 
