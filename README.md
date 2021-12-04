@@ -36,7 +36,12 @@ that is being used.<br/><br/><br/>
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_RED_02.PNG)
 <BR/>The entries that are used by the IDE that apply to the Devuna locations are shown above. They point to were the class sources and templates are located
-so when the IDE opens it can find classes and templates. Please recall that you still have to regiter the templates from the specific directory location.<br/><br/><br/>
+so when the IDE opens it can find classes and templates. Please recall that you still have to regiter the templates from the specific directory location.
+
+If you want to use your personal RED file, the entries will have to be copied from this RED to your RED, and the directory locations changed 
+for your Clarion IDE setup.<br/><br/><br/>
+
+
 
 
 You might have to adjust the RED file being used for your specific compile paths. 
