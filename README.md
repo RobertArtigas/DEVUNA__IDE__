@@ -25,7 +25,8 @@ That above location is the compile directory path that is being used to compile 
 
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_DIRECTORY_03.PNG)
-<BR/>In each application directory there is a local RED file that will be picked up by the IDE when you open the application.<br/><br/><br/>
+<BR/>In each application directory there is a local RED file that will be picked up by the IDE when you open the application.
+This is the specific KSS aplication directory.<br/><br/><br/>
 
 ## [RED]irection file
 
