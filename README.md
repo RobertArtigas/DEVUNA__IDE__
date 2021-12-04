@@ -1,5 +1,5 @@
 # DEVUNA__IDE__
-DEVUNA directory arranged as a Clarion IDE set of directories. What has been done, is a compile of the existing sources using 
+**DEVUNA directory arranged as a Clarion IDE set of directories.** What has been done, is a compile of the existing sources using 
 the RED file provided that points to the LibSrc and Template directories for these specific applications. Everything is issolated 
 in it's own directories so you do not have to add all the DEVUNA classes and templates into your common Clarion directories.
 
