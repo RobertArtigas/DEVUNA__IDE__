@@ -44,7 +44,8 @@ for your Clarion IDE setup to where you have located your Devuna directories.<br
 ##
 ###
 
-**Everything we experience through the senses** is already second-hand at the moment of perception because the brain doesn’t perceive anything, it just sits in its lightproof box and translates incoming sense-data into perceptions. Your alleged brain doesn’t see, hear, taste or touch anything. You have no direct contact with a universe out there, only an internal movie, a projection on the screen of the mind. No one can ever perceive anything out there directly. <BR/>_-Jed McKenna’s Theory of Everything: The Enlightened Perspective_
+**I didn’t like all this mystery** business long before I ever did anything about it, and when I _did_ do something about it, I found that I was right, that all mystery is in the eye of the beholder and that we are free to stop seeing mystery whenever we decide to open our eyes and actually look. This is no small point. We have to look hard at this mystery business in order to get past it.<br/> 
+_-Jed McKenna’s Theory of Everything: The Enlightened Perspective_
 
 
 ##
