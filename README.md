@@ -10,6 +10,7 @@ _**This is my personal directory with changes to the original applications for t
 
 If you need the original sources to start with, download the current directory structure, get it to compile. Then get the original sources 
 from the [DEVUNA](https://github.com/Devuna) directories, put it in the correct place for your specific compile directory structure, and then do your compiles.
+
 May you have good fortune with all your learning experiences.
 
 ## Compile directory path
