@@ -17,7 +17,7 @@ That is the compile directory path that is being used to compile the application
 
 You might have to adjust the RED file being used for your specific compile paths. 
 
-![A](https://github.com/Devuna/__IDE__/blob/master/wiki/images/DEVUNA_RED_01.PNG)
-![A](https://github.com/Devuna/__IDE__/blob/master/wiki/images/DEVUNA_RED_02.PNG)
+![A](https://github.com/Devuna/__IDE__/wiki/images/DEVUNA_RED_01.PNG)
+![A](https://github.com/Devuna/__IDE__/wiki/images/DEVUNA_RED_02.PNG)
 
 C:\_GIT_\Devuna\__IDE__\wiki\Images
