@@ -21,7 +21,7 @@ That above location is the compile directory path that is being used to compile 
 
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_DIRECTORY_02.PNG)
-<BR/>Once you move into the application directory you will see the different application that are currenctly available.<br/><br/><br/>
+<BR/>Once you move into the application directory you will see the different application that are currently available.<br/><br/><br/>
 
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_DIRECTORY_03.PNG)
@@ -30,6 +30,10 @@ That above location is the compile directory path that is being used to compile 
 ## [RED]irection file
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_RED_01.PNG)
+<BR/>Using the KSS application as an example I opened the RED file from the IDE and you can see that all there is an include the specfic RED file 
+that is being used.<br/><br/><br/>
+
+
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_RED_02.PNG)
 
 
