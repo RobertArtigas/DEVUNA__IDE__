@@ -1,7 +1,7 @@
 # DEVUNA__IDE__
 **DEVUNA directory arranged as a Clarion IDE set of directories.** What has been done, is a compile of the existing sources using 
 the RED file provided that points to the LibSrc and Template directories for these specific applications. Everything is issolated 
-in it's own directories so you do not have to add all the DEVUNA classes and templates into your common Clarion directories.
+in it's own directories so you do not have to add all the [DEVUNA](https://github.com/Devuna) classes and templates into your common Clarion directories.
 
 The KiSS application directory is Mr. Mark Riffey's sources with all his changes. The Class Viewer application directory 
 is currently the sources from the DEVUNA directory (there will be some changes later). 
