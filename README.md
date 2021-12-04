@@ -15,6 +15,9 @@ Disk Drive Compiler Directory Path: **C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\\***
 
 That above location is the compile directory path that is being used to compile the applications on the disk drive. 
 
+![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_DIRECTORY_01.PNG)
+![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_DIRECTORY_02.PNG)
+![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_DIRECTORY_03.PNG)
 
 ## [RED]irection file
 
