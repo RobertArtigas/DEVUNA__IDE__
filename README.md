@@ -42,6 +42,3 @@ If you want to use your personal RED file, the entries will have to be copied fr
 for your Clarion IDE setup to where you have located your Devuna directories.<br/><br/><br/>
 
 
-
-
-You might have to adjust the RED file being used for your specific compile paths. 
