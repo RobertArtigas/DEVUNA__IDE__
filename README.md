@@ -9,7 +9,8 @@ is currently the sources from the DEVUNA directory (there will be some changes l
 _This is my personal directory with changes to the original applications for the versions I use in my Clarion development, **these are NOT the original sources.**_
 
 If you need the original sources to start with, download the current directory structure, get it to compile. Then get the original sources 
-from the [DEVUNA](https://github.com/Devuna) directories, put it in the correct place for your specific compile directory structure, and then do your compiles
+from the [DEVUNA](https://github.com/Devuna) directories, put it in the correct place for your specific compile directory structure, and then do your compiles.
+Good luck with your learning experiences.
 
 ## Compile directory path
 
