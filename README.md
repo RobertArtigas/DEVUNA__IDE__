@@ -51,12 +51,12 @@ for your Clarion IDE setup to where you have located your Devuna directories.
 _There may be a couple of additional entries need in your RED file to pick up the images that are for each application that are location in
 each specific image directory for that application._<br/><br/><br/>
 
-## C:\_GIT_\Devuna\__IDE__\Template\win
+## C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\\Template\\win
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_TEMPLATE_01.PNG)
 <br/><br/><br/>
 
-## C:\_GIT_\Devuna\__IDE__\LibSrc\win
+## C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\\LibSrc\\win
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_LIBSRC_01.PNG)
 <br/><br/><br/>
