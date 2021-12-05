@@ -51,6 +51,10 @@ for your Clarion IDE setup to where you have located your Devuna directories.
 There may be a couple of additional entries need in your RED file to pick up the images that are for each application that are location in
 each specific image directory for that application.<br/><br/><br/>
 
+## Webinars explaining this GitHub repository
+
+Nothing yet
+
 ##
 ###
 
