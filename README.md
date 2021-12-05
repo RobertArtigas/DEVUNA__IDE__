@@ -3,7 +3,7 @@
 the RED file provided that points to the LibSrc and Template directories for these specific applications. Everything is issolated 
 in it's own directories so you do not have to add all the [DEVUNA](https://github.com/Devuna) classes and templates into your common Clarion directories.
 
-The KiSS application directory is Mr. Mark Riffey's sources with all his changes. The Class Viewer application directory 
+The KSS application directory is Mr. Mark Riffey's sources with all his changes. The Class Viewer application directory 
 is currently the sources from the DEVUNA directory (there will be some changes later). 
 
 <br/>_**This is my personal directory with changes to the original applications for the executable versions I use in my Clarion development.<br/><br/>
