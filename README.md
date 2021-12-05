@@ -48,8 +48,8 @@ Please recall that you still have to register the templates from the specific di
 If you want to use your personal RED file, the entries will have to be copied from this RED file to your RED file, and your RED file directory locations changed 
 for your Clarion IDE setup to where you have located your Devuna directories.
 
-There may be a couple of additional entries need in your RED file to pick up the images that are for each application that are location in
-each specific image directory for that application.<br/><br/><br/>
+_There may be a couple of additional entries need in your RED file to pick up the images that are for each application that are location in
+each specific image directory for that application._<br/><br/><br/>
 
 ## Webinars explaining this GitHub repository
 
