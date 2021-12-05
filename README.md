@@ -54,10 +54,12 @@ each specific image directory for that application._<br/><br/><br/>
 ## C:\_GIT_\Devuna\__IDE__\Template\win
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_TEMPLATE_01.PNG)
+<br/><br/><br/>
 
 ## C:\_GIT_\Devuna\__IDE__\LibSrc\win
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_LIBSRC_01.PNG)
+<br/><br/><br/>
 
 ## Webinars explaining this GitHub repository
 
