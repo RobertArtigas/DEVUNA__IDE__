@@ -1,0 +1,115 @@
+|000|2019-02-25|18:38:53|ADMIN|{9E80B820-A3B7-11E3-72AE-415EB4A72CD6}|0
+|900|Uninstalling Software
+|901|Are you sure that you want to remove Kwik Source Search - Open Source Edition and all of its components?
+|902|Please wait while the software is uninstalled.
+|903|The Wizard has successfully uninstalled Kwik Source Search - Open Source Edition.
+|904|The system indicates that the following shared file is no longer used by any programs and may be deleted.\n\n%s\n\nIf any programs are still using this file and it is removed those programs may not function.\n\nLeaving this file will not harm your system. If you are not sure what to do, you should select the No button. Do you want to remove the shared file?|Yes to &All
+|905|This system must be restarted to complete the uninstallation. Press the OK button to restart this computer. Press Cancel to return to Windows without restarting.
+|906|The following file is in use and cannot be updated:\n\n%s \n\nClose all other applications and choose Retry. Pressing Continue allows the uninstall program to continue and the file will be uninstalled after the next reboot.|Cont&inue
+|007|1|_0000_|
+|076|512
+|017|
+|015|Comments
+|014|SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{9E80B820-A3B7-11E3-72AE-415EB4A72CD6}
+|013|_0000_|3|1
+|017|Visit Skype or Slack Clarion groups for support. 
+|015|Contact
+|014|SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{9E80B820-A3B7-11E3-72AE-415EB4A72CD6}
+|013|_0000_|3|1
+|017|Kwik Source Search - Open Source Edition
+|015|DisplayName
+|014|SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{9E80B820-A3B7-11E3-72AE-415EB4A72CD6}
+|013|_0000_|3|1
+|017|1.0.85
+|015|DisplayVersion
+|014|SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{9E80B820-A3B7-11E3-72AE-415EB4A72CD6}
+|013|_0000_|3|1
+|017|20190225
+|015|InstallDate
+|014|SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{9E80B820-A3B7-11E3-72AE-415EB4A72CD6}
+|013|_0000_|3|1
+|017|
+|015|HelpTelephone
+|014|SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{9E80B820-A3B7-11E3-72AE-415EB4A72CD6}
+|013|_0000_|3|1
+|017|C:\Program Files (x86)\KSSOpen
+|015|InstallLocation
+|014|SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{9E80B820-A3B7-11E3-72AE-415EB4A72CD6}
+|013|_0000_|3|1
+|017|Clarion Community (with thanks to Randy Rogers)
+|015|Publisher
+|014|SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{9E80B820-A3B7-11E3-72AE-415EB4A72CD6}
+|013|_0000_|3|1
+|017|C:\Program Files (x86)\KSSOpen\Uninst_Kwik Source Search - Open Source Edition.exe /U "C:\Program Files (x86)\KSSOpen\Uninst_Kwik Source Search - Open Source Edition.log"
+|015|UninstallString
+|014|SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{9E80B820-A3B7-11E3-72AE-415EB4A72CD6}
+|013|_0000_|3|1
+|017|1
+|015|VersionMajor
+|014|SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{9E80B820-A3B7-11E3-72AE-415EB4A72CD6}
+|013|_0000_|3|3
+|017|0
+|015|VersionMinor
+|014|SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{9E80B820-A3B7-11E3-72AE-415EB4A72CD6}
+|013|_0000_|3|3
+|017|
+|015|URLInfoAbout
+|014|SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{9E80B820-A3B7-11E3-72AE-415EB4A72CD6}
+|013|_0000_|3|1
+|017|
+|015|HelpLink
+|014|SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{9E80B820-A3B7-11E3-72AE-415EB4A72CD6}
+|013|_0000_|3|1
+|017|1
+|015|NoModify
+|014|SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{9E80B820-A3B7-11E3-72AE-415EB4A72CD6}
+|013|_0000_|3|3
+|017|1
+|015|NoRepair
+|014|SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{9E80B820-A3B7-11E3-72AE-415EB4A72CD6}
+|013|_0000_|3|3
+|017|0
+|015|NoRemove
+|014|SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{9E80B820-A3B7-11E3-72AE-415EB4A72CD6}
+|013|_0000_|3|3
+|017|1.0.85
+|015|ProductVersion
+|014|SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{9E80B820-A3B7-11E3-72AE-415EB4A72CD6}
+|013|_0000_|3|3
+|017|
+|015|028B08E97B3A3E1127EA14E54B7AC26D
+|014|Software\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes\028B08E97B3A3E1127EA14E54B7AC26D
+|013|_0000_|3|1
+|006|_0000_|C:\Program Files (x86)\KSSOpen\ClaASC.dll|1|2018/10/08|13:26:53|11.0.0.13244|69976|5943519F||0|
+|006|_0000_|C:\Program Files (x86)\KSSOpen\ClaDOS.dll|2|2018/10/08|13:27:17|11.0.0.13244|59224|213AE223||0|
+|006|_0000_|C:\Program Files (x86)\KSSOpen\ClaOLE.dll|3|2018/10/08|13:27:38|11.0.0.13244|75096|8DCE2E93||0|
+|006|_0000_|C:\Program Files (x86)\KSSOpen\clarion.properties|4|2018/08/15|21:16:48||5907|234B538B||0|
+|006|_0000_|C:\Program Files (x86)\KSSOpen\ClaRUN.dll|5|2018/10/08|13:27:47|11.0.0.13244|1795704|2FE448CA||0|
+|006|_0000_|C:\Program Files (x86)\KSSOpen\ClaTPS.dll|6|2018/10/08|13:27:56|11.0.0.13244|123224|368BB23A||0|
+|006|_0000_|C:\Program Files (x86)\KSSOpen\cpp.properties|7|2018/08/15|21:16:48||7492|952DCBB1||0|
+|006|_0000_|C:\Program Files (x86)\KSSOpen\csharp.properties|8|2018/08/15|21:16:48||7505|2BE09458||0|
+|006|_0000_|C:\Program Files (x86)\KSSOpen\css.properties|9|2018/08/15|21:16:48||4779|A3C3898F||0|
+|006|_0000_|C:\Program Files (x86)\KSSOpen\CWHHla.dll|10|2018/10/08|12:55:03|11.0.0.13244|10752|869C9FD4||0|
+|006|_0000_|C:\Program Files (x86)\KSSOpen\html.properties|11|2018/08/15|21:16:48||14737|D8A60759||0|
+|006|_0000_|C:\Program Files (x86)\KSSOpen\java.properties|12|2018/08/15|21:16:48||6312|385899A0||0|
+|006|_0000_|C:\Program Files (x86)\KSSOpen\kss.exe|13|2019/02/16|09:06:51|1.0.85.0|4926924|C792DBC5||0|
+|006|_0000_|C:\Program Files (x86)\KSSOpen\kss.EXE.manifest|14|2018/08/15|21:16:48||1926|6A65B26C||0|
+|006|_0000_|C:\Program Files (x86)\KSSOpen\KssKeyGen.exe|15|2018/08/15|21:16:48||148480|6F4E682E||0|
+|006|_0000_|C:\Program Files (x86)\KSSOpen\mssql.properties|16|2018/08/15|21:16:48||31392|DDFD8A60||0|
+|006|_0000_|C:\Program Files (x86)\KSSOpen\msvcr70.dll|17|2018/08/15|21:16:48|7.0.9466.0|344064|516C28BC||0|
+|006|_0000_|C:\Program Files (x86)\KSSOpen\mysql.properties|18|2018/08/15|21:16:48||11501|30622EDD||0|
+|006|_0000_|C:\Program Files (x86)\KSSOpen\plsql.properties|19|2018/08/15|21:16:48||17641|BA1A000F||0|
+|006|_0000_|C:\Program Files (x86)\KSSOpen\python.properties|20|2018/08/15|21:16:48||2435|58650321||0|
+|006|_0000_|C:\Program Files (x86)\KSSOpen\SciLexer.dll|21|2018/08/15|21:16:48|3.0.1.0|624640|5DC49A43||0|
+|006|_0000_|C:\Program Files (x86)\KSSOpen\sql.properties|22|2018/08/15|21:16:48||26639|0B09E9D0||0|
+|006|_0000_|C:\Program Files (x86)\KSSOpen\text.properties|23|2018/08/15|21:16:48||353|D7435D53||0|
+|006|_0000_|C:\Program Files (x86)\KSSOpen\vb.properties|24|2018/08/15|21:16:48||2837|B1A54153||0|
+|006|_0000_|C:\Program Files (x86)\KSSOpen\vbscript.properties|25|2018/08/15|21:16:48||1961|8650DE14||0|
+|006|_0000_|C:\Program Files (x86)\KSSOpen\xml.properties|26|2018/08/15|21:16:48||3015|226042AE||0|
+|006|_0000_|C:\Program Files (x86)\KSSOpen\zlibwapi.dll|27|2010/05/10|00:54:18|1.2.5.0|141312|B5C19D9A||0|
+|006|_0000_|C:\Program Files (x86)\KSSOpen\kss.chm|28|2018/08/15|21:16:48||96935|4C9FD0E0||0|
+|005|_0000_|C:\Users\Public\Desktop\KiSS.lnk
+|004|C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Kwik Source Search
+|005|_0000_|C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Kwik Source Search\Kwik Source Search.lnk
+|005|_0000_|C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Kwik Source Search\Kwik Source Search Help.lnk
+|005|_0000_|C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Kwik Source Search\Uninstall Kwik Source Search.lnk
