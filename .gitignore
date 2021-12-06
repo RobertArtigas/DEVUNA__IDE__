@@ -1,0 +1,54 @@
+## .git*
+*.sublime-workspace
+
+############
+## Clarion
+############
+*.FileList.xml
+*.MAP
+#*.exe
+**/Cla*.dll
+*.ini
+*.cache
+obj/**
+
+*/obj/**
+*.obj
+*.rsc
+*.RSC
+*.bpp
+*.bct
+*.dctx
+*.ap~
+*.$$$
+PWEE*.txt
+*.txa
+*.res
+*.exp
+*.version
+*.manifest
+*.BLD
+
+
+*.ocx
+*.old_dct
+
+_archive_
+_feedback_
+source
+release
+working
+debug
+clw
+version
+classes
+text
+lib
+
+Styles
+
+############
+## Windows
+############
+# Windows image file caches
+Thumbs.db
