@@ -12,7 +12,7 @@ These are NOT the original sources.**_<br/><br/>
 If you need the original sources to start with, download the current directory structure, get it to compile. Then get the original sources 
 from the [DEVUNA](https://github.com/Devuna) directories, put it in the correct place for your specific compile directory structure, and then do your compiles.
 
-<h3>Any enhancements to the source code are to be submited back to Mr. Randy Rogers at the original website.</h3>
+<h3>Any enhancements to the source code are to be submited back to Mr. Randy Rogers at the [DEVUNA](https://github.com/Devuna) website.</h3>
 
 May you have good fortune with all your learning experiences.
 
