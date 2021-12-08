@@ -1,9 +1,9 @@
--- Default Redirection for Clarion 11.0: 2019.12.05
+-- Default Redirection for Clarion 11.0: 2021.12.08: Devuna {include ...}
 -- Default Redirection for Clarion 10.0
 
 [Copy]
 -- Directories only used when copying dlls
--- RA.2021.11.18: Added second line for the specifc DLLs need
+-- RA.2021.11.18: Added second line for the specifc Devuna DLLs need
 -- RA.2019.04.15: Added %BIN%\Debug to the front of the line
 *.dll = %BIN%\Debug; %BIN%; %BIN%\AddIns\BackendBindings\ClarionBinding\Common; %ROOT%\Accessory\bin; %libpath%\bin\%configuration%
 *.dll = C:\_GIT_\Devuna\__IDE__\BIN
