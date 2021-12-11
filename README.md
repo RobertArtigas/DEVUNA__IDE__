@@ -97,7 +97,6 @@ directory and you should be able to test.
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_RUNTIME_03.PNG)
 <br/>This is the run time environment for the Source Search utility.
-
 <br/><br/>
 
 ## C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\Application\\KSS (Posible compile errors)
