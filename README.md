@@ -82,6 +82,10 @@ https://github.com/MarkGoldberg/ClarionCommunity/tree/master/CW/Shared/Src where
 
 ## C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\RunTime\\
 
+![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_RUNTIME_01.PNG)
+![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_RUNTIME_02.PNG)
+![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_RUNTIME_03.PNG)
+
 <br/><br/>
 
 ## Webinars explaining this GitHub repository
