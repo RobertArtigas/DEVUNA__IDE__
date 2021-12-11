@@ -74,7 +74,7 @@ each specific image directory for that application._
 ## C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\LibSrc\\win
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_LIBSRC_01.PNG)
-<br/>**If you do not already have them installed in your LibSrc already,** you will need to add Mark Goldberg's debuger class and additonal source files in your **LibSrc** directory. They are _debuger.inc, debuger.clw, TUFO.int, and FileAccessModes.EQU._ They are included in the **LibSrc** directory with an underscore in case you do not have them. A simnple removal or the underscore will get you those files. You can also get them from the GiHub repo at the 
+<br/>**If you do not already have them installed in your LibSrc already,** you will need to add Mark Goldberg's debuger class and additional source files in your **LibSrc** directory. They are _debuger.inc, debuger.clw, TUFO.int, and FileAccessModes.EQU._ They are included in the **LibSrc** directory with an underscore in case you do not have them. A simnple removal or the underscore will get you those files. You can also get them from the GiHub repo at the 
 https://github.com/MarkGoldberg/ClarionCommunity/tree/master/CW/Shared/Src where the shared directory for those files is located.
 <br/><br/>
 
