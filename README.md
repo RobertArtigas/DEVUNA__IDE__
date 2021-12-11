@@ -1,4 +1,5 @@
-# DEVUNA__IDE__
+# Drive:\RootFolder\DEVUNA__IDE__\*
+
 **DEVUNA directory arranged as a Clarion IDE set of directories.** What has been done, is a compile of the existing sources using 
 the RED file provided that points to the LibSrc and Template directories for these specific applications. Everything is issolated 
 in it's own directories so you do not have to add all the [DEVUNA](https://github.com/Devuna) classes and templates into your common Clarion directories.
@@ -23,7 +24,7 @@ My disk drive compiler directory path: **C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\\***
 That above location is the compile directory path that is being used to compile the applications on my disk drive.
 All the references showing will be based on that compiler directory structure. 
 
-Your disk drive compiler directory path: **Drive:\\RootFolderChoice\\DEVUNA\_\_IDE\_\_\\\***
+Your disk drive compiler directory path: **Drive:\\RootFolder\\DEVUNA\_\_IDE\_\_\\\***
 
 <br/><br/><br/>   
 
