@@ -18,9 +18,14 @@ May you have good fortune with all your learning experiences.
 
 ## Compile directory path
 
-Disk Drive Compiler Directory Path: **C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\\***
+My disk drive compiler directory path: **C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\\***
 
-That above location is the compile directory path that is being used to compile the applications on the disk drive.<br/><br/><br/>   
+That above location is the compile directory path that is being used to compile the applications on my disk drive.
+All the references showing will be based on that compiler directory structure. 
+
+Your disk drive compiler directory path: **Drive:\\RootFolderChoice\\DEVUNA\_\_IDE\_\_\\\***
+
+<br/><br/><br/>   
 
 ## C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_DIRECTORY_01.PNG)
