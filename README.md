@@ -49,7 +49,7 @@ This is the specific KSS aplication directory.<br/><br/><br/>
 <BR/>Using the KSS application as an example I opened the RED file from the IDE and you can see that all there is an include the specfic RED file 
 that is being used.
 
-<H3>Recall that you will need to change the _C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\BIN\\*.RED_ file entry to that you are using to the _Drive:\\\_RootFolder\_\\DEVUNA\_\_IDE\_\_\\BIN\\*.RED_ that matches your directory structure.</H3>
+**Recall that you will need to change the _C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\BIN\\*.RED_ file entry to that you are using to the _Drive:\\\_RootFolder\_\\DEVUNA\_\_IDE\_\_\\BIN\\*.RED_ that matches your directory structure.**
 <br/><br/><br/>
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_RED_02.PNG)
