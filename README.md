@@ -85,10 +85,12 @@ https://github.com/MarkGoldberg/ClarionCommunity/tree/master/CW/Shared/Src where
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_RUNTIME_01.PNG)
 <br/>This contains the RunTime environment directories for each utility with all the necessary files to
 be able to run the utility. After compiling the utility and getting a clean compile, move the EXE the appropriate utility 
-and you should be able to test.
+directory and you should be able to test.
+<br/><br/>
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_RUNTIME_02.PNG)
 <br/>This is the run time environment for the Source Search utility.
+<br/><br/>
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_RUNTIME_03.PNG)
 <br/>This is the run time environment for the Class Viewer utility.
