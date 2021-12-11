@@ -104,8 +104,8 @@ directory and you should be able to test.
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_KSS_ER_01.png)
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_KSS_ER_02.png)
-<br/>If your get the **Unknown identifier** error messages above, uncomment the two lines with the identifier definitions
-and you should be good to go. Some installations have those items already defined and you will get duplicate definitions.
+<br/>If your get the **Unknown identifier** error messages above when you compile, uncomment the two lines with the identifier definitions
+and you should be good to recompile. Some installations have those items already defined and you will get **duplicate** definitions.
 <br/><br/>
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_KSS_ER_03.png)
