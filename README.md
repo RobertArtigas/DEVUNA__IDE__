@@ -26,8 +26,8 @@ All the references showing in the documentation will be based on that compiler d
 
 Your disk drive compiler directory path: **Drive:\\RootFolder\\DEVUNA\_\_IDE\_\_\\\***
 
-When you press the **Code** button and unzip the structure, or you clone into your directory your directory wil match your structure above
-and you will have to change some of your references to the directory structures to match your directory location choice.  
+When you press the **Code** button and unzip the structure, or you clone into your directory your directory will match your structure above
+and you will have to change some of your references to the directory structures to match your specific directory location choice.  
 <br/><br/><br/>   
 
 ## C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_
@@ -47,8 +47,10 @@ This is the specific KSS aplication directory.<br/><br/><br/>
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_RED_01.PNG)
 <BR/>Using the KSS application as an example I opened the RED file from the IDE and you can see that all there is an include the specfic RED file 
-that is being used.<br/><br/><br/>
+that is being used.
 
+Recall that you will need to change the _C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\BIN\\*.RED_ file that you are using to the _Drive:\\\_RootFolder\_\\DEVUNA\_\_IDE\_\_\\BIN\\*.RED_ that matches your directory structure.
+<br/><br/><br/>
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_RED_02.PNG)
 <BR/>**The RED entries that are used by the IDE that apply to the Devuna locations for my directory setup are shown above.** 
