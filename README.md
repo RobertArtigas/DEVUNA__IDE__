@@ -49,7 +49,7 @@ This is the specific KSS aplication directory.<br/><br/><br/>
 <BR/>Using the KSS application as an example I opened the RED file from the IDE and you can see that all there is an include the specfic RED file 
 that is being used.
 
-**Recall that you will need to change the _C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\BIN\\*.RED_ file entry to that you are using to the _Drive:\\\_RootFolder\_\\DEVUNA\_\_IDE\_\_\\BIN\\*.RED_ that matches your directory structure.**
+**Please recall that you will need to change the _C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\BIN\\*.RED_ file entry to that you are using to the _Drive:\\\_RootFolder\_\\DEVUNA\_\_IDE\_\_\\BIN\\*.RED_ that matches your directory structure.**
 <br/><br/><br/>
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_RED_02.PNG)
@@ -61,7 +61,10 @@ If you want to use your personal RED file, the entries will have to be copied fr
 for your Clarion IDE setup to where you have located your Devuna directories.
 
 _There may be a couple of additional entries need in your RED file to pick up the images that are for each application that are location in
-each specific image directory for that application._<br/><br/><br/>
+each specific image directory for that application._
+
+**Please recall that you will need to change the _C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\*_ REDerection entries to that you are using to the _Drive:\\\_RootFolder\_\\DEVUNA\_\_IDE\_\_\\*_ format that matches your directory structure.**
+<br/><br/><br/>
 
 ## C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\Template\\win
 
