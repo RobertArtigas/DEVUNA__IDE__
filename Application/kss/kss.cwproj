@@ -62,7 +62,6 @@
     <Library Include="harrow.cur" />
     <Library Include="kss.EXE.manifest" />
     <Library Include="kss.ico" />
-    <Library Include="kss.res" />
     <Library Include="kss.Version" />
     <Library Include="link-broken.ico" />
     <Library Include="NextBookmark.ico" />
