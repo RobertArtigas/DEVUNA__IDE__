@@ -109,7 +109,7 @@ and you should be good to recompile. Some installations have those items already
 <br/><br/>
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_KSS_ER_03.png)
-
+<br/>You should not have this error
 <br/><br/><br/>
 
 ## Webinars explaining this GitHub repository
@@ -121,6 +121,8 @@ Nothing yet
 
 **I didn’t like all this mystery** business long before I ever did anything about it, and when I _did_ do something about it, I found that I was right, that all mystery is in the eye of the beholder and that we are free to stop seeing mystery whenever we decide to open our eyes and actually look. This is no small point. We have to look hard at this mystery business in order to get past it.<br/> 
 _-Jed McKenna’s Theory of Everything: The Enlightened Perspective_
+
+<!-- C:\_GIT_\Devuna\__IDE__\BIN\VersionMe.exe PROJECT=$(OutputName) BINARYTYPE=$(OutputType) APPFOLDER=$(SolutionDir) -->
 
 ##
 
