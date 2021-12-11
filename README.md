@@ -27,7 +27,7 @@ All the references showing in the documentation will be based on that compiler d
 Your disk drive compiler directory path: **Drive:\\RootFolder\\DEVUNA\_\_IDE\_\_\\\***
 
 When you press the **Code** button and unzip the structure, or you clone into your directory your directory wil match your structure above
-and you will have to change somre of your references and directory structures.  
+and you will have to change some of your references to the directory structures tio match your directory structure.  
 <br/><br/><br/>   
 
 ## C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_
