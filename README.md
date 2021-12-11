@@ -109,7 +109,7 @@ and you should be good to recompile. Some installations have those items already
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_KSS_ER_03.png)
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_KSS_ER_04.png)
-<br/>If you have this error, **delete kss.res** from the _Libraries, Objects and Resource Files_ list.
+<br/>If you have this error, **delete kss.res** from the _**Libraries, Objects and Resource Files**_ list.
 <br/><br/><br/>
 
 ## Webinars explaining this GitHub repository
