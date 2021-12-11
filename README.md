@@ -79,7 +79,7 @@ each specific image directory for that application._
 <br/>**If you do not have them installed in your LibSrc already,** you will need to add Mark Goldberg's debuger class and additional source files in your **LibSrc** directory. They are _debuger.inc, debuger.clw, TUFO.int, and FileAccessModes.EQU._ They are included in the **LibSrc** directory with an underscore in case you do not have them. A simple removal of the underscore will get you those files. You can also get the files from the **GiHub** repository at 
 https://github.com/MarkGoldberg/ClarionCommunity/tree/master/CW/Shared/Src where those files are located.
 
-The debuger class is used in the _csviewer.inc, and csviewer.clw._ That class is used in the Class Viewer utility, and the relevant debuger code items 
+The debuger class is used in the _csciviewer.inc, and csciviewer.clw._ That class is used in the Class Viewer utility, and the relevant debuger code items 
 in those two class files have been commented out.
 <br/><br/>
 
