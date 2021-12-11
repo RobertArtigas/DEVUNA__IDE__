@@ -89,11 +89,11 @@ directory and you should be able to test.
 <br/><br/>
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_RUNTIME_02.PNG)
-<br/>This is the run time environment for the Source Search utility.
+<br/>This is the run time environment for the Class Viewer utility.
 <br/><br/>
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_RUNTIME_03.PNG)
-<br/>This is the run time environment for the Class Viewer utility.
+<br/>This is the run time environment for the Source Search utility.
 
 <br/><br/>
 
