@@ -45,7 +45,8 @@ _CSciViewerClassPresent_ EQUATE(1)
     INCLUDE('ABERROR.INC'),ONCE
     INCLUDE('ABPOPUP.INC'),ONCE
     INCLUDE('cwHH.INC'),ONCE
-    INCLUDE('debuger.inc'),ONCE
+! RA.2021.12.11.SAT: Commented out.
+!    INCLUDE('debuger.inc'),ONCE
 
 !ERROR_SUCCESS        EQUATE(0)
 !ERROR_NO_MORE_ITEMS  EQUATE(259)
@@ -659,7 +660,8 @@ Number        USHORT(5)
               PSTRING('File %File could not be opened.| |Do you want to save the file to a different location?')
             END
 
-db                Debuger
+! RA.2021.12.11.SAT: Commented out.
+!db                Debuger
 
 pagesetupMargin   LIKE(Sci_Rectangle)
 hDevMode        HGLOBAL(0)

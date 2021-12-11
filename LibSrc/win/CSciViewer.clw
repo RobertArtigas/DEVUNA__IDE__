@@ -201,7 +201,8 @@ ReturnValue BYTE,AUTO
 i           LONG
 
   CODE                                      ! Enter Procedure
-  db.mg_init('CSciViewer')
+  ! RA.2021.12.11.SAT: Commented out.
+  !db.mg_init('CSciViewer')
 
   SELF.ErrorStatus &= NEW ErrorStatusClass  !2004.05.15 RR - 6.1
   SELF.ErrorMgr &= NEW ErrorClass
@@ -2157,7 +2158,8 @@ CSciViewer.Kill PROCEDURE
         SELF.szTextBuffer &= NULL
      END
 
-     db.Kill()
+     ! RA.2021.12.11.SAT: Commented out.
+     !db.Kill()
   END
 
   PARENT.Kill()
