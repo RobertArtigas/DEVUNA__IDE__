@@ -19,7 +19,7 @@ the RED file provided that points to the LibSrc and Template directories for the
 in it's own directories so you do not have to add all the [DEVUNA](https://github.com/Devuna) classes and templates into your common Clarion directories.
 
 <br/>
-<H3>This is my personal directory with changes to the original applications for the executable versions are used in my Clarion development.
+<H3>This is my personal directory with changes to the original applications for the executable versions that are used in my Clarion development.
 These are NOT the original sources.</H3>
 <br/><br/>
 
