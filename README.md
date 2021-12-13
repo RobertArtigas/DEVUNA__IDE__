@@ -7,11 +7,12 @@ and when you compile, then resolve any issues that might just might happen with 
 And you WILL have spent considerable less time in doing this, than taking all the original DEVUNA GitHub repositories, and figuring out the
 process from scratch.
 </H3>
+<H3>There have been a few individuals that have downloaded this repository and got it running. Their testing has been very helpful.
+Some of the documentation has been enhanced because of these efforts.
+And through the generosity of these individuals, I have received additional RED files that you can inspect as examples of environment setups.
+</H3>
 <H3>Any enhancements or changes to any part of the original source code, that you decide to make public for use by others, 
 should be submited back to Mr. Randy Rogers at the GitHub https://github.com/Devuna website, by whichever mechanism or procedure that he has defined.
-</H3>
-<H3>There have been a few individuals that have downloaded this repository and got it running. Some of the documentation has been enhanced because of these efforts.
-And through the generosity of these individuals, I have received additional RED files that you can inspect as examples of environment setups.
 </H3>
 <br/><br/>
 
