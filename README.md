@@ -4,7 +4,7 @@ You will need to have some understanding of the compile directory structure, mak
 and when you compile, then resolve any issues that might just might happen with the other installed software you have.
 </H3>
 <H3>What this series of steps will get you once completed is an evironment that will allow you to compile, modify and run some of the DEVUNA tools.
-And you WILL have spent considerable less time in doing this, than taking all the original DEVUNA GitHub repositories, and figuring out the
+And you will have spent considerable less time in doing this, than taking all the original DEVUNA GitHub repositories, and figuring out the
 process from scratch.
 </H3>
 <H3>There have been a few individuals that have downloaded this repository and got it running. Their testing has been very helpful.
