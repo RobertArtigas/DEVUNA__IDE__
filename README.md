@@ -21,7 +21,7 @@ in it's own directories so you do not have to add all the [DEVUNA](https://githu
 <br/>
 <H3>This is my personal directory with changes to the original applications for the executable versions are used in my Clarion development.
 These are NOT the original sources.</H3>
-<br/>
+<br/><br/>
 
 The KSS application directory is Mr. Mark Riffey's sources with all his changes. The Class Viewer application directory 
 is currently the sources from the DEVUNA directory (there will be some changes later). 
@@ -32,10 +32,9 @@ from the [DEVUNA](https://github.com/Devuna) directories, put it in the correct 
 This will get you started compiling some of the sources with a minimal amount of effort. A lot less effort that it took for 
 [Mr. Mark Riffey](https://github.com/mriffey/Devuna-KwikSourceSearch) to get his version runing from the original sources.
 
-
+<br/>
 <H3>May you have good fortune with all your learning experiences.
-<H3>
-  
+<H3> 
 <br/><br/>
 
 ## Compile directory path
