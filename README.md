@@ -2,8 +2,10 @@
 This is NOT a download or clone, and then compile and run.
 You will need to have some understanding of the compile directory structure, make some modifications to your RED file, 
 and then when you compile resolve any issues that might just might happen with other installed software you have.
- 
-
+</H3>
+<H3>What this will get you once completed is an evironment that will allow you to compile, modify and run some of the DEVUNA tools.
+And you WILL have spent considerable less time in doing this, than taking all the original DEVUNA GitHub repositories, and figuring out the
+process from scratch.
 </H3>
 
 # Drive:\RootFolder\DEVUNA__IDE__\\*
@@ -21,9 +23,12 @@ These are NOT the original sources.**_<br/><br/>
 If you need the original sources to start with, download the current directory structure, get it to compile. Then get the original sources 
 from the [DEVUNA](https://github.com/Devuna) directories, put it in the correct place for your specific compile directory structure, and then do your compiles.
 
-This will get you started compiling some of the sources with a minimal amount of effort. A lot less effort that it took for [Mr. Mark Riffey](https://github.com/mriffey/Devuna-KwikSourceSearch) to get his version runing from the original sources.
+This will get you started compiling some of the sources with a minimal amount of effort. A lot less effort that it took for 
+[Mr. Mark Riffey](https://github.com/mriffey/Devuna-KwikSourceSearch) to get his version runing from the original sources.
 
-<H3>Any enhancements or changes to any part of the original source code, that you decide to make public for use by others, should be submited back to Mr. Randy Rogers at the GitHub https://github.com/Devuna website, by whichever mechanism or procedure that he has defined.</H3>
+<H3>Any enhancements or changes to any part of the original source code, that you decide to make public for use by others, 
+should be submited back to Mr. Randy Rogers at the GitHub https://github.com/Devuna website, by whichever mechanism or procedure that he has defined.
+</H3>
 
 May you have good fortune with all your learning experiences.
 
