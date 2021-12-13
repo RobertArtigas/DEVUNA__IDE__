@@ -11,7 +11,7 @@ process from scratch.
 should be submited back to Mr. Randy Rogers at the GitHub https://github.com/Devuna website, by whichever mechanism or procedure that he has defined.
 </H3>
 <H3>There have been a few individuals that have downloaded this repository and got it running. Some of the documentation has been enhanced because of these efforts.
-And thru the generosity of these individuals, I have received additional RED files that you can have examples of environment setups.
+And through the generosity of these individuals, I have received additional RED files that you can inspect as examples of environment setups.
 </H3>
 <br/><br/>
 
