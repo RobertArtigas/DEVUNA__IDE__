@@ -11,17 +11,18 @@ process from scratch.
 should be submited back to Mr. Randy Rogers at the GitHub https://github.com/Devuna website, by whichever mechanism or procedure that he has defined.
 </H3>
 <br/><br/>
+
 # Drive:\RootFolder\DEVUNA__IDE__\\*
 
 **DEVUNA directory arranged as a Clarion IDE set of directories.** What has been done, is a compile of the existing sources using 
 the RED file provided that points to the LibSrc and Template directories for these specific applications. Everything is issolated 
 in it's own directories so you do not have to add all the [DEVUNA](https://github.com/Devuna) classes and templates into your common Clarion directories.
 
-The KSS application directory is Mr. Mark Riffey's sources with all his changes. The Class Viewer application directory 
-is currently the sources from the DEVUNA directory (there will be some changes later). 
-
 <br/>_**This is my personal directory with changes to the original applications for the executable versions are used in my Clarion development.<br/><br/>
 These are NOT the original sources.**_<br/><br/>
+
+The KSS application directory is Mr. Mark Riffey's sources with all his changes. The Class Viewer application directory 
+is currently the sources from the DEVUNA directory (there will be some changes later). 
 
 If you need the original sources to start with, download the current directory structure, get it to compile. Then get the original sources 
 from the [DEVUNA](https://github.com/Devuna) directories, put it in the correct place for your specific compile directory structure, and then do your compiles.
