@@ -10,6 +10,9 @@ process from scratch.
 <H3>Any enhancements or changes to any part of the original source code, that you decide to make public for use by others, 
 should be submited back to Mr. Randy Rogers at the GitHub https://github.com/Devuna website, by whichever mechanism or procedure that he has defined.
 </H3>
+<H3>There have been a few individuals that have downloaded this repository and got it running. Some of the documentation has been enhanced because of these efforts.
+And thru the generosity of these individuals, I have received additional RED files that you can have examples of environment setups.
+</H3>
 <br/><br/>
 
 # Drive:\RootFolder\DEVUNA__IDE__\\*
@@ -30,7 +33,7 @@ If you need the original sources to start with, download the current directory s
 from the [DEVUNA](https://github.com/Devuna) directories, put it in the correct place for your specific compile directory structure, and then do your compiles.
 
 This will get you started compiling some of the sources with a minimal amount of effort. A lot less effort that it took for 
-[Mr. Mark Riffey](https://github.com/mriffey/Devuna-KwikSourceSearch) to get his version runing from the original sources.
+[Mr. Mark Riffey](https://github.com/mriffey/Devuna-KwikSourceSearch) or I, to get our versions running from the original sources.
 
 <br/>
 <H3>May you have good fortune with all your learning experiences.
