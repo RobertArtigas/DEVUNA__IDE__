@@ -34,7 +34,7 @@ If you need the original sources to start with, download the current directory s
 from the [DEVUNA](https://github.com/Devuna) directories, put it in the correct place for your specific compile directory structure, and then do your compiles.
 
 This will get you started compiling some of the sources with a minimal amount of effort. A lot less effort that it took for 
-[Mr. Mark Riffey](https://github.com/mriffey/Devuna-KwikSourceSearch) or I, to get our versions running from the original sources.
+[Mr. Mark Riffey](https://github.com/mriffey/Devuna-KwikSourceSearch) or [I](https://github.com/RobertArtigas/DEVUNA__IDE__), to get our versions running from the original sources.
 
 <br/>
 <H3>May you have good fortune with all your learning experiences.
