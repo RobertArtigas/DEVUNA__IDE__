@@ -7,7 +7,10 @@ and then when you compile resolve any issues that might just might happen with o
 And you WILL have spent considerable less time in doing this, than taking all the original DEVUNA GitHub repositories, and figuring out the
 process from scratch.
 </H3>
-
+<H3>Any enhancements or changes to any part of the original source code, that you decide to make public for use by others, 
+should be submited back to Mr. Randy Rogers at the GitHub https://github.com/Devuna website, by whichever mechanism or procedure that he has defined.
+</H3>
+<br/><br/>
 # Drive:\RootFolder\DEVUNA__IDE__\\*
 
 **DEVUNA directory arranged as a Clarion IDE set of directories.** What has been done, is a compile of the existing sources using 
@@ -26,9 +29,6 @@ from the [DEVUNA](https://github.com/Devuna) directories, put it in the correct 
 This will get you started compiling some of the sources with a minimal amount of effort. A lot less effort that it took for 
 [Mr. Mark Riffey](https://github.com/mriffey/Devuna-KwikSourceSearch) to get his version runing from the original sources.
 
-<H3>Any enhancements or changes to any part of the original source code, that you decide to make public for use by others, 
-should be submited back to Mr. Randy Rogers at the GitHub https://github.com/Devuna website, by whichever mechanism or procedure that he has defined.
-</H3>
 
 May you have good fortune with all your learning experiences.
 
