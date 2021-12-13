@@ -1,6 +1,9 @@
 <H3>Before you decide to do this installation, at least read the documentaton written below. 
- <br/> This is NOT a download or clone, and then compile and run.<br/> 
-You will need to have some understanding of the compile directory structure, make some modifications to  
+This is NOT a download or clone, and then compile and run.
+You will need to have some understanding of the compile directory structure, make some modifications to your RED file, 
+and then when you compile resolve any issues that might just might happen with other installed software you have.
+ 
+
 </H3>
 
 # Drive:\RootFolder\DEVUNA__IDE__\\*
