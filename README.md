@@ -1,7 +1,7 @@
 <H3>Before you decide to do this installation, at least read the documentaton written below. 
 This is NOT a download or clone, and then compile and run.
 You will need to have some understanding of the compile directory structure, make some modifications to your RED file, 
-and when you compile, then resolve any issues that might just might happen with the other installed software you have.
+and when you compile, you will need to resolve any issues that might just might happen with the other installed software you have.
 </H3>
 <H3>What this series of steps will get you once completed is an evironment that will allow you to compile, modify and run some of the DEVUNA tools.
 And you will have spent considerable less time in doing this, than taking all the original DEVUNA GitHub repositories, and figuring out the
