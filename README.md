@@ -113,7 +113,7 @@ in those two class files have been commented out.
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_RUNTIME_01.PNG)
 <br/>This contains the **RunTime** environment directories for each utility with all the necessary files to
 be able to run the utility. After compiling the utility and getting a clean compile, move the **EXE** to the appropriate utility 
-**Runtime** directory and you should be able to test.
+**RunTime** directory and you should be able to test.
 <br/><br/>
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_RUNTIME_02.PNG)
