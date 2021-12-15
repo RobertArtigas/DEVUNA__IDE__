@@ -64,8 +64,8 @@ and you will have to change some of your references to the directory structures 
 
 ## C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\Application\\KSS
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_DIRECTORY_03.PNG)
-<BR/>In each application directory there is a local RED file that will be picked up by the IDE when you open the application.
-This is the specific KSS aplication directory.<br/><br/><br/>
+<BR/>In each application directory there is a local **RED** file that will be picked up by the **IDE** when you open the application.
+This is the specific **KSS** aplication directory.<br/><br/><br/>
 
 ## [RED]irection file
 
@@ -78,13 +78,13 @@ that is being used.
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_RED_02.PNG)
 <BR/>**The RED entries that are used by the IDE that apply to the Devuna locations for my directory setup are shown above.** 
-They point to were the class sources and templates are located so when the IDE opens it can find classes and templates. 
+They point to were the class sources and templates are located so when the **IDE** opens it can find classes and templates. 
 Please recall that you still have to register the templates from the specific directory location.
 
-If you want to use your personal RED file, the entries will have to be copied from this RED file to your RED file, and your RED file directory locations changed 
-for your Clarion IDE setup to where you have located your Devuna directories.
+If you want to use your personal **RED** file, the entries will have to be copied from this **RED** file to your **RED** file, and your **RED** file directory locations changed 
+for your Clarion **IDE** setup to where you have located your Devuna directories.
 
-_There may be a couple of additional entries need in your RED file to pick up the images that are for each application that are location in
+_There may be a couple of additional entries need in your **RED** file to pick up the images that are for each application that are location in
 each specific image directory for that application._
 
 **Please recall that you will need to change the _C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\*_ REDirection entries to that you are using to the _Drive:\\RootFolder\\DEVUNA\_\_IDE\_\_\\*_ format that matches your directory structure.**
