@@ -1,0 +1,6 @@
+---- Default Redirection for Clarion 11.0: 2021.12.08: C:\_GIT_\Devuna\__IDE__\Application\Kss
+
+---- ---------------------------------------------------
+{include C:\Projects\DEVUNA__IDE__\BIN\RobertoArtigas.RED} 
+---- ---------------------------------------------------
+
