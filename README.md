@@ -73,6 +73,7 @@ This is the specific **KSS** aplication directory.<br/><br/><br/>
 <BR/>Using the **KSS** application as an example I opened the **RED** file from the **IDE** and you can see that all there is an include the specfic **RED** file 
 that is being used.
 
+![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_RED_MR_01.PNG)
 **Please recall that you will need to change the _C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\BIN\\*.RED_ file entry to that you are using to the _Drive:\\RootFolder\\DEVUNA\_\_IDE\_\_\\BIN\\*.RED_ that matches your directory structure.**
 <br/><br/><br/>
 
@@ -81,6 +82,7 @@ that is being used.
 They point to were the class sources and templates are located so when the **IDE** opens it can find classes and templates. 
 Please recall that you still have to register the templates from the specific directory location.
 
+![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_RED_MR_02.PNG)
 If you want to use your personal **RED** file, the entries will have to be copied from this **RED** file to your **RED** file, and your **RED** file directory locations changed 
 for your Clarion **IDE** setup to where you have located your Devuna directories.
 
