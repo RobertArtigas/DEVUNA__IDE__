@@ -116,22 +116,22 @@
 -- DEVUNA, Roberto Artigas Devuna-ClassViewer, KiSS (Mark Riffey) development --
 -- RA.2021.11.17.WED: It is working: Start setting up for GitHub download
 -- RA.2021.09.13.MON: Start cleaning up this mess after I get it working
---        C:\_GIT_\Devuna\__IDE__\LibSrc\win
-*.tpl   = C:\_GIT_\Devuna\__IDE__\Template\win;
-*.tpw   = C:\_GIT_\Devuna\__IDE__\Template\win;
-*.txt   = C:\_GIT_\Devuna\__IDE__\LibSrc\win;
-*.C     = C:\_GIT_\Devuna\__IDE__\LibSrc\win;
-*.int   = C:\_GIT_\Devuna\__IDE__\LibSrc\win;
-*.inc   = C:\_GIT_\Devuna\__IDE__\LibSrc\win;
-*.clw   = C:\_GIT_\Devuna\__IDE__\LibSrc\win;
-*.equ   = C:\_GIT_\Devuna\__IDE__\LibSrc\win;
-*.def   = C:\_GIT_\Devuna\__IDE__\LibSrc\win;
-*.gif   = C:\_GIT_\Devuna\__IDE__\Images;
-*.bmp   = C:\_GIT_\Devuna\__IDE__\Images;
-*.ico   = C:\_GIT_\Devuna\__IDE__\Images;
-*.EXE   = C:\_GIT_\Devuna\__IDE__\BIN;
-*.DLL   = C:\_GIT_\Devuna\__IDE__\BIN;
-*.LIB   = C:\_GIT_\Devuna\__IDE__\LIB;
+--        C:\Projects\DEVUNA__IDE__\LibSrc\win
+*.tpl   = C:\Projects\DEVUNA__IDE__\Template\win;
+*.tpw   = C:\Projects\DEVUNA__IDE__\Template\win;
+*.txt   = C:\Projects\DEVUNA__IDE__\LibSrc\win;
+*.C     = C:\Projects\DEVUNA__IDE__\LibSrc\win;
+*.int   = C:\Projects\DEVUNA__IDE__\LibSrc\win;
+*.inc   = C:\Projects\DEVUNA__IDE__\LibSrc\win;
+*.clw   = C:\Projects\DEVUNA__IDE__\LibSrc\win;
+*.equ   = C:\Projects\DEVUNA__IDE__\LibSrc\win;
+*.def   = C:\Projects\DEVUNA__IDE__\LibSrc\win;
+*.gif   = C:\Projects\DEVUNA__IDE__\Images;
+*.bmp   = C:\Projects\DEVUNA__IDE__\Images;
+*.ico   = C:\Projects\DEVUNA__IDE__\Images;
+*.EXE   = C:\Projects\DEVUNA__IDE__\BIN;
+*.DLL   = C:\Projects\DEVUNA__IDE__\BIN;
+*.LIB   = C:\Projects\DEVUNA__IDE__\LIB;
 --
 -- IGNORE WHAT COMES AFTER THIS --
 -- IGNORE WHAT COMES AFTER THIS --
