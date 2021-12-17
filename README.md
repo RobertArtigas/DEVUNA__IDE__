@@ -81,7 +81,7 @@ that is being used.
 <BR/>**The RED entries that are used by the IDE that apply to the Devuna locations for my directory setup are shown above.** 
 They point to were the class sources and templates are located so when the **IDE** opens it can find classes and templates. 
 Please recall that you still have to register the templates from the specific directory location.
-
+ 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_RED_MR_02.PNG)
 If you want to use your personal **RED** file, the entries will have to be copied from this **RED** file to your **RED** file, and your **RED** file directory locations changed 
 for your Clarion **IDE** setup to where you have located your Devuna directories.
