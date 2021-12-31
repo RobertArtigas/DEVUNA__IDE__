@@ -172,7 +172,20 @@
 *.tp?           = C:\_GIT_\RobertArtigas\RYB;
 *.tp?           = C:\_GIT_\RobertArtigas\DCT2CLASS;
 *.tp?           = C:\_GIT_\RobertArtigas\XMLDOC;
-*.tp?           = C:\_GIT_\RobertArtigas\RAYS\win\Template;
+--
+-- RA.2021.12.30: RAYS became a hidden REPO for classes and templates that are being tested
+-- before being moved to the public RYB repository. Got to HAND move the stuff.
+*.tpl           = C:\_GIT_\RobertArtigas\RAYS\win\Template;
+*.tpw           = C:\_GIT_\RobertArtigas\RAYS\win\Template;
+*.int           = C:\_GIT_\RobertArtigas\RAYS\win\LibSrc;
+*.inc           = C:\_GIT_\RobertArtigas\RAYS\win\LibSrc;
+*.clw           = C:\_GIT_\RobertArtigas\RAYS\win\LibSrc;
+--
+*.tpl           = C:\_GIT_\RobertArtigas\RAYS\hide\Template;
+*.tpw           = C:\_GIT_\RobertArtigas\RAYS\hide\Template;
+*.int           = C:\_GIT_\RobertArtigas\RAYS\hide\LibSrc;
+*.inc           = C:\_GIT_\RobertArtigas\RAYS\hide\LibSrc;
+*.clw           = C:\_GIT_\RobertArtigas\RAYS\hide\LibSrc;
 --
 -- CARL BARNES, CLARION WINDOWS PREVIEWER --
 *.clw           = C:\_GIT_\CarlBarnes\LibSrc;
