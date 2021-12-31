@@ -175,6 +175,12 @@
 --
 -- RA.2021.12.30: RAYS became a hidden REPO for classes and templates that are being tested
 -- before being moved to the public RYB repository. Got to HAND move the stuff.
+*.tpl           = C:\_GIT_\RobertArtigas\RYB\win\Template;
+*.tpw           = C:\_GIT_\RobertArtigas\RYB\win\Template;
+*.int           = C:\_GIT_\RobertArtigas\RYB\win\LibSrc;
+*.inc           = C:\_GIT_\RobertArtigas\RYB\win\LibSrc;
+*.clw           = C:\_GIT_\RobertArtigas\RYB\win\LibSrc;
+--
 *.tpl           = C:\_GIT_\RobertArtigas\RAYS\win\Template;
 *.tpw           = C:\_GIT_\RobertArtigas\RAYS\win\Template;
 *.int           = C:\_GIT_\RobertArtigas\RAYS\win\LibSrc;
