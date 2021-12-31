@@ -1300,6 +1300,7 @@ rgStructDataTypes           CSTRING(''                                          
   'TABLE TOOLBAR VIEW WINDOW BOX BUTTON CHECK COMBO CUSTOM ELLISPE ENTRY '                  & |
   'IMAGE LINE LIST OLE OPTION PANEL PROGRESS PROMPT RADIO REGION SHEET SPIN '               & |
   'TAB TEXT VBX CLASS INTERFACE')
+! RA.2021.12.23.TH: USTRING ???
 
 rgAttributes                CSTRING(''                                                      & |
   'ABOVE ABSOLUTE ALONE ALRT ANGLE AT AUTO AUTOSIZE AVE BELOW BEVEL BINARY '                & |
