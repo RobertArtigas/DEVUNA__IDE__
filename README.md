@@ -142,7 +142,7 @@ Be aware, if you setup from this repository you will not need **kss.res.** I am 
 
 ## Webinars explaining this GitHub repository
 
-Nothing yet
+ClarionLive : 644 : Jan 21, 2022 : https://www.youtube.com/watch?v=ZZDxJDUnoRc
 
 ##
 ###
