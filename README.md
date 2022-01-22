@@ -26,8 +26,7 @@ in it's own directories so you do not have to add all the [DEVUNA](https://githu
 **IMPORTANT IMPORTANT IMPORTANT -->** These separate directories get merged into your IDE environment. This means these directories will have to be in any other RED files that you use in other projects. When you bring up another project that uses a different RED and you find these templates missing, you will need to add the directory entries of your DEVUNA
 project to this specific RED file.
 
-If you rather not have this type of split directory environment, just put all the correct directories into your **Clarion enviroment** locations (as Mr. Mark Riffey did),
-set up your compile project directory as you normally would, and go make the changes you want. **<-- IMPORTANT IMPORTANT IMPORTANT** 
+If you rather not have this type of split directory environment, just put all the correct directories into your **standard Clarion enviroment** locations (as Mr. Mark Riffey did), set up your compile project directory as you normally would, and go make the changes you want. **<-- IMPORTANT IMPORTANT IMPORTANT** 
 
 <br/>
 <H3>This is my personal directory with changes to the original applications for the executable versions that are used in my Clarion development.
