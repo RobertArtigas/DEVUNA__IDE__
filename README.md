@@ -14,6 +14,7 @@ And through the generosity of these individuals, I have received additional RED 
 <H3>Any enhancements or changes to any part of the original source code, that you decide to make public for use by others, 
 should be submited back to Mr. Randy Rogers at the GitHub https://github.com/Devuna website, by whichever mechanism or procedure that he has defined.
 </H3>
+<H3>I can be reached at: roberto.artigas.dev@gmail.com</H3>
 <br/><br/>
 
 # Drive:\RootFolder\DEVUNA__IDE__\\*
@@ -22,6 +23,7 @@ should be submited back to Mr. Randy Rogers at the GitHub https://github.com/Dev
 the **RED** file provided that points to the **LibSrc** and **Template** directories for these specific applications. Everything is issolated 
 in it's own directories so you do not have to add all the [DEVUNA](https://github.com/Devuna) classes and templates into your common Clarion directories.
 
+These separated directories get merged into you IDE environment. Which means these directories will have to be in any other RED files that you use in other projects.
 <br/>
 <H3>This is my personal directory with changes to the original applications for the executable versions that are used in my Clarion development.
 These are NOT the original sources.</H3>
