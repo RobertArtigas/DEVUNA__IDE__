@@ -14,7 +14,7 @@ And through the generosity of these individuals, I have received additional RED 
 <H3>Any enhancements or changes to any part of the original source code, that you decide to make public for use by others, 
 should be submited back to Mr. Randy Rogers at the GitHub https://github.com/Devuna website, by whichever mechanism or procedure that he has defined.
 </H3>
-<H2>roberto.artigas.dev@gmail.com</H2>
+<H3>roberto.artigas.dev@gmail.com</H3>
 <br/><br/>
 
 # Drive:\RootFolder\DEVUNA__IDE__\\*
