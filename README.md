@@ -91,7 +91,9 @@ for your Clarion **IDE** setup to where you have located your Devuna directories
 
 _There may be a couple of additional entries need in your **RED** file to pick up the images that are for each application that are location in
 each specific image directory for that application._
+ 
  </br></br>
+ 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_RED_MR_02.PNG)
 **Please recall that you will need to change the _C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\*_ REDirection entries to that you are using to the _Drive:\\RootFolder\\DEVUNA\_\_IDE\_\_\\*_ format that matches your directory structure.**
 <br/><br/><br/>
