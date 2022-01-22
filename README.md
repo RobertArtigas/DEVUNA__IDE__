@@ -23,7 +23,10 @@ should be submited back to Mr. Randy Rogers at the GitHub https://github.com/Dev
 the **RED** file provided that points to the **LibSrc** and **Template** directories for these specific applications. Everything is issolated 
 in it's own directories so you do not have to add all the [DEVUNA](https://github.com/Devuna) classes and templates into your common Clarion directories.
 
-These separated directories get merged into you IDE environment. Which means these directories will have to be in any other RED files that you use in other projects.
+These separate directories get merged into you IDE environment. This means these directories will have to be in any other RED files that you use in other projects. 
+When you bring up another project that uses a different RED and you find these templates missing, you will need to add the directory entries of your DEVUNA
+project to your RED files. 
+
 <br/>
 <H3>This is my personal directory with changes to the original applications for the executable versions that are used in my Clarion development.
 These are NOT the original sources.</H3>
