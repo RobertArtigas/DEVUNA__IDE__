@@ -96,7 +96,6 @@ each specific image directory for that application._
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_TEMPLATE_01.PNG)
 <br/><br/>
- 
 <H3>Do not forget to register your templates at the location that they are. If your RED file is set up correctly they will be picked up when you re-start the IDE.</H3>
 
 ## C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\LibSrc\\win
