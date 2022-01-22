@@ -23,9 +23,9 @@ should be submited back to Mr. Randy Rogers at the GitHub https://github.com/Dev
 the **RED** file provided that points to the **LibSrc** and **Template** directories for these specific applications. Everything is issolated 
 in it's own directories so you do not have to add all the [DEVUNA](https://github.com/Devuna) classes and templates into your common Clarion directories.
 
-These separate directories get merged into you IDE environment. This means these directories will have to be in any other RED files that you use in other projects. 
+_These separate directories get merged into your IDE environment. This means these directories will have to be in any other RED files that you use in other projects. 
 When you bring up another project that uses a different RED and you find these templates missing, you will need to add the directory entries of your DEVUNA
-project to this RED file. 
+project to this RED file._ 
 
 <br/>
 <H3>This is my personal directory with changes to the original applications for the executable versions that are used in my Clarion development.
@@ -92,7 +92,7 @@ for your Clarion **IDE** setup to where you have located your Devuna directories
 
 _There may be a couple of additional entries need in your **RED** file to pick up the images that are for each application that are location in
 each specific image directory for that application._
- 
+ </br></br>
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_RED_MR_02.PNG)
 **Please recall that you will need to change the _C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\*_ REDirection entries to that you are using to the _Drive:\\RootFolder\\DEVUNA\_\_IDE\_\_\\*_ format that matches your directory structure.**
 <br/><br/><br/>
@@ -100,7 +100,7 @@ each specific image directory for that application._
 ## C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\Template\\win
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_TEMPLATE_01.PNG)
-<br/><br/>
+<br/>
 <H3>Do not forget to register your templates at the location that they are. If your RED file is set up correctly they will be picked up when you re-start the IDE.</H3>
  </br></br>
 ## C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\LibSrc\\win
