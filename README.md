@@ -23,8 +23,8 @@ should be submited back to Mr. Randy Rogers at the GitHub https://github.com/Dev
 the **RED** file provided that points to the **LibSrc** and **Template** directories for these specific applications. Everything is issolated 
 in it's own directories so you do not have to add all the [DEVUNA](https://github.com/Devuna) classes and templates into your common Clarion directories.
 
-**IMPORTANT IMPORTANT IMPORTANT -->** These separate directories get merged into your IDE environment. This means these directories will have to be in any other RED files that you use in other projects. When you bring up another project that uses a different RED and you find these templates missing, you will need to add the directory entries of your DEVUNA
-project to this specific RED file.
+**IMPORTANT IMPORTANT IMPORTANT -->** These separate directories get merged into your IDE environment. This means these directories will have to be in any other RED files that you use in other projects. When you bring up another project that uses a different RED and you find these templates missing, 
+you will need to add the directory entries of your DEVUNA project to this specific RED file.
 
 If you rather not have this type of split directory environment, just put all the correct directories into your **standard Clarion enviroment** locations (as Mr. Mark Riffey did), set up your compile project directory as you normally would, and go make the changes you want. **<-- IMPORTANT IMPORTANT IMPORTANT** 
 
@@ -35,7 +35,8 @@ These are NOT the original sources.</H3>
 
 The KSS application directory is Mr. Mark Riffey's sources with all his changes. The Class Viewer application directory 
 is currently the sources from the DEVUNA directory with some version enhancements and code refactoring. 
-If you want to see what has been done, then download the sources and look at them. Compare them to the original. 
+If you want to see what has been done, then download the sources and look at them. Compare them to the original.
+See if you want to use this specific version.
 
 If you need the original sources to start with, download the current directory structure, get it to compile. Then get the original sources 
 from the [DEVUNA](https://github.com/Devuna) directories, put it in the correct place for your specific compile directory structure, and then do your compiles.
