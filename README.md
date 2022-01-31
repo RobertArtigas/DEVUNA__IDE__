@@ -34,7 +34,8 @@ These are NOT the original sources.</H3>
 <br/><br/>
 
 The KSS application directory is Mr. Mark Riffey's sources with all his changes. The Class Viewer application directory 
-is currently the sources from the DEVUNA directory (there will be some changes later). 
+is currently the sources from the DEVUNA directory with some version enhancements and code refactoring. 
+If you want to see what has been done, then download the sources and look at them. Compare them to the original. 
 
 If you need the original sources to start with, download the current directory structure, get it to compile. Then get the original sources 
 from the [DEVUNA](https://github.com/Devuna) directories, put it in the correct place for your specific compile directory structure, and then do your compiles.
