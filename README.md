@@ -47,6 +47,14 @@ This will get you started compiling some of the sources with a minimal amount of
 <H3> 
 <br/><br/>
 
+## Additional Requirements
+
+It has been reported that some icetips templates might be needed.
+ 
+I personally own the icetips, capesoft, superstuff, and other vendor templates. So this might was not a missing set of items. **Your mileage may vary.**
+ 
+<br/><br/>
+ 
 ## Compile directory path
 
 My disk drive compiler directory path: **C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\\***
