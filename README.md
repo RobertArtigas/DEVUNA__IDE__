@@ -47,7 +47,7 @@ This will get you started compiling some of the sources with a minimal amount of
 <H3> 
 <br/><br/>
 
-## Additional Requirements
+<!-- ## Additional Requirements
 
 It has been **reported** that some icetips templates might be needed.
  
@@ -57,7 +57,7 @@ The positble requirements reported missing are now documented. The specifics tem
 **Your mileage may vary depending on the verdor's templates you use.**
  
 <br/><br/>
- 
+-->
 ## Compile directory path
 
 My disk drive compiler directory path: **C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\\***
