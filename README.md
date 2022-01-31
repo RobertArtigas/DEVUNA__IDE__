@@ -50,7 +50,7 @@ This will get you started compiling some of the sources with a minimal amount of
 
 ## Additional Requirements
  
-You will need the Capesoft **StringTheory, WinEvent and xFiles templates,** since they are part of the KSS search utility.
+You will need the Capesoft **StringTheory**, **WinEvent** and **xFiles** templates, since they are part of the KSS search utility.
 
 It has been **reported** that some icetips templates might be needed. [looking into this ???]
  
