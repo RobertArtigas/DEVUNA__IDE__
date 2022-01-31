@@ -48,9 +48,11 @@ This will get you started compiling some of the sources with a minimal amount of
 <H3> 
 <br/><br/>
 
-<!-- ## Additional Requirements
+## Additional Requirements
+ 
+You will need the Capesoft **StringTheory, WinEvent and xFiles templates,** since they are part of the KSS search utility.
 
-It has been **reported** that some icetips templates might be needed.
+It has been **reported** that some icetips templates might be needed. [looking into this ???]
  
 I personally own the icetips, capesoft, superstuff, and other vendor templates. So this was not a missing set of items for myself and the additional individuals that tested.
 The positble requirements reported missing are now documented. The specifics templates are not, but if you do not have them, they can can be removedby the IDE and you will have to deal with the funtionality that **might be missing.** <br>
@@ -58,7 +60,7 @@ The positble requirements reported missing are now documented. The specifics tem
 **Your mileage may vary depending on the verdor's templates you use.**
  
 <br/><br/>
--->
+
 ## Compile directory path
 
 My disk drive compiler directory path: **C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\\***
