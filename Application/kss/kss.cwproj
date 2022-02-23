@@ -12,6 +12,7 @@
     <stack_size>16384</stack_size>
     <CopyCore>True</CopyCore>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartWorkingDirectory>..\..\RunTime\KSSOpen\</StartWorkingDirectory>
     <ApplicationIcon>kss.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -35,8 +36,9 @@
     <GenerateMap>True</GenerateMap>
     <line_numbers>False</line_numbers>
     <DefineConstants>xFilesLinkMode=&gt;1%3bxFilesDllMode=&gt;0%3b_XFILES_=&gt;1%3bStringTheoryLinkMode=&gt;1%3bStringTheoryDllMode=&gt;0%3bMD5=&gt;0%3bWinEventLinkMode=&gt;1%3bWinEventDLLMode=&gt;0%3b_ABCDllMode_=&gt;0%3b_ABCLinkMode_=&gt;1%3b_SCIDllMode_=&gt;0%3b_SCILinkMode_=&gt;1</DefineConstants>
-    <OutputPath>bin\release\</OutputPath>
+    <OutputPath>..\..\RunTime\KSSOpen\</OutputPath>
     <warnings>on</warnings>
+    <StartAction>Project</StartAction>
   </PropertyGroup>
   <ItemGroup>
     <Library Include="blank.ico" />
