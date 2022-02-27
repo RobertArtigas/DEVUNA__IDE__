@@ -59,7 +59,7 @@ I personally own the icetips, capesoft, superstuff, and other vendor templates. 
 The positble requirements reported missing are now documented. The specifics templates are not, but if you do not have them, 
 they can can be removed by the IDE and you will have to deal with the funtionality that **might be missing.** <br>
  
-**Your mileage may vary depending on the verdor's templates you use.**
+**Your mileage may vary depending on other vendor's templates you use.**
  
 <br/><br/>
 
