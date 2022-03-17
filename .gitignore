@@ -1,6 +1,8 @@
 ## .git*
 *.sublime-workspace
 
+CVIEW*.DAT
+
 ############
 ## Clarion
 ############
