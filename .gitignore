@@ -1,7 +1,9 @@
 ## .git*
 *.sublime-workspace
 
+*.app_*
 CVIEW*.DAT
+_RedTest_
 
 ############
 ## Clarion
