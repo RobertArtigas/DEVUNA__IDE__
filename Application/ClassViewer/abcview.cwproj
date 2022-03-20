@@ -330,6 +330,81 @@
     <Compile Include="abcview073.clw">
       <Generated>true</Generated>
     </Compile>
+    <Compile Include="abcview074.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview075.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview076.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview077.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview078.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview079.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview080.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview081.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview082.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview083.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview084.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview085.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview086.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview087.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview088.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview089.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview090.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview091.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview092.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview093.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview094.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview095.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview096.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview097.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview098.clw">
+      <Generated>true</Generated>
+    </Compile>
     <Compile Include="ABCVIEW_BC.CLW">
       <Generated>true</Generated>
     </Compile>
