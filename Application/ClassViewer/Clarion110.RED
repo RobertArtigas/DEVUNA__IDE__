@@ -1,6 +1,5 @@
----- Default Redirection for Clarion 11.0: 2021.12.08: ClassViewer
+-- Default Redirection for Clarion 10.0
 
 ---- ---------------------------------------------------
 {include C:\_GIT_\Devuna\__IDE__\BIN\RobertoArtigas.RED}
 ---- ---------------------------------------------------
-
