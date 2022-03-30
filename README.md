@@ -55,9 +55,12 @@ You will need the Capesoft **StringTheory**, **WinEvent** and **xFiles** templat
 
 It has been **reported** that some icetips templates might be needed for KSS at this time. [Looking into this ???]
  
-I personally own the icetips, capesoft, superstuff, and other vendor templates. So this was not a missing set of items for myself and the additional individuals that tested.
+I personally own the icetips, capesoft, superstuff, and other vendor templates. 
+So this was not a missing set of items for myself and the additional individuals that tested.
 The positble requirements reported missing are now documented. The specifics templates are not, but if you do not have them, 
-they can can be removed by the IDE and you will have to deal with the funtionality that **might be missing.** <br>
+they can can be removed by the IDE and you will have to deal with the funtionality that **might be missing.** <br/>
+ 
+The ABCVIEW class viewer untility should not have any additional vendor requirements. <br/>
  
 **Your mileage may vary depending on other vendor's templates you use.**
  
