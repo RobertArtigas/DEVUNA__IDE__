@@ -17,7 +17,7 @@ Licence for Scintilla Clarion Classes and Template
     You should have received a copy of the MIT License
     along with Devuna-ClassViewer.  If not, see <https://opensource.org/licenses/MIT>.
 
-==============================================================================
+============================================================
 License for Scintilla and SciTE
 
     Copyright 1998-2016 by Neil Hodgson <neilh@scintilla.org>
