@@ -405,6 +405,30 @@
     <Compile Include="abcview098.clw">
       <Generated>true</Generated>
     </Compile>
+    <Compile Include="abcview099.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview100.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview101.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview102.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview103.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview104.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview105.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview106.clw">
+      <Generated>true</Generated>
+    </Compile>
     <Compile Include="ABCVIEW_BC.CLW">
       <Generated>true</Generated>
     </Compile>
