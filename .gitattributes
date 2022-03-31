@@ -53,5 +53,6 @@ help/* linguist-documentation
 *.[Dd][Cc][Tt] filter=lfs diff=lfs merge=lfs -text
 *.[Mm][Ss][Ii] filter=lfs diff=lfs merge=lfs -text
 *.[Tt][Rr][Ff] filter=lfs diff=lfs merge=lfs -text
+*.[Zz][Ii][Pp] filter=lfs diff=lfs merge=lfs -text
 
 
