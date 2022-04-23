@@ -96,7 +96,9 @@ This is the specific **KSS** aplication directory.
 ## C:\\\_GIT\_\Devuna\\_\_IDE\\\_\_\\Application\\ClassViewer\\setup\\SetupBuilder
 <BR/>In each application there is a Setup Builder directory and this will contain the SetupBuilder script that allows creation of a
 install script using the **RunTime** directory for the currently compiled version.
- <br/><br/><br/>
+This is for the specific **ClassViewer** aplication directory.
+This is for the specific **ClassViewer** aplication directory.
+<br/><br/><br/>
 
 ## C:\\\_GIT\_\\Devuna\\_\_IDE\\\_\_\\Application\\ClassViewer\\help\\H&amp;M
 <BR/>In each application there is a Help and Manual directory and this will contain the source files that allows creation of the
