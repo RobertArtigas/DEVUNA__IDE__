@@ -1,6 +1,8 @@
 ## .git*
 *.sublime-workspace
 
+help
+
 *.app_*
 CVIEW*.DAT
 _RedTest_
