@@ -144,8 +144,11 @@ in those two class files have been commented out.
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_RUNTIME_01.PNG)
 <br/>This contains the **RunTime** environment directories for each utility with all the necessary files to
-be able to run the utility. After compiling the utility and getting a clean compile, move the **EXE** to the appropriate utility 
-**RunTime** directory and you should be able to test.
+be able to run the utility. ~~After compiling the utility and getting a clean compile, move the **EXE** to the appropriate utility 
+**RunTime** directory and you should be able to test.~~
+<br/>
+The projects have been changed to compile directly to the **Runtime** directories. Once compiled, you can run the **EXE** from that location.
+It is probably useful to setup the applications as pinned to the taskbar when you run them the first time.
 <br/><br/>
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_RUNTIME_02.PNG)
