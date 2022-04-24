@@ -95,8 +95,10 @@ and you will have to change some of your references to the directory structures 
 This is the specific **KSS** aplication directory.
  <br/><br/><br/>
 
-## C:\\\_GIT\_\Devuna\\\_\_IDE\_\_\\Application\\ClassViewer\\setup\\SetupBuilder
+## C:\\\_GIT\_\Devuna\\\_\_IDE\_\_\\Application\\ClassViewer\\setup
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_ABCVIEW_SETUP_01.png)
+<br/>
+ ## C:\\\_GIT\_\Devuna\\\_\_IDE\_\_\\Application\\ClassViewer\\setup\\SetupBuilder
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_ABCVIEW_SETUP_02.png)
 <BR/>In each application there is a Setup Builder directory and this will contain the SetupBuilder script that allows creation of a
 install script using the **RunTime** directory for the currently compiled version.
