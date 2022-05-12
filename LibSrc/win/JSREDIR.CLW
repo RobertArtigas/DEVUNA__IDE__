@@ -43,6 +43,9 @@ MacroQ           Queue,Type
 Macro              String(20)
 Replacement        String(FILE:MaxFilePath)
                  end
+RecurseQ         QUEUE,TYPE
+Name               STRING(FILE:MaxFileName)
+                 END
 
   Include('JSRedir.inc'),ONCE
 
@@ -88,6 +91,9 @@ JSRedirClass.Construct Procedure
   Free(Self.MacroQ)
   Clear(Self.MacroQ)
   Self.AddDefaultMacros()
+  SELF.RecurseQ &= NEW RecurseQ
+  FREE(SELF.RecurseQ)
+  CLEAR(SELF.RecurseQ)
 
 !============================================================================================================================================================
 JSRedirClass.Destruct Procedure
@@ -102,6 +108,9 @@ JSRedirClass.Destruct Procedure
   If NOT Self.MacroQ &= NULL
     Dispose(Self.MacroQ)
   end
+  IF NOT SELF.RecurseQ &= NULL
+    DISPOSE(SELF.RecurseQ)
+  END
 
 !============================================================================================================================================================
 JSRedirClass.FileDialog     Procedure(String pTitle,*String pFileName,String pExtensions,Long pFlags,Byte ReturnRelativePath=False)
@@ -491,3 +500,49 @@ FixPath              PROCEDURE  (String pInPath)
 
  Return Clip(pInPath) & Choose(Sub(Clip(pInPath),-1,1)='\', '','\')
 
+!============================================================================================================================================================
+JSRedirClass.ParseRedirFile2    PROCEDURE(STRING pRedirFileName,STRING pSection,BYTE Validate=False,LONG Level=0)
+!Loops through a redir file and extracts the path info to fill the queue
+!Recurses through the {INCLUDE <filername>} keyword adding the contents to the current queues
+! RA.2022.05.07.SAT: Not functional code as of yet.
+!============================================================================================================================================================
+
+RedirFileName  CSTRING(FILE:MaxFilePath+FILE:MaxFileName+1),Static
+RedirFile      File,Driver('ASCII'),Create,Name(RedirFileName),PRE(R)
+Record             Record
+S                    String(1000)
+                   end
+                 end
+
+  Code
+
+ SetCursor(CURSOR:Wait)
+ RedirFileName = Clip(pRedirFileName)
+ Open(RedirFile)
+ If ErrorCode()
+   Return 1
+ end
+ Set(RedirFile)
+ Loop
+   Next(RedirFile)
+   If ErrorCode() then break.
+   If Instring(UPPER('[' & Clip(pSection) & ']'),Upper(R:S),1,1)
+     Loop
+       Next(RedirFile)
+       If ErrorCode() OR Instring('[',R:S,1,1)
+         Do ProcedureReturn
+       end
+       Self.ParseLine(R:S)
+     end
+   end
+ end
+ Do ProcedureReturn
+
+ProcedureReturn Routine
+
+  Close(RedirFile)
+  SetCursor()
+  If Validate
+    Self.ValidateRedirQ(1,1)
+  end
+  Return 0

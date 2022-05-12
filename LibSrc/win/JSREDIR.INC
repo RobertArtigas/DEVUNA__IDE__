@@ -37,6 +37,9 @@ Reset              Procedure
 ValidateRedirQ     Procedure(Byte Verbose=False,Byte CreateFolders=False),Byte,Proc
 MacroQ             &MacroQ,Private
 RedirQ             &RedirQ,Private
+Level              LONG,PRIVATE
+RecurseQ           &RecurseQ,PRIVATE
+ParseRedirFile2    PROCEDURE(STRING pRedirFileName,STRING pSection,BYTE Validate=False,LONG Level=0),Byte,Proc
                  end
 
 _EndOfInclude_
