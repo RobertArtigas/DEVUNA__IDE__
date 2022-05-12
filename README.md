@@ -23,10 +23,12 @@ should be submited back to Mr. Randy Rogers at the GitHub https://github.com/Dev
 the **RED** file provided that points to the **LibSrc** and **Template** directories for these specific applications. Everything is issolated 
 in it's own directories so you do not have to add all the [DEVUNA](https://github.com/Devuna) classes and templates into your common Clarion directories.
 
-**IMPORTANT IMPORTANT IMPORTANT -->** These separate directories get merged into your IDE environment. This means these directories will have to be in any other RED files that you use in other projects. When you bring up another project that uses a different RED and you find these templates missing, 
+**IMPORTANT IMPORTANT IMPORTANT -->**
+<br/>These separate directories get merged into your IDE environment. This means these directories will have to be in any other RED files that you use in other projects. When you bring up another project that uses a different RED and you find these templates missing, 
 you will need to add the directory entries of your DEVUNA project to this specific RED file.
 
-If you rather not have this type of split directory environment, just put all the correct directories into your **standard Clarion enviroment** locations (as Mr. Mark Riffey did), set up your compile project directory as you normally would, and go make the changes you want. **<-- IMPORTANT IMPORTANT IMPORTANT** 
+If you rather not have this type of split directory environment, just put all the correct directories into your **standard Clarion enviroment** locations (as Mr. Mark Riffey did), set up your compile project directory as you normally would, and go make the changes you want.<br/> 
+**<-- IMPORTANT IMPORTANT IMPORTANT** 
 
 <br/>
 <H3>This is my personal directory with changes to the original applications for the executable versions that are used in my Clarion development.
@@ -90,7 +92,25 @@ and you will have to change some of your references to the directory structures 
 ## C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\Application\\KSS
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_DIRECTORY_03.PNG)
 <BR/>In each application directory there is a local **RED** file that will be picked up by the **IDE** when you open the application.
-This is the specific **KSS** aplication directory.<br/><br/><br/>
+This is the specific **KSS** aplication directory.
+ <br/><br/><br/>
+
+## C:\\\_GIT\_\Devuna\\\_\_IDE\_\_\\Application\\ClassViewer\\setup
+![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_ABCVIEW_SETUP_01.png)
+ 
+## C:\\\_GIT\_\Devuna\\\_\_IDE\_\_\\Application\\ClassViewer\\setup\\SetupBuilder
+![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_ABCVIEW_SETUP_02.png)
+<BR/>In each application there is a Setup Builder directory and this will contain the SetupBuilder script that allows creation of a
+install script using the **RunTime** directory for the currently compiled version.
+This is for the specific **ClassViewer** aplication directory.
+<br/><br/><br/>
+ 
+
+## C:\\\_GIT\_\\Devuna\\\_\_IDE\_\_\\Application\\ClassViewer\\help\\H&amp;M
+<BR/>In each application there is a Help and Manual directory and this will contain the source files that allows creation of the
+help files necessary for the **RunTime** directory for the currently compiled version.
+This is for the specific **ClassViewer** aplication directory.
+<br/><br/><br/> 
 
 ## [RED]irection file
 
@@ -144,8 +164,11 @@ in those two class files have been commented out.
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_RUNTIME_01.PNG)
 <br/>This contains the **RunTime** environment directories for each utility with all the necessary files to
-be able to run the utility. After compiling the utility and getting a clean compile, move the **EXE** to the appropriate utility 
-**RunTime** directory and you should be able to test.
+be able to run the utility. ~~After compiling the utility and getting a clean compile, move the **EXE** to the appropriate utility 
+**RunTime** directory and you should be able to test.~~
+<br/>
+The projects have been changed to compile directly to the **Runtime** directories. Once compiled, you can run the **EXE** from that location.
+It is probably useful to setup the applications as pinned to the taskbar when you run them the first time.
 <br/><br/>
 
 ![A](https://github.com/RobertArtigas/DEVUNA__IDE__/blob/main/wiki/Images/DEVUNA_RUNTIME_02.PNG)
