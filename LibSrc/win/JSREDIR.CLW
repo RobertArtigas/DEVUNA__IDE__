@@ -44,7 +44,8 @@ Macro              String(20)
 Replacement        String(FILE:MaxFilePath)
                  end
 RecurseQ         QUEUE,TYPE
-Name               STRING(FILE:MaxFileName)
+Name               CSTRING(FILE:MaxFilePath+FILE:MaxFileName+1)
+SavePosition       STRING(4)
                  END
 
   Include('JSRedir.inc'),ONCE
