@@ -13,6 +13,7 @@ ClassViewer.txt
 ClassViewerSetup.csv
 ClassViewerSetup.htm
 ClassViewerSetup.exe
+ClassViewerSetup_*.zip
 
 KwikSourceSearch.sb~
 KwikSourceSearch.dbg
@@ -20,6 +21,7 @@ KwikSourceSearch.txt
 SetupKSSOpen.csv
 SetupKSSOpen.htm
 SetupKSSOpen.exe
+SetupKSSOpen_*.zip
 
 ############
 ## Clarion
