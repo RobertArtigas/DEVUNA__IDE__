@@ -6,6 +6,9 @@ help
 *.app_*
 CVIEW*.DAT
 _RedTest_
+_generate_
+_archive_
+_backup_
 
 ClassViewer.sb~
 ClassViewer.dbg
