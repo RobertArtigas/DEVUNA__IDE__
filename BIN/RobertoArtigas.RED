@@ -121,8 +121,8 @@
 *.tpw   = C:\_GIT_\Devuna\__IDE__\Template\win;
 *.txt   = C:\_GIT_\Devuna\__IDE__\LibSrc\win;
 *.C     = C:\_GIT_\Devuna\__IDE__\LibSrc\win;
+*.inc   = C:\_GIT_\Devuna\__IDE__\LibSrc\win;C:\_GIT_\Devuna\__IDE__\Include\win;
 *.int   = C:\_GIT_\Devuna\__IDE__\LibSrc\win;
-*.inc   = C:\_GIT_\Devuna\__IDE__\LibSrc\win;
 *.clw   = C:\_GIT_\Devuna\__IDE__\LibSrc\win;
 *.equ   = C:\_GIT_\Devuna\__IDE__\LibSrc\win;
 *.def   = C:\_GIT_\Devuna\__IDE__\LibSrc\win;
