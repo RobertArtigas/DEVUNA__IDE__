@@ -1,7 +1,7 @@
- MEMBER
+ Member
 
 !-----------------------------------------------------------------------------!
-! J&S Redirection Class Build .9901
+! J&S Redirection Class Build .9902
 ! Class Source
 ! Copyright (c) 2000 by J&S Software Co. (jeff@jssoftware.com)
 !-----------------------------------------------------------------------------!
@@ -23,30 +23,31 @@ END***
 
    map
      DeepMkDir(String pPath)
-     FixPath(String pInPath),String
+     FixPath(String pInPath,Byte IsFolder=True),String
      ExtractRelativePath(String pInPath),String
      ExtractRootPath(),String
      module('')
        FNSplit(*CSTRING Path, *CSTRING Drv, *CSTRING Dir, *CSTRING Nme, *CSTRING Ext),SIGNED,PROC,RAW,NAME('_fnsplit')
        MkDir(*CSTRING),SHORT,RAW,PROC,NAME('_mkdir')
+       GetEnv (*CSTRING),CSTRING,RAW,NAME('_getenv')
      end
    end
 
-PathQ            Queue,Type
+PathQType        Queue,Type 
+PathID             LONG                     	!Carl so Can show what line got it
 Name               String(FILE:MaxFileName)
+NameRaw            String(FILE:MaxFileName)  	!TODO path before Macros etc
                  end
-RedirQ           Queue,Type
-Mask               String(100)
-Path               &PathQ
+RedirQType       Queue,Type
+Mask               String(255)      			!Carl made 255
+LineRaw            String(512)      			!Carl added so w/o Macros
+RedWhat            String(300)      			!e.g. [Common] X:\RedFile
+Path               &PathQType
                  end
 MacroQ           Queue,Type
 Macro              String(20)
 Replacement        String(FILE:MaxFilePath)
                  end
-RecurseQ         QUEUE,TYPE
-Name               CSTRING(FILE:MaxFilePath+FILE:MaxFileName+1)
-SavePosition       STRING(4)
-                 END
 
   Include('JSRedir.inc'),ONCE
 
@@ -83,18 +84,15 @@ JSRedirClass.AddMacro  Procedure(String pMacro,String pReplacement)
 JSRedirClass.Construct Procedure
 !============================================================================================================================================================
 
-  Code
-
-  Self.RedirQ &= NEW RedirQ
-  Free(Self.RedirQ)
-  Clear(Self.RedirQ)
-  Self.MacroQ &= NEW MacroQ
-  Free(Self.MacroQ)
-  Clear(Self.MacroQ)
-  Self.AddDefaultMacros()
-  SELF.RecurseQ &= NEW RecurseQ
-  FREE(SELF.RecurseQ)
-  CLEAR(SELF.RecurseQ)
+    Code
+    Self.PathIDCnt = 100        !Carl  
+    Self.RedirQ &= NEW RedirQType
+    Free(Self.RedirQ)
+    Clear(Self.RedirQ)
+    Self.MacroQ &= NEW MacroQ
+    Free(Self.MacroQ)
+    Clear(Self.MacroQ)
+    Self.AddDefaultMacros()
 
 !============================================================================================================================================================
 JSRedirClass.Destruct Procedure
@@ -109,9 +107,6 @@ JSRedirClass.Destruct Procedure
   If NOT Self.MacroQ &= NULL
     Dispose(Self.MacroQ)
   end
-  IF NOT SELF.RecurseQ &= NULL
-    DISPOSE(SELF.RecurseQ)
-  END
 
 !============================================================================================================================================================
 JSRedirClass.FileDialog     Procedure(String pTitle,*String pFileName,String pExtensions,Long pFlags,Byte ReturnRelativePath=False)
@@ -129,7 +124,7 @@ ReturnVal Byte
 
 
 !============================================================================================================================================================
-JSRedirClass.FindFilePath       Procedure(String pShortName,*String pFullName,Byte Suggest=False)
+JSRedirClass.FindFilePath       Procedure(String pShortName,*String pFullName,Byte Suggest=False,Byte PathOnly=False)
 !Searches the paths in the RedirQ for a matching filename. If it finds it, it returns the full path.
 !============================================================================================================================================================
 Ndx1          Long
@@ -138,23 +133,32 @@ SuggestString CString(FILE:MaxFilePath+FILE:MaxFileName+1)
 ReturnString  CString(FILE:MaxFilePath+FILE:MaxFileName+1)
 
   Code
-
-  ReturnString  = Clip(pShortName)
+  SELF.FindFilePath_LastPathID = 0 
+  If NOT PathOnly
+    pShortName    = FixPath(Clip(pShortName),False)
+    ReturnString  = Clip(pShortName)
+  else
+    ReturnString  = 'Just a dummy string'
+  end  
   SuggestString = ''
   pFullName    = ReturnString
   If NOT pFullName
     Return True
-  end
-  If Exists(LongPath(pFullName))
-    pFullName = LongPath(pFullName)
-    Return True
-  end
+  end 
+!Removed Jeff's code below that looks in current path. That would be the EXEs folder. Want to use %PATH%   
+!  If Exists(LongPath(pFullName))    
+!    Message('Finding in current folder|pFullName=' & CLIP(pFullName) &'|' & LongPath(pFullName) )
+!    pFullName = LongPath(pFullName)
+!    Return True
+!  end
   Loop Ndx1 = 1 to Records(Self.RedirQ)
     Get(Self.RedirQ,Ndx1)
     If MATCH(Clip(pShortName),Clip(Self.RedirQ.Mask),MATCH:Wild+MATCH:NoCase)
       Loop Ndx2 = 1 to Records(Self.RedirQ.Path)
         Get(Self.RedirQ.Path,Ndx2)
-        ReturnString = LongPath(FixPath(Self.RedirQ.Path.Name) & Clip(pShortName))
+        ReturnString = LongPath(FixPath(Self.RedirQ.Path.Name) & Choose(PathOnly=0,Clip(pShortName),''))
+        SELF.FindFilePath_LastPathID = Self.RedirQ.Path.PathID  !Ndx1 * 1000 + Ndx2 
+        !Message(FixPath(Self.RedirQ.Path.Name) & '|' & Choose(PathOnly=0,Clip(pShortName),''))
         If Exists(ReturnString)
           pFullName = ReturnString
           Return True
@@ -174,7 +178,18 @@ ReturnString  CString(FILE:MaxFilePath+FILE:MaxFileName+1)
   Return False
 
 !============================================================================================================================================================
-JSRedirClass.ParseRedirFile Procedure(String pRedirFileName,String pSection,Byte Validate=False)
+JSRedirClass.ParseEnvironmentPath Procedure(Byte Validate=False)
+!Uses the PATH environment variable
+!============================================================================================================================================================
+S Cstring(32)
+
+  Code
+  
+  S = 'PATH'
+  Self.ParseRedirString('*.* = .;' & GetEnv(S),Validate)
+  
+!============================================================================================================================================================
+JSRedirClass.ParseRedirFile Procedure(String pRedirFileName,String pSection,Byte Validate=False, <*STRING OutRF>)
 !Loops through a redir file and extracts the path info to fill the queue
 !============================================================================================================================================================
 
@@ -184,30 +199,51 @@ Record             Record
 S                    String(1000)
                    end
                  end
-
+!BRF     BSTRING 
+pB_Section_B         PSTRING(64)
+InSectionWanted     BOOL        !In pSection
   Code
+    IF~OMITTED(OutRF) THEN
+        OutRF = CLIP(pRedirFileName) &'<13,10>' & ALL('=',LEN(CLIP(pRedirFileName)))
+        !OutRF = 'Load [' & CLIP(pSection) & ']  from ' & pRedirFileName 
+    END                                 
+    pB_Section_B = '[' & CLIP(UPPER(pSection)) & ']' 
+    Self.ParsingRedWhat = pB_Section_B &'  '&  pRedirFileName
+    SetCursor(CURSOR:Wait)
+    RedirFileName = Clip(pRedirFileName)
+    Open(RedirFile)
+    If ErrorCode()
+      Return 1
+    end
+    Set(RedirFile)
+    Loop
+      Next(RedirFile)
+      If ErrorCode() then break.
 
- SetCursor(CURSOR:Wait)
- RedirFileName = Clip(pRedirFileName)
- Open(RedirFile)
- If ErrorCode()
-   Return 1
- end
- Set(RedirFile)
- Loop
-   Next(RedirFile)
-   If ErrorCode() then break.
-   If Instring(UPPER('[' & Clip(pSection) & ']'),Upper(R:S),1,1)
-     Loop
-       Next(RedirFile)
-       If ErrorCode() OR Instring('[',R:S,1,1)
-         Do ProcedureReturn
-       end
-       Self.ParseLine(R:S)
-     end
-   end
- end
- Do ProcedureReturn
+      IF~OMITTED(OutRF) THEN
+          OutRF = CLIP(OutRF) &'<13,10>' & R:S
+      END 
+      IF R:S[1] = '[' THEN   !New Section
+         InSectionWanted = 0
+         IF pB_Section_B = Upper(SUB(LEFT(R:S),1,LEN(pB_Section_B))) THEN  !Syntax? IMO s.b. column 1
+            InSectionWanted = 1
+         END 
+      END                    
+      IF ~InSectionWanted THEN CYCLE.       !Not in [Common]  
+      Self.ParseLine(R:S)
+      
+!      If Instring(UPPER('[' & Clip(pSection) & ']'),Upper(R:S),1,1)
+!        Loop
+!          Next(RedirFile)
+!          If ErrorCode() OR Instring('[',R:S,1,1)
+!            Do ProcedureReturn
+!          end
+!          Self.ParseLine(R:S)
+!        end
+!      end
+      
+    end !Loop file read
+    Do ProcedureReturn
 
 ProcedureReturn Routine
 
@@ -226,7 +262,7 @@ Ndx1 Long
 Ndx2 Long
 
   Code
-  
+  Self.ParsingRedWhat = ''
   If NOT Clip(pRedirString) then Return 0.
   Ndx1 = 1
   Loop 
@@ -252,17 +288,25 @@ JSRedirClass.ParseLine  Procedure(String pLine)
 !PRIVATE - Called by the ParseRedirFile() ParseRedirString() methods
 !Parses the line and adds the paths to the RedirQ
 !============================================================================================================================================================
-Ndx1   Long
-Ndx2   Long
-S      String(1000)
+Ndx1    Long
+Ndx2    Long
+S       String(1000)
+Pth     STRING(262)
+Ln      LONG,AUTO 
   Code
-
   If NOT Clip(pLine) then Return.
+  CASE SUB(pLine,1,1)
+  OF '-'    ; RETURN    !a comment e.g. -- Directories only used ...
+  OF '{{'   ; RETURN    !new include syntax {include C:\otherred.red}
+  END 
+  
   S = Self.ReplaceMacros(pLine)
   Ndx2 = Instring('=',S,1,1)
   If NOT Ndx2 then Return.
+  Self.RedirQ.LineRaw = pLine
+  Self.RedirQ.RedWhat = Self.ParsingRedWhat
   Self.RedirQ.Mask = S[1:Ndx2-1]
-  Self.RedirQ.Path &= NEW PathQ
+  Self.RedirQ.Path &= NEW PathQType
   Add(Self.RedirQ)
   Loop
     Ndx1 = Ndx2+1
@@ -274,8 +318,23 @@ S      String(1000)
         Break
       end
     end
-    Self.RedirQ.Path.Name = Clip(Left(S[Ndx1 : Ndx2-1]))
-    Add(Self.RedirQ.Path)
+    Pth = Clip(Left(S[Ndx1 : Ndx2-1]))
+    IF Pth[1]='"' THEN                  !"%ROOT%\Accessory\my images"
+       Pth=LEFT(SUB(Pth,2,999))
+       Ln=LEN(CLIP(Pth))
+       IF Ln AND Pth[Ln]='"' THEN Pth[Ln]=''.
+    END 
+
+    !Carl I want to fix ..' and '..' to use %PATH%
+        IF Pth='.' THEN                                             !Carl        
+           Pth=Self.ReplaceMacros('%PATH%') 
+        ELSIF Self.RedirQ.Path.Name[1]='.' THEN                                             !Carl
+           Pth=Self.ReplaceMacros('%PATH%\' & Self.RedirQ.Path.Name )  !Carl if .
+        END                                                                              !Carl path\.
+    Self.RedirQ.Path.Name = Pth
+    Self.PathIDCnt += 1
+    Self.RedirQ.Path.PathID = Self.PathIDCnt    
+    IF Pth THEN Add(Self.RedirQ.Path) .
   end
 
 !============================================================================================================================================================
@@ -350,24 +409,24 @@ JSRedirClass.Reset              Procedure
 !Kills the current redirq and prepares for re-parsing
 !============================================================================================================================================================
 
-  Code
-  
-  If NOT Self.RedirQ &= NULL
-    Loop
-      Get(Self.RedirQ,1)
-      If ErrorCode() then break.
-      If NOT Self.RedirQ.Path &= NULL
-        Dispose(Self.RedirQ.Path)
+    Code
+    Self.PathIDCnt = 100        !Carl
+    If NOT Self.RedirQ &= NULL
+      Loop
+        Get(Self.RedirQ,1)
+        If ErrorCode() then break.
+        If NOT Self.RedirQ.Path &= NULL
+          Dispose(Self.RedirQ.Path)
+        end
+        Delete(Self.RedirQ)
       end
-      Delete(Self.RedirQ)
+      Clear(Self.RedirQ)
     end
-    Clear(Self.RedirQ)
-  end
-  If NOT Self.MacroQ &= NULL
-    Free(Self.MacroQ)
-    Clear(Self.MacroQ)
-  end
-  Self.AddDefaultMacros
+    If NOT Self.MacroQ &= NULL
+      Free(Self.MacroQ)
+      Clear(Self.MacroQ)
+    end
+    Self.AddDefaultMacros
 
 !============================================================================================================================================================
 JSRedirClass.ValidateRedirQ     Procedure(Byte Verbose=False,Byte CreateFolders=False)
@@ -382,7 +441,7 @@ ReturnVal     Byte
   ReturnVal = True
   SavePath = Path()
   If NOT Self.RedirQ &= NULL
-    Loop Ndx1 = 1 to Records(Self.RedirQ)
+Ln1 Loop Ndx1 = 1 to Records(Self.RedirQ)
       Get(Self.RedirQ,Ndx1)
       If NOT Self.RedirQ.Path &= NULL
         Loop Ndx2 = 1 to Records(Self.RedirQ.Path)
@@ -393,8 +452,13 @@ ReturnVal     Byte
             Returnval = False
             If Verbose
               If CreateFolders
-                If Message('The path: "' & Clip(LongPath(Self.RedirQ.Path.Name)) & '" does not exist.||Would you like to create it now?','Invalid Path',ICON:Exclamation,Button:Yes+Button:No,Button:Yes) = Button:Yes
-                  DeepMkDir(LongPath(Self.RedirQ.Path.Name))
+                CASE Message('The path: "' & Clip(LongPath(Self.RedirQ.Path.Name)) & '" does not exist.' & |
+                           '||Would you like to create it now?','Invalid Path',|
+                           ICON:Exclamation,Button:Yes+Button:No+BUTTON:CANCEL,Button:Yes)
+                OF BUTTON:CANCEL
+                   BREAK Ln1 
+                OF Button:Yes
+                    DeepMkDir(LongPath(Self.RedirQ.Path.Name))
                 end
               else
                 Message('The path: "' & Clip(LongPath(Self.RedirQ.Path.Name)) & '" does not exist','Invalid Path',ICON:Exclamation)
@@ -425,7 +489,13 @@ SavePath CString(File:MaxFilePath)
   SavePath = LongPath()
   SetPath(pPath)
   If ErrorCode()
-    Ndx2 = 1
+    If pPath[1:2] = '\\' !UNC
+      Ndx2 = 3
+      Ndx2 = Instring('\', pPath,1,Ndx2)
+      Ndx2 = Instring('\', pPath,1,Ndx2+1)
+    else
+      Ndx2 = 1
+    end
     Loop
       Ndx1 = Instring('\', pPath, 1, Ndx2)
       If NOT Ndx1
@@ -493,57 +563,88 @@ TempPath CSTRING(File:MaxFilePath+FILE:MaxFileName+1)
   Return FixPath(LongPath())
 
 !============================================================================================================================================================
-FixPath              PROCEDURE  (String pInPath)
+FixPath              PROCEDURE  (String pInPath,Byte IsFolder=True)
 !Adds a backslash to the end of a file if it doesn't exist
 !============================================================================================================================================================
+ReturnVal CString(File:MaxFilePath)
+Ndx       Short
 
   CODE
 
- Return Clip(pInPath) & Choose(Sub(Clip(pInPath),-1,1)='\', '','\')
-
-!============================================================================================================================================================
-JSRedirClass.ParseRedirFile2    PROCEDURE(STRING pRedirFileName,STRING pSection,BYTE Validate=False,LONG Level=0)
-!Loops through a redir file and extracts the path info to fill the queue
-!Recurses through the {INCLUDE <filername>} keyword adding the contents to the current queues
-! RA.2022.05.07.SAT: Not functional code as of yet.
-!============================================================================================================================================================
-
-RedirFileName  CSTRING(FILE:MaxFilePath+FILE:MaxFileName+1),Static
-RedirFile      File,Driver('ASCII'),Create,Name(RedirFileName),PRE(R)
-Record             Record
-S                    String(1000)
-                   end
-                 end
-
-  Code
-
- SetCursor(CURSOR:Wait)
- RedirFileName = Clip(pRedirFileName)
- Open(RedirFile)
- If ErrorCode()
-   Return 1
- end
- Set(RedirFile)
- Loop
-   Next(RedirFile)
-   If ErrorCode() then break.
-   If Instring(UPPER('[' & Clip(pSection) & ']'),Upper(R:S),1,1)
-     Loop
-       Next(RedirFile)
-       If ErrorCode() OR Instring('[',R:S,1,1)
-         Do ProcedureReturn
-       end
-       Self.ParseLine(R:S)
-     end
+ ReturnVal = Clip(pInPath)
+! Loop
+!   Ndx       = Instring('/',ReturnVal,1,1)                               !Replace any forward slashes with backslashes
+!   If not Ndx then break.
+!   ReturnVal[Ndx] = '\'
+! end
+ Loop Ndx = 1 to File:MaxFilePath - 1
+   Case ReturnVal[Ndx]
+   of '/'
+     ReturnVal[Ndx] = '\'
+   of '?' orof '*'
+     ReturnVal[Ndx] = '_'
    end
  end
- Do ProcedureReturn
+ 
+ Loop
+   Ndx       = Instring('\\',ReturnVal,1,2)                              !If there are any doubled up backslashes, then fix it
+   If not Ndx then break.
+   Case Ndx
+   of 1
+     ReturnVal = ReturnVal[2 : Len(ReturnVal)]
+   of Len(Returnval) - 1
+     ReturnVal = ReturnVal[1: Len(ReturnVal) - 1]
+   else
+     ReturnVal = ReturnVal[1 : Ndx] & ReturnVal[Ndx+2 : Len(ReturnVal)]
+   end
+ end
+ If IsFolder
+   ReturnVal = ReturnVal & Choose(Sub(ReturnVal,-1,1)='\', '','\') !Ensure that the last character of the path is a backslash
+ end  
+ Return ReturnVal
 
-ProcedureReturn Routine
+!============================================================================================================================================================
+JSRedirClass.DumpQ                PROCEDURE(QUEUE OutQ, *STRING QMask, *STRING QLine, *LONG QPathID) !, *STRING QPath) 
+!visible q, make a tree
+!============================================================================================================================================================
+Ndx1          Long
+Ndx2          Long  
+LastRedWhat   LIKE(RedirQType.RedWhat)
+    CODE
+    QPathID = 0    
+    Loop Ndx1 = 1 to Records(Self.RedirQ)
+      Get(Self.RedirQ,Ndx1)      
+      IF LastRedWhat <> Self.RedirQ.RedWhat THEN
+         QMask = Self.RedirQ.RedWhat
+         QLine = '={32}'
+         ADD(OutQ)
+         LastRedWhat = Self.RedirQ.RedWhat 
+      END 
+      QMask = Self.RedirQ.Mask
+      QLine = Self.RedirQ.LineRaw
+      ADD(OutQ)
+      QLine = ''
+        Loop Ndx2 = 1 to Records(Self.RedirQ.Path)
+          Get(Self.RedirQ.Path,Ndx2)
+          QMask = '     ' & Self.RedirQ.Path.Name       !need a Tree
+          QPathID = Self.RedirQ.Path.PathID  !Ndx1 * 1000 + Ndx2 !ADDRESS(Self.RedirQ.Path.Name) 
+          ADD(OutQ)
+         ! ReturnString = LongPath(FixPath(Self.RedirQ.Path.Name) & Choose(PathOnly=0,Clip(pShortName),''))
+        end
+        QPathID = 0
+    end 
+      QLine = ''
+      QMask = ''
+      ADD(OutQ)
 
-  Close(RedirFile)
-  SetCursor()
-  If Validate
-    Self.ValidateRedirQ(1,1)
-  end
-  Return 0
+    Loop Ndx1 = 1 TO RECORDS(SELF.MacroQ)
+         GET(SELF.MacroQ,Ndx1)
+         QMask = 'Macro: ' & SELF.MacroQ.Macro
+         QLine = ' = '     & SELF.MacroQ.Replacement
+         ADD(OutQ)
+    END          
+!MacroQ           Queue,Type
+!Macro              String(20)
+!Replacement        String(FILE:MaxFilePath)
+
+    return 
