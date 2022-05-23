@@ -1,0 +1,108 @@
+#!*****************************************************************************
+#GROUP(%AtMyClassStart)
+#CALL(%SetClassDefaults)
+#EQUATE(%MyObject, %ThisObjectName)
+#!*****************************************************************************
+#GROUP(%SetClassItem)
+#CALL(%SetClassItem(ABC),%MyObjectID)
+#!*****************************************************************************
+#GROUP(%SetClassDefaults)
+#CALL(%ReadABCFiles(ABC))
+#CALL(%SetClassDefaults(ABC),%MyObjectID,%MyObjectDefaultName,%MyObjectDefaultClass)
+#!*****************************************************************************
+#GROUP(%AddObjectList,%pID='')
+#IF(%pID)
+  #CALL(%SetClassItem(ABC),%ID)
+#ELSIF(VAREXISTS(%MyObjectID))
+  #CALL(%SetClassItem(ABC),%MyObjectID)
+#ELSE
+  #ERROR(%Procedure &':  Call to %AddObjectList without %MyObjectID')
+  #RETURN
+#ENDIF
+#ADD(%ObjectList,%ThisObjectName)
+#SET(%ObjectListType,%GetBaseClassType())
+#!*****************************************************************************
+#GROUP(%GenerateClass,%pID='',%pClassComment='',%pAsType=%False)
+#IF(%pID)
+  #CALL(%GenerateClass(ABC),%ID,%pClassComment,%pAsType)
+#ELSIF(VAREXISTS(%MyObjectID))
+  #CALL(%GenerateClass(ABC),%MyObjectID,%pClassComment,%pAsType)
+#ELSE
+  #ERROR(%Procedure &':  Call to %GenerateClass without %MyObjectID')
+  #RETURN
+#ENDIF
+#!*****************************************************************************
+#GROUP(%BaseClassToUse)
+#CALL(%BaseClassToUse(ABC))
+#!*****************************************************************************
+#GROUP(%GetBaseClassType, %Tag = ''),AUTO
+#DECLARE(%RVal)
+#CALL(%GetBaseClassType(ABC)),%Rval
+#RETURN(%RVal)
+#!*****************************************************************************
+#GROUP(%MethodEmbedPointValid, %MustBeVirtual = %True),AUTO
+#DECLARE(%RVal)
+#CALL(%MethodEmbedPointValid(ABC), %MustBeVirtual),%Rval
+#RETURN(%RVal)
+#!*****************************************************************************
+#GROUP(%FixClassName,%ToUse)
+#CALL(%FixClassName(ABC),%ToUse)
+#!*****************************************************************************
+#GROUP(%FixBaseClassToUse,%FixTo),AUTO
+#DECLARE(%RVal)
+#CALL(%FixBaseClassToUse(ABC),%FixTo),%RVal
+#RETURN(%RVal)
+#!*****************************************************************************
+#GROUP(%ParentCallValid),AUTO
+#DECLARE(%RVal)
+#CALL(%ParentCallValid(ABC)),%RVal
+#RETURN(%RVal)
+#!*****************************************************************************
+#GROUP(%GetObjectName,%Flag,%Instance=0),AUTO
+#DECLARE(%RVal)
+#CALL(%GetObjectName(ABC), %Flag, %Instance),%RVal
+#RETURN(%RVal)
+#!*****************************************************************************
+#GROUP(%MethodDeclaration,%Proto),AUTO
+#DECLARE(%RVal)
+#CALL(%MethodDeclaration(ABC),%Proto),%Rval
+#RETURN(%RVal)
+#!*****************************************************************************
+#GROUP(%HasSpecialistHandler,%ThisEvent),AUTO
+#DECLARE(%RVal)
+#CALL(%HasSpecialistHandler(ABC),%ThisEvent),%Rval
+#RETURN(%RVal)
+#!*****************************************************************************
+#GROUP(%StandardAddIconToProject, %CurrentIcon)
+#CALL(%StandardAddIconToProject(ABC), %CurrentIcon)
+#!*****************************************************************************
+#GROUP(%StripPling,%Incoming),AUTO
+#DECLARE(%RVal)
+#CALL(%StripPling(ABC), %Incoming),%Rval
+#RETURN(%RVal)
+#!*****************************************************************************
+#GROUP(%AddNewMethod,%pNewMethodName,%pNewMethodPrototype),AUTO
+#DECLARE(%R)
+#IF(ITEMS(%NewMethods))
+  #FOR(%NewMethods)
+    #IF(UPPER(%NewMethodName) = UPPER(%pNewMethodName) AND UPPER(%NewMethodPrototype) = UPPER(%pNewMethodPrototype))
+      #SET(%R, %NewMethods)
+      #BREAK
+    #ELSIF(INSTANCE(%NewMethods) = ITEMS(%NewMethods))
+      #CALL(%AddNewMethodNow, %NewMethods+1, %pNewMethodName, %pNewMethodPrototype)
+      #SET(%R, %NewMethods)
+      #BREAK
+    #ENDIF
+  #ENDFOR
+#ELSE
+  #CALL(%AddNewMethodNow, 1, %pNewMethodName, %pNewMethodPrototype)
+  #SET(%R, %NewMethods)
+#ENDIF
+#RETURN(%R)
+#!*****
+#GROUP(%AddNewMethodNow,%pNewMethod,%pNewMethodName,%pNewMethodPrototype)
+#SET(%DeriveFromBaseClass, %True               )
+#ADD(%NewMethods         , %pNewMethod         )
+#SET(%NewMethodName      , %pNewMethodName     )
+#SET(%NewMethodPrototype , %pNewMethodPrototype)
+#!*****************************************************************************
