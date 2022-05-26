@@ -4,7 +4,7 @@
 !
 ! Dictionary:   C:\_GIT_\RobertArtigas\TheRat\Dcts\ratABC.dct
 ! File:         C:\_GIT_\Devuna\__IDE__\Include\win\grprec_gtSearch.inc
-! Date-Time:    2022/05/24 - 08:28:19AM
+! Date-Time:    2022/05/25 - 07:11:53PM
 ! Purpose:      Generated File Records as Groups
 ! Author:       GenerateGroups Template
 ! Narative:     This template is used to pass records structures
@@ -25,7 +25,8 @@
 GTSEARCH_tRec                             GROUP,TYPE,BINDABLE,PRE(rGTSEARCH)
 Sequence                                    LONG,NAME('Sequence|LONG|@N_11|[0001-0004]|PR(''Sequence:'')|CO(''Sequence'')')                                                        ! [0001-0004] Sequence number.
 Path                                        CSTRING(517),NAME('Path|CSTRING(517)|@S255|[0005-0521]|PR(''Path:'')|CO(''Path'')')                                                    ! [0005-0521] PathMax + FileNameMax + 1
-FilePath                                    CSTRING(261),NAME('FilePath|CSTRING(261)|@S255|[0522-0782]|PR(''File Path:'')|CO(''File Path'')')                                      ! [0522-0782] FileNameMax + 1
+LineNo                                      LONG,NAME('LineNo|LONG|@N_11|[0522-0525]|PR(''Line No:'')|CO(''Line No'')')                                                            ! [0522-0525] Source line number.
+FilePath                                    CSTRING(261),NAME('FilePath|CSTRING(261)|@S255|[0526-0786]|PR(''File Path:'')|CO(''File Path'')')                                      ! [0526-0786] FileNameMax + 1
                                           END
 !EndRegion
 !Region QueueDefinition
@@ -41,7 +42,8 @@ GTSEARCH_qRec                             QUEUE(GTSEARCH_tRec),TYPE,BINDABLE,PRE
 !
 C_GTSEARCH_SEQUENCE                         EQUATE(1)
 C_GTSEARCH_PATH                             EQUATE(2)
-C_GTSEARCH_FILEPATH                         EQUATE(3)
+C_GTSEARCH_LINENO                           EQUATE(3)
+C_GTSEARCH_FILEPATH                         EQUATE(4)
 !
 !EndRegion
 !Region Class_YES
@@ -57,11 +59,13 @@ C_GTSEARCH_FILEPATH                         EQUATE(3)
 !   FORMAT('' & |
 !   '40R(1)|M~Sequence~@n_11@#1#' & |
 !   '120L(0)|M~Path~@s255@#2#' & |
-!   '120L(0)|M~File Path~@s255@#3#' & |
+!   '36R(1)|M~Line No~@n_11@#3#' & |
+!   '120L(0)|M~File Path~@s255@#4#' & |
 !   ''), |
 !   FROM(gtSEARCH_oListClass.ListQ), |
 !   #FIELDS(gtSEARCH_oListClass.ListQ.Sequence, |
 !   gtSEARCH_oListClass.ListQ.Path, |
+!   gtSEARCH_oListClass.ListQ.LineNo, |
 !   gtSEARCH_oListClass.ListQ.FilePath)
 !
 !EndRegion
@@ -77,11 +81,13 @@ C_GTSEARCH_FILEPATH                         EQUATE(3)
 !   FORMAT('' & |
 !   '40R(1)|M~Sequence~@n_11@#1#' & |
 !   '120L(0)|M~Path~@s255@#2#' & |
-!   '120L(0)|M~File Path~@s255@#3#' & |
+!   '36R(1)|M~Line No~@n_11@#3#' & |
+!   '120L(0)|M~File Path~@s255@#4#' & |
 !   ''), |
 !   FROM(ListQ), |
 !   #FIELDS(ListQ.Sequence, |
 !   ListQ.Path, |
+!   ListQ.LineNo, |
 !   ListQ.FilePath)
 !
 !EndRegion
