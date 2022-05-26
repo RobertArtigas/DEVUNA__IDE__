@@ -1,0 +1,38 @@
+ST::DebugControlQueue QUEUE,TYPE
+Feq                    SIGNED
+Name                   CSTRING(31)
+                     END
+
+ST::DebugEventQueue  QUEUE,TYPE
+Date                   STRING(10)
+Time                   STRING(10)
+EventNo                SIGNED
+EventName              CSTRING(31)
+FieldFeq               SIGNED
+FieldName              CSTRING(31)
+Keycode                UNSIGNED
+StarDate               REAL
+                     END
+
+ST::DebugEventsClass CLASS,MODULE('StDebug.clw'),LINK('StDebug.clw'),TYPE
+DebugEvent             SIGNED
+HotKey                 UNSIGNED
+PurgeStarTime          REAL
+ControlQ               &ST::DebugControlQueue
+EventQ                 &ST::DebugEventQueue
+IgnoreEventQ           &ST::DebugEventQueue
+
+Construct              PROCEDURE
+Destruct               PROCEDURE
+SetDebugEvent          PROCEDURE(SIGNED DebugEvent)
+SetPurgeTime           PROCEDURE(LONG DebugPurge)
+SetHotKey              PROCEDURE(UNSIGNED HotKey)
+AddControl             PROCEDURE(SIGNED Feq,STRING Name)
+IgnoreEvent            PROCEDURE(SIGNED Event)
+GetControlName         PROCEDURE(SIGNED Feq),STRING
+TakeEvent              PROCEDURE
+LogEvent               PROCEDURE
+Debug                  PROCEDURE
+CalcStarDate           PROCEDURE(<LONG D>,<LONG T>),REAL,PRIVATE
+GetEventName           PROCEDURE(SIGNED Event),STRING
+                     END

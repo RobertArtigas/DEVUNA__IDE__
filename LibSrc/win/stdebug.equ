@@ -1,0 +1,4 @@
+!If you want a prefix to be included in the beginning of each debug string,
+!then copy this to your application directory, and edit it as desired.
+ST::DEBUG:Prefix     EQUATE('[ MH ] ')
+ST::DEBUG:Debugging  EQUATE(1)

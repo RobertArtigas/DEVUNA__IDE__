@@ -1,0 +1,5 @@
+!If you want a prefix to be included in the beginning of each debug string,
+!then copy this to your application directory, and edit it as desired.
+ST::DEBUG:Prefix              EQUATE('[Threader]')
+ST::DEBUG:Threads             EQUATE(1)
+ST::DEBUG:Debugging           EQUATE(1)
