@@ -2,7 +2,7 @@
 
 mhList_ColumnQueue            QUEUE,TYPE
 ID                              UNSIGNED
-FieldName                       CSTRING(255)
+FieldName                       CSTRING(255) ! RAYS
 FieldRef                        ANY
 IconRef                         ANY
 StyleRef                        ANY

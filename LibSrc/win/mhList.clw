@@ -61,13 +61,15 @@ AppendSortField                 PROCEDURE(BYTE SortColumnIndex)
 SetSortHeader                   PROCEDURE(BYTE SortColumnIndex)
                               END
 N                                   BYTE,AUTO
-SortString                          CSTRING(1000)
+SortString                          CSTRING(3000)
   CODE
   LOOP N = 1 TO SELF.SortColumns
     SELF.FetchColumnQueue(ABS(SELF.SortColumn[N]))
     AppendSortField(N)
     SetSortHeader(N)
   END
+  ST::Debug('ComputeSortStringAndSetHeaders(): SortString=[ ' & CLIP(SortString) & ' ]')
+  !STOP(SortString)
   RETURN SortString
 
 AppendSortField               PROCEDURE(BYTE SortColumnIndex)
@@ -91,7 +93,11 @@ SortNumberCharacter             CSTRING(2),AUTO
     SortDirectionPrefix = ''
     SortDirectionSuffix = ''
   END
-  !ST::Debug('SortColumns='& SELF.SortColumns &'; SortColumnIndex='& SortColumnIndex &'; SortColumn['& SortColumnIndex &']='& SELF.SortColumn[SortColumnIndex])
+  
+  ST::Debug('SortColumns=[ '& SELF.SortColumns &' ]; SortColumnIndex=[ '& SortColumnIndex &' ]; SortColumn[ '& SortColumnIndex &' ]='& SELF.SortColumn[SortColumnIndex] &'')
+  !STOP('SortColumns='& SELF.SortColumns &'; SortColumnIndex='& SortColumnIndex &'; SortColumn['& SortColumnIndex &']='& SELF.SortColumn[SortColumnIndex])
+
+
   IF SELF.SortColumns > 1
     SortNumberCharacter = SortColumnIndex
   ELSE
@@ -138,6 +144,7 @@ LoadColumns                   PROCEDURE
 ColumnID                        LONG
 QueueFieldID                    LONG
 ColumnCount                     LONG
+NamePipe                        SHORT ! RAYS
   CODE
   ColumnCount = SELF.ListControl{PROPLIST:Exists, 0}
   IF ColumnCount > 0
@@ -146,6 +153,11 @@ ColumnCount                     LONG
       QueueFieldID               = SELF.ListControl{PROPLIST:FieldNo, ColumnID}
       SELF.ColumnQueue.ID        = ColumnID
       SELF.ColumnQueue.FieldName = WHO(SELF.ListQueue, QueueFieldID)
+
+      ! RAYS: Doing this kills the whole list. DEBUG IS NEEDED!
+	  !NamePipe = INSTRING('|', SELF.ColumnQueue.FieldName) !RAYS
+	  !IF NamePipe THEN SELF.ColumnQueue.FieldName[NamePipe] = '<0>' END !RAYS
+
       SELF.ColumnQueue.FieldRef &= WHAT(SELF.ListQueue, QueueFieldID)
       SELF.ColumnQueue.Header    = SELF.ListControl{PROPLIST:Header, ColumnID}
       ADD(SELF.ColumnQueue)
@@ -221,7 +233,7 @@ mhList.IsMarked               PROCEDURE!,BOOL,VIRTUAL
 !==============================================================================
 mhList.ListZone               PROCEDURE!,LONG
   CODE
-  !ST::Debug('ListZone: Focus='& FOCUS() &'; MouseDownZone='& SELF.ListControl{PROPLIST:MouseDownZone})
+  ST::Debug('mhList.ListZone: Focus='& FOCUS() &'; MouseDownZone='& SELF.ListControl{PROPLIST:MouseDownZone})
   IF SELF.ListControl{PROPLIST:MouseDownZone} AND FOCUS() = SELF.ListControl
     RETURN SELF.ListControl{PROPLIST:MouseDownZone}
   ELSE
@@ -283,12 +295,12 @@ ReturnValue                     BYTE(Level:Benign)
       OF   MouseLeft
       OROF CtrlMouseLeft
         IF SELF.ListZone() <> LISTZONE:Header
-          !ST::Debug('Cycle on Accept')
+          ST::Debug('mhList.TakeEvent(): Cycle on Accept')
           ReturnValue = Level:Notify
         END
       END
     OF EVENT:AlertKey
-      !ST::Debug('EVENT:AlertKey: ListZone='& SELF.ListControl{PROPLIST:MouseDownZone} &'; MouseDownField='& SELF.ListControl{PROPLIST:MouseDownField})
+      ST::Debug('mhList.TakeEvent(): EVENT:AlertKey: ListZone='& SELF.ListControl{PROPLIST:MouseDownZone} &'; MouseDownField='& SELF.ListControl{PROPLIST:MouseDownField})
       IF SELF.ListZone() = LISTZONE:Header
         ReturnValue = SELF.TakeSortEvent()
       END
@@ -457,6 +469,7 @@ ClickedColumn                   UNSIGNED,AUTO
         AppendSortColumn()
       END
     END
+	  !ST::Debug('mhList.TakeSortEvent(): SortString=[ ' & CLIP(SortString) & ' ]')
     !STOP(SortString)
     SELF.ApplySort()
   END
@@ -515,6 +528,7 @@ ClearSorts                      PROCEDURE
   SELF.SortColumns = SortColumnIndex
   ClearSorts()
   R# = SELF.FetchColumnQueue(ClickedColumn)
+  ST::Debug('mhList.SetSortColumn('& R# &') - SELF.ColumnQueue.Header=[ '& CLIP(SELF.ColumnQueue.Header) &' ]')
   !STOP(R# &' - '& CLIP(SELF.ColumnQueue.Header))
   SELF.SortColumn[SortColumnIndex] = CHOOSE(Direction=ASCENDING, ClickedColumn, -ClickedColumn)
 
