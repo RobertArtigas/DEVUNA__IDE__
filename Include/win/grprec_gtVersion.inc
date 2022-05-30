@@ -4,7 +4,7 @@
 !
 ! Dictionary:   C:\_GIT_\RobertArtigas\TheRat\Dcts\ratABC.dct
 ! File:         C:\_GIT_\Devuna\__IDE__\Include\win\grprec_gtVersion.inc
-! Date-Time:    2022/05/30 - 02:30:42PM
+! Date-Time:    2022/05/30 - 06:13:34PM
 ! Purpose:      Generated File Records as Groups
 ! Author:       GenerateGroups Template
 ! Narative:     This template is used to pass records structures
@@ -24,17 +24,17 @@
 !
 GTVERSION_tRec                            GROUP,TYPE,BINDABLE,PRE(rGTVERSION)
 Sequence                                    LONG,NAME('Sequence|LONG|@N_11|[0001-0004]|PR(''Sequence:'')|CO(''Sequence'')')                                                        ! [0001-0004] Sequence number.
-VersionName                                 CSTRING(81),NAME('VersionName|CSTRING(81)|@S80|[0005-0085]|PR(''Version Name:'')|CO(''Version Name'')')                                ! [0005-0085] Version name.
-Path                                        CSTRING(261),NAME('Path|CSTRING(261)|@S255|[0086-0346]|PR(''File Path:'')|CO(''File Path'')')                                          ! [0086-0346] FileNameMax + 1
-IsWindows                                   CSTRING(6),NAME('IsWindows|CSTRING(6)|@S5|[0347-0352]|PR(''Is Windows:'')|CO(''Is Windows'')')                                         ! [0347-0352] Is Windows version?
-CWVersion                                   CSTRING(11),NAME('CWVersion|CSTRING(11)|@S10|[0353-0363]|PR(''CW Version:'')|CO(''CW Version'')')                                      ! [0353-0363] Internal version number,
+VersionName                                 CSTRING(81),NAME('VersionName|CSTRING(81)|@S80|[0005-0085]|PR(''Version:'')|CO(''Version'')')                                          ! [0005-0085] Version name.
+Path                                        CSTRING(261),NAME('Path|CSTRING(261)|@S255|[0086-0346]|PR(''Path:'')|CO(''Path'')')                                                    ! [0086-0346] FileNameMax + 1
+IsWindows                                   CSTRING(6),NAME('IsWindows|CSTRING(6)|@S5|[0347-0352]|PR(''Is Win?'')|CO(''Is Win?'')')                                                ! [0347-0352] Is Windows version?
+CWVersion                                   CSTRING(11),NAME('CWVersion|CSTRING(11)|@S10|[0353-0363]|PR(''CW Version:'')|CO(''CW Version'')')                                      ! [0353-0363] Internal version number.
 IniFile                                     CSTRING(81),NAME('IniFile|CSTRING(81)|@S80|[0364-0444]|PR(''INI File:'')|CO(''INI File'')')                                            ! [0364-0444] Initialization file.
 LibSrc                                      CSTRING(1024),NAME('LibSrc|CSTRING(1024)|@S255|[0445-1468]|PR(''LIB Source:'')|CO(''LIB Source'')')                                    ! [0445-1468] Library source files.
 RedFile                                     CSTRING(81),NAME('RedFile|CSTRING(81)|@S80|[1469-1549]|PR(''RED File:'')|CO(''RED File'')')                                            ! [1469-1549] Redirection file.
-SupportsInclude                             CSTRING(6),NAME('SupportsInclude|CSTRING(6)|@S5|[1550-1555]|PR(''Supports Include:'')|CO(''Supports Include'')')                       ! [1550-1555] Supports include process.
-RedirectionMacro                            &MACROQUEUETYPE,NAME('RedirectionMacro|&MACROQUEUETYPE|@N_11B|[1556-1559]|PR(''Redirection Macro:'')|CO(''RedMacro'')')                ! [1556-1559] Redirection macro.
-Root                                        CSTRING(261),NAME('Root|CSTRING(261)|@S255|[1560-1820]|PR(''Root:'')|CO(''Root'')')                                                    ! [1560-1820] FilePathMax + 1
-RedDir                                      CSTRING(261),NAME('RedDir|CSTRING(261)|@S255|[1821-2081]|PR(''RED Directory:'')|CO(''RedDir'')')                                       ! [1821-2081] FilePathMax + 1
+SupportsInclude                             CSTRING(6),NAME('SupportsInclude|CSTRING(6)|@S5|[1550-1555]|PR(''Include?'')|CO(''Include?'')')                                        ! [1550-1555] Supports include process.
+RedirectionMacro                            &MACROQUEUETYPE,NAME('RedirectionMacro|&MACROQUEUETYPE|@N_11B|[1556-1559]|PR(''RED Macro:'')|CO(''RED Macro'')')                       ! [1556-1559] Redirection macro.
+Root                                        CSTRING(261),NAME('Root|CSTRING(261)|@S255|[1560-1820]|PR(''ROOT Dir:'')|CO(''ROOT Dir'')')                                            ! [1560-1820] FileNameMax + 1
+RedDir                                      CSTRING(261),NAME('RedDir|CSTRING(261)|@S255|[1821-2081]|PR(''RED Dir:'')|CO(''RED Dir'')')                                            ! [1821-2081] FileNameMax + 1
                                           END
 !EndRegion
 !Region QueueDefinition
@@ -74,17 +74,17 @@ C_GTVERSION_REDDIR                          EQUATE(12)
 ! LIST,AT(4,40,400,40),USE(?gtVERSION_ListQ),HVSCROLL, |
 !   FORMAT('' & |
 !   '40R(1)|M~Sequence~@n_11@#1#' & |
-!   '120L(0)|M~Version Name~@s80@#2#' & |
-!   '120L(0)|M~File Path~@s255@#3#' & |
-!   '48L(0)|M~Is Windows~@s5@#4#' & |
+!   '120L(0)|M~Version~@s80@#2#' & |
+!   '120L(0)|M~Path~@s255@#3#' & |
+!   '36L(0)|M~Is Win?~@s5@#4#' & |
 !   '40L(0)|M~CW Version~@s10@#5#' & |
 !   '120L(0)|M~INI File~@s80@#6#' & |
 !   '120L(0)|M~LIB Source~@s255@#7#' & |
 !   '120L(0)|M~RED File~@s80@#8#' & |
-!   '72L(0)|M~Supports Include~@s5@#9#' & |
-!   '40R(1)|M~RedMacro~@n_11B@#10#' & |
-!   '120L(0)|M~Root~@s255@#11#' & |
-!   '120L(0)|M~RedDir~@s255@#12#' & |
+!   '40L(0)|M~Include?~@s5@#9#' & |
+!   '44R(1)|M~RED Macro~@n_11B@#10#' & |
+!   '120L(0)|M~ROOT Dir~@s255@#11#' & |
+!   '120L(0)|M~RED Dir~@s255@#12#' & |
 !   ''), |
 !   FROM(gtVERSION_oListClass.ListQ), |
 !   #FIELDS(gtVERSION_oListClass.ListQ.Sequence, |
@@ -112,17 +112,17 @@ C_GTVERSION_REDDIR                          EQUATE(12)
 ! LIST,AT(4,40,400,40),USE(?gtVERSION_ListQ),HVSCROLL, |
 !   FORMAT('' & |
 !   '40R(1)|M~Sequence~@n_11@#1#' & |
-!   '120L(0)|M~Version Name~@s80@#2#' & |
-!   '120L(0)|M~File Path~@s255@#3#' & |
-!   '48L(0)|M~Is Windows~@s5@#4#' & |
+!   '120L(0)|M~Version~@s80@#2#' & |
+!   '120L(0)|M~Path~@s255@#3#' & |
+!   '36L(0)|M~Is Win?~@s5@#4#' & |
 !   '40L(0)|M~CW Version~@s10@#5#' & |
 !   '120L(0)|M~INI File~@s80@#6#' & |
 !   '120L(0)|M~LIB Source~@s255@#7#' & |
 !   '120L(0)|M~RED File~@s80@#8#' & |
-!   '72L(0)|M~Supports Include~@s5@#9#' & |
-!   '40R(1)|M~RedMacro~@n_11B@#10#' & |
-!   '120L(0)|M~Root~@s255@#11#' & |
-!   '120L(0)|M~RedDir~@s255@#12#' & |
+!   '40L(0)|M~Include?~@s5@#9#' & |
+!   '44R(1)|M~RED Macro~@n_11B@#10#' & |
+!   '120L(0)|M~ROOT Dir~@s255@#11#' & |
+!   '120L(0)|M~RED Dir~@s255@#12#' & |
 !   ''), |
 !   FROM(ListQ), |
 !   #FIELDS(ListQ.Sequence, |
