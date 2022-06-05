@@ -4,7 +4,7 @@
 !
 ! Dictionary:   C:\_GIT_\RobertArtigas\TheRat\Dcts\ratABC.dct
 ! File:         C:\_GIT_\Devuna\__IDE__\Include\win\grprec_gtVersion.inc
-! Date-Time:    2022/05/30 - 06:13:34PM
+! Date-Time:    2022/06/03 - 07:25:11AM
 ! Purpose:      Generated File Records as Groups
 ! Author:       GenerateGroups Template
 ! Narative:     This template is used to pass records structures
@@ -32,7 +32,7 @@ IniFile                                     CSTRING(81),NAME('IniFile|CSTRING(81
 LibSrc                                      CSTRING(1024),NAME('LibSrc|CSTRING(1024)|@S255|[0445-1468]|PR(''LIB Source:'')|CO(''LIB Source'')')                                    ! [0445-1468] Library source files.
 RedFile                                     CSTRING(81),NAME('RedFile|CSTRING(81)|@S80|[1469-1549]|PR(''RED File:'')|CO(''RED File'')')                                            ! [1469-1549] Redirection file.
 SupportsInclude                             CSTRING(6),NAME('SupportsInclude|CSTRING(6)|@S5|[1550-1555]|PR(''Include?'')|CO(''Include?'')')                                        ! [1550-1555] Supports include process.
-RedirectionMacro                            &MACROQUEUETYPE,NAME('RedirectionMacro|&MACROQUEUETYPE|@N_11B|[1556-1559]|PR(''RED Macro:'')|CO(''RED Macro'')')                       ! [1556-1559] Redirection macro.
+RedirectionMacros                           &GTREDMACRO_QREC,NAME('RedirectionMacros|&GTREDMACRO_QREC|@N_11B|[1556-1559]|PR(''RED Macros:'')|CO(''RED Macros'')')                  ! [1556-1559] Redirection macro.
 Root                                        CSTRING(261),NAME('Root|CSTRING(261)|@S255|[1560-1820]|PR(''ROOT Dir:'')|CO(''ROOT Dir'')')                                            ! [1560-1820] FileNameMax + 1
 RedDir                                      CSTRING(261),NAME('RedDir|CSTRING(261)|@S255|[1821-2081]|PR(''RED Dir:'')|CO(''RED Dir'')')                                            ! [1821-2081] FileNameMax + 1
                                           END
@@ -57,7 +57,7 @@ C_GTVERSION_INIFILE                         EQUATE(6)
 C_GTVERSION_LIBSRC                          EQUATE(7)
 C_GTVERSION_REDFILE                         EQUATE(8)
 C_GTVERSION_SUPPORTSINCLUDE                 EQUATE(9)
-C_GTVERSION_REDIRECTIONMACRO                EQUATE(10)
+C_GTVERSION_REDIRECTIONMACROS               EQUATE(10)
 C_GTVERSION_ROOT                            EQUATE(11)
 C_GTVERSION_REDDIR                          EQUATE(12)
 !
@@ -82,7 +82,7 @@ C_GTVERSION_REDDIR                          EQUATE(12)
 !   '120L(0)|M~LIB Source~@s255@#7#' & |
 !   '120L(0)|M~RED File~@s80@#8#' & |
 !   '40L(0)|M~Include?~@s5@#9#' & |
-!   '44R(1)|M~RED Macro~@n_11B@#10#' & |
+!   '48R(1)|M~RED Macros~@n_11B@#10#' & |
 !   '120L(0)|M~ROOT Dir~@s255@#11#' & |
 !   '120L(0)|M~RED Dir~@s255@#12#' & |
 !   ''), |
@@ -96,7 +96,7 @@ C_GTVERSION_REDDIR                          EQUATE(12)
 !   gtVERSION_oListClass.ListQ.LibSrc, |
 !   gtVERSION_oListClass.ListQ.RedFile, |
 !   gtVERSION_oListClass.ListQ.SupportsInclude, |
-!   gtVERSION_oListClass.ListQ.RedirectionMacro, |
+!   gtVERSION_oListClass.ListQ.RedirectionMacros, |
 !   gtVERSION_oListClass.ListQ.Root, |
 !   gtVERSION_oListClass.ListQ.RedDir)
 !
@@ -120,7 +120,7 @@ C_GTVERSION_REDDIR                          EQUATE(12)
 !   '120L(0)|M~LIB Source~@s255@#7#' & |
 !   '120L(0)|M~RED File~@s80@#8#' & |
 !   '40L(0)|M~Include?~@s5@#9#' & |
-!   '44R(1)|M~RED Macro~@n_11B@#10#' & |
+!   '48R(1)|M~RED Macros~@n_11B@#10#' & |
 !   '120L(0)|M~ROOT Dir~@s255@#11#' & |
 !   '120L(0)|M~RED Dir~@s255@#12#' & |
 !   ''), |
@@ -134,7 +134,7 @@ C_GTVERSION_REDDIR                          EQUATE(12)
 !   ListQ.LibSrc, |
 !   ListQ.RedFile, |
 !   ListQ.SupportsInclude, |
-!   ListQ.RedirectionMacro, |
+!   ListQ.RedirectionMacros, |
 !   ListQ.Root, |
 !   ListQ.RedDir)
 !

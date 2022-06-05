@@ -4,7 +4,7 @@
 !
 ! Dictionary:   C:\_GIT_\RobertArtigas\TheRat\Dcts\ratABC.dct
 ! File:         C:\_GIT_\Devuna\__IDE__\Include\win\grprec_gtSearch.inc
-! Date-Time:    2022/05/30 - 06:13:34PM
+! Date-Time:    2022/06/03 - 07:25:11AM
 ! Purpose:      Generated File Records as Groups
 ! Author:       GenerateGroups Template
 ! Narative:     This template is used to pass records structures
