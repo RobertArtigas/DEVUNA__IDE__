@@ -478,6 +478,24 @@
     <Compile Include="abcview121.clw">
       <Generated>true</Generated>
     </Compile>
+    <Compile Include="abcview122.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview123.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview124.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview125.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview126.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview127.clw">
+      <Generated>true</Generated>
+    </Compile>
     <Compile Include="ABCVIEW_BC.CLW">
       <Generated>true</Generated>
     </Compile>
