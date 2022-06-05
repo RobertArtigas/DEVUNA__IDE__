@@ -154,7 +154,9 @@ NamePipe                        SHORT ! RAYS
       SELF.ColumnQueue.ID        = ColumnID
       SELF.ColumnQueue.FieldName = WHO(SELF.ListQueue, QueueFieldID)
 
-      ! RAYS: Doing this kills the whole list. DEBUG IS NEEDED!
+	  !-------------------------------------------------------------!
+      ! RAYS: REMOVING THIS KILL THE SORT!!!! MORE DEBUG IS NEEDED. !
+	  !-------------------------------------------------------------!
 	  !NamePipe = INSTRING('|', SELF.ColumnQueue.FieldName) !RAYS
 	  !IF NamePipe THEN SELF.ColumnQueue.FieldName[NamePipe] = '<0>' END !RAYS
 
