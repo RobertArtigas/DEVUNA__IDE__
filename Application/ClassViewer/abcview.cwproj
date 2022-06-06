@@ -496,6 +496,9 @@
     <Compile Include="abcview127.clw">
       <Generated>true</Generated>
     </Compile>
+    <Compile Include="abcview128.clw">
+      <Generated>true</Generated>
+    </Compile>
     <Compile Include="ABCVIEW_BC.CLW">
       <Generated>true</Generated>
     </Compile>
