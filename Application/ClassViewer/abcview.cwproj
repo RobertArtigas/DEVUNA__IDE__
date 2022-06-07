@@ -43,7 +43,6 @@
     <Library Include="abcview_20220515_A1115.EXE.manifest" />
     <Library Include="abcview_20220515_P0311.EXE.manifest" />
     <Library Include="abcview_20220517_A0728.EXE.manifest" />
-    <Library Include="abcview_20220517_P0315_BAD_BAD.EXE.manifest" />
     <Library Include="C%25V%25cpxml.lib" />
     <Library Include="c%25V%25net.lib" />
     <Library Include="C%25V%25xmlty.lib" />
@@ -497,6 +496,9 @@
       <Generated>true</Generated>
     </Compile>
     <Compile Include="abcview128.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview129.clw">
       <Generated>true</Generated>
     </Compile>
     <Compile Include="ABCVIEW_BC.CLW">
