@@ -471,7 +471,11 @@ DeleteData  ROUTINE
     REMOVE(ImpExFile)
 #ENDIF
  END
+
 !----------------------------------------------------------------------
+#!---------------------------------------------------------------------
+#! RA.2022.06.13: Additional #EMBEDs added for error conditions
+#!---------------------------------------------------------------------
 ExportData  ROUTINE
  DO DeleteData
  !Create a new file
@@ -516,10 +520,15 @@ ExportData  ROUTINE
     _DOS:ulRecordSize = 0
     ADD(ImpExFile,4)
  #ENDIF
+ #!--------------------------------------------!
+ #! RA.2022.06.13: DataElementList processing. !
+ #!--------------------------------------------!
  #FOR(%DataElementList)
    #FIX(%GlobalData,%DataElementList)
 
-    !Save %GlobalData ---------------------------
+    !-------------------------------------!
+    ! Save %[30]GlobalData !
+    !-------------------------------------!
     IF SIZE(%GlobalData) > SIZE(_DOS:Record)
        HALT('Buffer Too Small (' & SIZE(%GlobalData) & ')')
     END
@@ -544,9 +553,16 @@ ExportData  ROUTINE
  ELSE
     MESSAGE(szImpExFileName & ' [' & ERRORCODE() & '] ' & ERROR(),'Error - Save Aborted',ICON:Hand)
     ReturnValue = Level:Notify
+    #EMBED(%ErrorExportData,'Export Global Data Error')
  END
+ ! FINAL: ExportData
+ EXIT
+ #EMBED(%FinalExportGlobalData,'Final Export Global Data') 
 
 !----------------------------------------------------------------------
+#!---------------------------------------------------------------------
+#! RA.2022.06.13: Additional #EMBEDs added for error conditions
+#!---------------------------------------------------------------------
 ImportData  ROUTINE
  sProcVersion = '01'
  IF szBaseFileName = szFileName
@@ -604,9 +620,15 @@ ImportData  ROUTINE
        END
 
        IF bMode <> ACTION:IDENTIFY
+ #!--------------------------------------------!
+ #! RA.2022.06.13: DataElementList processing. !
+ #!--------------------------------------------!
  #FOR(%DataElementList)
    #FIX(%GlobalData,%DataElementList)
-          !Load %GlobalData ---------------------------
+
+    !-------------------------------------!
+    ! Load %[30]GlobalData !
+    !-------------------------------------!
    #IF(INSTRING('QUEUE',%GlobalDataStatement,1))
           GET(ImpExFile,ulFilePointer,4)
           IF ~ERRORCODE()
@@ -631,15 +653,22 @@ ImportData  ROUTINE
        CLOSE(ImpExFile)
        #EMBED(%AfterImportData,'Import Global Data After Import')
     ELSE
-       MESSAGE(szImpExFileName & ' Invalid Format','Error - Load Aborted',ICON:Hand)
+       MESSAGE(szImpExFileName & ' Invalid Format','Error - Load Aborted (2)',ICON:Hand)
        ReturnValue = Level:Notify
+       #EMBED(%ErrorImportDataValue,'Import Global Data Error Value')
     END
  ELSE
     IF ERRORCODE() <> NoFileErr
-       MESSAGE(szImpExFileName & ' [' & ERRORCODE() & '] ' & ERROR(),'Error - Load Aborted',ICON:Hand)
+       MESSAGE(szImpExFileName & ' [' & ERRORCODE() & '] ' & ERROR(),'Error - Load Aborted (1)',ICON:Hand)
     END
     ReturnValue = Level:Notify
+    #EMBED(%ErrorImportDataOpen,'Import Global Data Error Open')
  END
+ ! FINAL: ImportData
+ EXIT
+ #! RA.2022.06.13: This #EMBED prevents the previous #EMBED swallowing the END, EXIT statements being
+ #! the last things being generated after the last #EMBED in the program. You can test this yourself.
+ #EMBED(%FinalImportGlobalData,'Final Import Global Data') 
 
 #!
 #!
