@@ -479,6 +479,7 @@ DeleteData  ROUTINE
 ExportData  ROUTINE
  DO DeleteData
  !Create a new file
+ #EMBED(%CreateExportDataFile,'Create Export Global Data File')
  CREATE(ImpExFile)
  OPEN(ImpExFile,ReadWrite+DenyAll)
  IF ~ERRORCODE()
@@ -570,6 +571,7 @@ ImportData  ROUTINE
  ELSE
     szImpExFileName = szFileName
  END
+ #EMBED(%OpenImportDataFile,'Open Import Global Data File')
  OPEN(ImpExFile,ReadWrite+DenyAll)
  IF ~ERRORCODE()
     !Read Program Name Length
