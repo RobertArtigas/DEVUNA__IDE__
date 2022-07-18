@@ -1,5 +1,7 @@
                               MEMBER
 
+! RA.2022.07.17: Need to handle extended name attribute name (and sorting)
+
   INCLUDE('mhList.inc'),ONCE
   INCLUDE('Equates.clw'),ONCE
   INCLUDE('Errors.clw'),ONCE
@@ -154,9 +156,9 @@ NamePipe                        SHORT ! RAYS
       SELF.ColumnQueue.ID        = ColumnID
       SELF.ColumnQueue.FieldName = WHO(SELF.ListQueue, QueueFieldID)
 
-	  !-------------------------------------------------------------!
-      ! RAYS: REMOVING THIS KILL THE SORT!!!! MORE DEBUG IS NEEDED. !
-	  !-------------------------------------------------------------!
+	  !-----------------------------------------------------------!
+      ! RAYS: ADDING THIS KILL THE SORT!!!! MORE DEBUG IS NEEDED. !
+	  !-----------------------------------------------------------!
 	  !NamePipe = INSTRING('|', SELF.ColumnQueue.FieldName) !RAYS
 	  !IF NamePipe THEN SELF.ColumnQueue.FieldName[NamePipe] = '<0>' END !RAYS
 

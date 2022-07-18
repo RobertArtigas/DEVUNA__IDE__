@@ -1,8 +1,12 @@
 !ABCIncludeFile
 
+
+
+! RA.2022.07.17: Field name increased to 255 (extended name attributes)
+
 mhList_ColumnQueue            QUEUE,TYPE
 ID                              UNSIGNED
-FieldName                       CSTRING(255) ! RAYS
+FieldName                       CSTRING(255) ! RA.2022.07.17: Need to handle extended name attribute name (and sorting)
 FieldRef                        ANY
 IconRef                         ANY
 StyleRef                        ANY
