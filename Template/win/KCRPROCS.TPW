@@ -558,6 +558,8 @@ ExportData  ROUTINE
  END
  ! FINAL: ExportData
  EXIT
+ #! RA.2022.06.13: This #EMBED prevents the previous #EMBED swallowing the END, EXIT statements being
+ #! the last things being generated after the last #EMBED in the program. You can test this yourself.
  #EMBED(%FinalExportGlobalData,'Final Export Global Data') 
 
 !----------------------------------------------------------------------
