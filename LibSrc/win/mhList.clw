@@ -70,8 +70,10 @@ SortString                          CSTRING(3000)
     AppendSortField(N)
     SetSortHeader(N)
   END
+  COMPILE('!TRACE',mhList_TRACE)
   ST::Debug('ComputeSortStringAndSetHeaders(): SortString=[ ' & CLIP(SortString) & ' ]')
   !STOP(SortString)
+  !TRACE
   RETURN SortString
 
 AppendSortField               PROCEDURE(BYTE SortColumnIndex)
@@ -96,9 +98,10 @@ SortNumberCharacter             CSTRING(2),AUTO
     SortDirectionSuffix = ''
   END
   
+  COMPILE('!TRACE',mhList_TRACE)
   ST::Debug('SortColumns=[ '& SELF.SortColumns &' ]; SortColumnIndex=[ '& SortColumnIndex &' ]; SortColumn[ '& SortColumnIndex &' ]='& SELF.SortColumn[SortColumnIndex] &'')
   !STOP('SortColumns='& SELF.SortColumns &'; SortColumnIndex='& SortColumnIndex &'; SortColumn['& SortColumnIndex &']='& SELF.SortColumn[SortColumnIndex])
-
+  !TRACE
 
   IF SELF.SortColumns > 1
     SortNumberCharacter = SortColumnIndex
@@ -180,7 +183,9 @@ NamePipe                        SHORT ! RAYS
       END
     END
   END
+  COMPILE('!TRACE',mhList_TRACE)
   !ST::DebugQueue(SELF.ColumnQueue)
+  !TRACE
 
 AlertKeys                     PROCEDURE
 K                               UNSIGNED,AUTO
@@ -304,7 +309,9 @@ ReturnValue                     BYTE(Level:Benign)
         END
       END
     OF EVENT:AlertKey
+      COMPILE('!TRACE',mhList_TRACE)
       ST::Debug('mhList.TakeEvent(): EVENT:AlertKey: ListZone='& SELF.ListControl{PROPLIST:MouseDownZone} &'; MouseDownField='& SELF.ListControl{PROPLIST:MouseDownField})
+      !TRACE
       IF SELF.ListZone() = LISTZONE:Header
         ReturnValue = SELF.TakeSortEvent()
       END
@@ -473,8 +480,10 @@ ClickedColumn                   UNSIGNED,AUTO
         AppendSortColumn()
       END
     END
+    COMPILE('!TRACE',mhList_TRACE)
 	  !ST::Debug('mhList.TakeSortEvent(): SortString=[ ' & CLIP(SortString) & ' ]')
     !STOP(SortString)
+    !TRACE
     SELF.ApplySort()
   END
   RETURN Level:Benign

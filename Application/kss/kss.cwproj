@@ -35,7 +35,7 @@
     <check_index>False</check_index>
     <GenerateMap>True</GenerateMap>
     <line_numbers>False</line_numbers>
-    <DefineConstants>xFilesLinkMode=&gt;1%3bxFilesDllMode=&gt;0%3b_XFILES_=&gt;1%3bStringTheoryLinkMode=&gt;1%3bStringTheoryDllMode=&gt;0%3bMD5=&gt;0%3bWinEventLinkMode=&gt;1%3bWinEventDLLMode=&gt;0%3b_ABCDllMode_=&gt;0%3b_ABCLinkMode_=&gt;1%3b_SCIDllMode_=&gt;0%3b_SCILinkMode_=&gt;1</DefineConstants>
+    <DefineConstants>xFilesLinkMode=&gt;1%3bxFilesDllMode=&gt;0%3b_XFILES_=&gt;1%3b_XFILES4_=&gt;1%3bStringTheoryLinkMode=&gt;1%3bStringTheoryDllMode=&gt;0%3bMD5=&gt;0%3bWinEventLinkMode=&gt;1%3bWinEventDLLMode=&gt;0%3bReflectionLM=&gt;1%3bReflectionDM=&gt;0%3b_ABCDllMode_=&gt;0%3b_ABCLinkMode_=&gt;1%3b_SCIDllMode_=&gt;0%3b_SCILinkMode_=&gt;1</DefineConstants>
     <OutputPath>..\..\RunTime\KSSOpen\</OutputPath>
     <warnings>on</warnings>
     <StartAction>Project</StartAction>
