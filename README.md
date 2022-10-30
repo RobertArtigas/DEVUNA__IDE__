@@ -199,6 +199,13 @@ ClarionLive : 644 : Jan 21, 2022 : https://www.youtube.com/watch?v=ZZDxJDUnoRc
 
 Clarioneros : 212 : 2022-01-29 : https://clarionlive.com/clarioneros.htm (**OneDrive** link)
 ##
+
+[Code](https://github.com/RobertArtigas/DEVUNA__IDE__) 
+[Wiki](https://github.com/RobertArtigas/DEVUNA__IDE__/wiki) 
+[Main](https://github.com/RobertArtigas) 
+[Repositories](https://github.com/RobertArtigas?tab=repositories)
+
+##
 ###
 
 **I didn’t like all this mystery** business long before I ever did anything about it, and when I _did_ do something about it, I found that I was right, that all mystery is in the eye of the beholder and that we are free to stop seeing mystery whenever we decide to open our eyes and actually look. This is no small point. We have to look hard at this mystery business in order to get past it.<br/> 
@@ -207,9 +214,3 @@ _-Jed McKenna’s Theory of Everything: The Enlightened Perspective_
 <!-- C:\_GIT_\Devuna\__IDE__\BIN\VersionMe.exe PROJECT=$(OutputName) BINARYTYPE=$(OutputType) APPFOLDER=$(SolutionDir) -->
 
 ##
-
-[Code](https://github.com/RobertArtigas/DEVUNA__IDE__) 
-[Wiki](https://github.com/RobertArtigas/DEVUNA__IDE__/wiki) 
-[Main](https://github.com/RobertArtigas) 
-[Repositories](https://github.com/RobertArtigas?tab=repositories)
-
