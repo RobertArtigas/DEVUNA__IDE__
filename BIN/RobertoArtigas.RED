@@ -320,6 +320,26 @@
 --*.DLL = %CLASS_VIEWER%\bin;
 --*.LIB = %CLASS_VIEWER%\lib;
 --*.SLN = %CLASS_VIEWER%\application;  
+--
+-- _SOFTRAGA_, Roberto Artigas Software by Ragazzi development --
+--
+*.tpl   = C:\_GIT_\RobertArtigas\SoftRaga\TEMPLATE;
+*.tpw   = C:\_GIT_\RobertArtigas\SoftRaga\TEMPLATE;
+*.txt   = C:\_GIT_\RobertArtigas\SoftRaga\LibSrc;
+*.C     = C:\_GIT_\RobertArtigas\SoftRaga\LibSrc;
+*.inc   = C:\_GIT_\RobertArtigas\SoftRaga\LibSrc;
+*.int   = C:\_GIT_\RobertArtigas\SoftRaga\LibSrc;
+*.clw   = C:\_GIT_\RobertArtigas\SoftRaga\LibSrc;
+*.equ   = C:\_GIT_\RobertArtigas\SoftRaga\LibSrc;
+*.def   = C:\_GIT_\RobertArtigas\SoftRaga\LibSrc;
+*.EXE   = C:\_GIT_\RobertArtigas\SoftRaga\BIN;
+*.DLL   = C:\_GIT_\RobertArtigas\SoftRaga\BIN;
+*.LIB   = C:\_GIT_\RobertArtigas\SoftRaga\LIB;
+*.png   = .\Images; C:\_GIT_\RobertArtigas\SoftRaga\Images;
+*.gif   = .\Images; C:\_GIT_\RobertArtigas\SoftRaga\Images;
+*.bmp   = .\Images; C:\_GIT_\RobertArtigas\SoftRaga\Images;
+*.ico   = .\Images; C:\_GIT_\RobertArtigas\SoftRaga\Images;
+*.cur   = .\Images; C:\_GIT_\RobertArtigas\SoftRaga\Images;
 
 ----------------------------------------------
 -- RA.2021.04.06: Capesoft's ChromeExplorer --
