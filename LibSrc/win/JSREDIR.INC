@@ -29,7 +29,8 @@ FileDialog               Procedure(String pTitle,*String pFileName,String pExten
 FindFilePath             Procedure(String pShortName,*String pFullName,Byte Suggest=False,Byte PathOnly=False),Byte
 ReduceFileName           Procedure(String pLongName,Byte ReturnRelativePath=False),String
 ParseEnvironmentPath     Procedure(Byte Validate=False)
-ParseRedirFile           Procedure(String pRedirFileName,String pSection,Byte Validate=False, <*STRING OutRF>),Byte,Proc
+ParseRedirFile           Procedure(String pRedirFileName,String pSection,Byte Validate=False,<*STRING OutRF>),Byte,Proc
+ParseRedirFile2          PROCEDURE(STRING pRedirFileName,STRING pSection,BYTE Validate=False,<*STRING OutRF>,LONG Level=0),BYTE,PROC
 ParseRedirString         Procedure(String pRedirString,Byte Validate=False),Byte,Proc
 ParseLine                Procedure(String pLine),Private
 ReplaceMacros            Procedure(String pText),String,Private
@@ -43,6 +44,8 @@ FindFilePath_LastPathID  LONG
 PathIDCnt                LONG,PRIVATE 
 ParsingRedWhat           String(300),Private      !e.g. [Common] X:\RedFile
 ! Roberto Artigas
+Level                    LONG,PRIVATE
+RecurseQ                 &RecurseQueue,PRIVATE
                        end
 
 _EndOfInclude_

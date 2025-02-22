@@ -45,9 +45,13 @@ RedWhat            String(300)      			!e.g. [Common] X:\RedFile
 Path               &PathQType
                  end
 MacroQ           Queue,Type
-Macro              String(20)
+Locate             STRING(30)
+Macro              String(30)
 Replacement        String(FILE:MaxFilePath)
                  end
+RecurseQueue     QUEUE,TYPE                     ! Recurse Level Queue
+Name               CSTRING(FILE:MaxFileName+1)
+                 END
 
   Include('JSRedir.inc'),ONCE
 
@@ -244,6 +248,53 @@ InSectionWanted     BOOL        !In pSection
       
     end !Loop file read
     Do ProcedureReturn
+
+ProcedureReturn Routine
+
+  Close(RedirFile)
+  SetCursor()
+  If Validate
+    Self.ValidateRedirQ(1,1)
+  end
+  Return 0
+  
+!============================================================================================================================================================
+JSRedirClass.ParseRedirFile2 Procedure(String pRedirFileName,String pSection,Byte Validate=False,<*STRING OutRF>,LONG Level=0)
+!Loops through a redir file and extracts the path info to fill the queue
+!Recurses through the {INCLUDE <filername>} keyword adding the contents to the current queues
+! RA.2022.05.07.SAT: Not functional code as of yet.
+!============================================================================================================================================================
+
+RedirFileName  CSTRING(FILE:MaxFilePath+FILE:MaxFileName+1),Static
+RedirFile      File,Driver('ASCII'),Create,Name(RedirFileName),PRE(R)
+Record             Record
+S                    String(1000)
+                   end
+                 end
+
+  Code
+
+ SetCursor(CURSOR:Wait)
+ RedirFileName = Clip(pRedirFileName)
+ Open(RedirFile)
+ If ErrorCode()
+   Return 1
+ end
+ Set(RedirFile)
+ Loop
+   Next(RedirFile)
+   If ErrorCode() then break.
+   If Instring(UPPER('[' & Clip(pSection) & ']'),Upper(R:S),1,1)
+     Loop
+       Next(RedirFile)
+       If ErrorCode() OR Instring('[',R:S,1,1)
+         Do ProcedureReturn
+       end
+       Self.ParseLine(R:S)
+     end
+   end
+ end
+ Do ProcedureReturn
 
 ProcedureReturn Routine
 
