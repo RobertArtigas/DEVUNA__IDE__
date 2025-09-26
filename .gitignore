@@ -11,21 +11,29 @@ _generate_
 _archive_
 _backup_
 
-ClassViewer.sb~
-ClassViewer.dbg
-ClassViewer.txt
-ClassViewerSetup.csv
-ClassViewerSetup.htm
-ClassViewerSetup.exe
-ClassViewerSetup_*.zip
+*.sb~
+*.dbg
+*.txt
+*.csv
+*.htm
+*.exe
+*_*.zip
 
-KwikSourceSearch.sb~
-KwikSourceSearch.dbg
-KwikSourceSearch.txt
-SetupKSSOpen.csv
-SetupKSSOpen.htm
-SetupKSSOpen.exe
-SetupKSSOpen_*.zip
+##ClassViewer.sb~
+##ClassViewer.dbg
+##ClassViewer.txt
+##ClassViewerSetup.csv
+##ClassViewerSetup.htm
+##ClassViewerSetup.exe
+##ClassViewerSetup_*.zip
+
+##KwikSourceSearch.sb~
+##KwikSourceSearch.dbg
+##KwikSourceSearch.txt
+##SetupKSSOpen.csv
+##SetupKSSOpen.htm
+##SetupKSSOpen.exe
+##SetupKSSOpen_*.zip
 
 ############
 ## Clarion
