@@ -501,6 +501,9 @@
     <Compile Include="abcview129.clw">
       <Generated>true</Generated>
     </Compile>
+    <Compile Include="abcview130.clw">
+      <Generated>true</Generated>
+    </Compile>
     <Compile Include="ABCVIEW_BC.CLW">
       <Generated>true</Generated>
     </Compile>
