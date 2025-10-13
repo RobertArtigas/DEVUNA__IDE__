@@ -504,6 +504,18 @@
     <Compile Include="abcview130.clw">
       <Generated>true</Generated>
     </Compile>
+    <Compile Include="abcview131.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview132.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview133.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview134.clw">
+      <Generated>true</Generated>
+    </Compile>
     <Compile Include="ABCVIEW_BC.CLW">
       <Generated>true</Generated>
     </Compile>
